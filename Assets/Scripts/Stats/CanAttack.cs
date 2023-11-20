@@ -53,7 +53,14 @@ public class CanAttack : MonoBehaviour
         {
             if (target != attackCollider && target != selfCollider)
             {
-                target.GetComponent<Stats>().TakeDamage(damageAmount);
+                try
+                {
+                    target.GetComponent<Stats>().TakeDamage(damageAmount);
+                }
+                catch (System.NullReferenceException)
+                {
+                    Debug.LogWarning("Target " + target.name + " does not have a Stats component.");
+                }
             }
         }
         // Mark this point as last time attacked
