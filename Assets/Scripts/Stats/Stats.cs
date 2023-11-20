@@ -22,7 +22,7 @@ public class Stats : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage - defense;
         Debug.Log(gameObject.name + " took " + damage + " damage. Health is now " + currentHealth);

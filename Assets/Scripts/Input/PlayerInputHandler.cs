@@ -27,6 +27,8 @@ public class PlayerInputHandler : MonoBehaviour
         // Subscribe to the Move action
         input.PlayerControls.Move.performed += OnMove;
         input.PlayerControls.Move.canceled += OnMoveCanceled;
+        // Subscribe to the Attack action
+        input.PlayerControls.Attack.performed += ctx => GetComponent<CanAttack>().Attack();
     }
 
     private void OnDisable() {
@@ -34,6 +36,8 @@ public class PlayerInputHandler : MonoBehaviour
         // Unsubscribe from the Move action
         input.PlayerControls.Move.performed -= OnMove;
         input.PlayerControls.Move.canceled -= OnMoveCanceled;
+        // Unsubscribe from the Attack action
+        input.PlayerControls.Attack.performed -= ctx => GetComponent<CanAttack>().Attack();
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
