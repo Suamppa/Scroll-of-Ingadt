@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Based on the code created by @Ritumu
 public class CanAttack : MonoBehaviour
 {
     // Layers that can be attacked
@@ -59,12 +60,12 @@ public class CanAttack : MonoBehaviour
         lastAttackTime = Time.time;
     }
 
-    // void OnDrawGizmos()
-    // {
-    //     // Set Gizmo color
-    //     Gizmos.color = Color.red;
+    void OnDrawGizmos()
+    {
+        // Set Gizmo color
+        Gizmos.color = Color.red;
 
-    //     // Draw a wire cube with the same position and size as our collider
-    //     Gizmos.DrawWireCube(attackCollider.bounds.center, attackCollider.bounds.size);
-    // }
+        // Draw a wire cube with the same position and size as our collider
+        Gizmos.DrawWireCube(attackCollider.bounds.center, attackCollider.bounds.size);
+    }
 }
