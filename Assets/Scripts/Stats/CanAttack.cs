@@ -45,7 +45,8 @@ public class CanAttack : MonoBehaviour
         if (Time.time - lastAttackTime < attackSpeed) return;
 
         List<Collider2D> targets = new();
-        // "_" means a discard, which means we don't care about the return value
+        // "_" means a discard, which means we don't care about the return value;
+        // the function fills the targets list with the colliders in range
         _ = attackCollider.OverlapCollider(contactFilter, targets);
 
         // Damage all targets except the user's collider
@@ -67,6 +68,7 @@ public class CanAttack : MonoBehaviour
         lastAttackTime = Time.time;
     }
 
+    // Draw the rough outline of the attack collider for debugging (not visible in game)
     void OnDrawGizmos()
     {
         // Set Gizmo color
