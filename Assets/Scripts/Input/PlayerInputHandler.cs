@@ -19,6 +19,8 @@ public class PlayerInputHandler : MonoBehaviour
     private float moveSpeed;
 
     private void Awake() {
+        // Make sure rotation is 0
+        transform.rotation = Quaternion.identity;
         input = new PlayerActions();
         rb = GetComponent<Rigidbody2D>();
         // Unity is able to find the PlayerStats component due to inheritance
