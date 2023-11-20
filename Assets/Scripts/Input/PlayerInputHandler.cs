@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 // Implementations for player input
 public class PlayerInputHandler : MonoBehaviour
 {
+    // Reference to the attack collider of the player
+    public GameObject attackCollider;
+
     // Reference to the PlayerActions asset
     private PlayerActions input = null;
     // This is the vector that will be used to move the player
@@ -43,6 +46,12 @@ public class PlayerInputHandler : MonoBehaviour
     // Use FixedUpdate to avoid spamming Time.deltaTime
     private void FixedUpdate() {
         rb.velocity = moveVector * moveSpeed;
+        // Rotate according to the direction of movement
+        if (moveVector != Vector2.zero) {
+            float angle = Vector2.SignedAngle(Vector2.down, moveVector) - attackCollider.transform.rotation.eulerAngles.z;
+            // Rotate the attack collider around the player
+            attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
+        }
     }
 
     private void OnMove(InputAction.CallbackContext context) {

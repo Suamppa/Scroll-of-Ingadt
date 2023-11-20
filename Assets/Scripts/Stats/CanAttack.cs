@@ -58,4 +58,13 @@ public class CanAttack : MonoBehaviour
         // Mark this point as last time attacked
         lastAttackTime = Time.time;
     }
+
+    // void OnDrawGizmos()
+    // {
+    //     // Set Gizmo color
+    //     Gizmos.color = Color.red;
+
+    //     // Draw a wire cube with the same position and size as our collider
+    //     Gizmos.DrawWireCube(attackCollider.bounds.center, attackCollider.bounds.size);
+    // }
 }
