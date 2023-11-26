@@ -19,11 +19,15 @@ public class AIChase : MonoBehaviour
     private Rigidbody2D rb = null;
     // This is the vector that will be used to move the AI
     private Vector2 moveVector = Vector2.zero;
+    private CanAttack canAttack = null;
 
     private void Awake() {
+        // Make sure rotation is 0
+        transform.rotation = Quaternion.identity;
         rb = GetComponent<Rigidbody2D>();
         // Unity is able to find the EnemyStats component due to inheritance
         speed = GetComponent<Stats>().moveSpeed;
+        canAttack = GetComponent<CanAttack>();
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
@@ -35,9 +39,21 @@ public class AIChase : MonoBehaviour
         {
             distance = Vector2.Distance(transform.position, target.transform.position);
             // If distance is between minDistanceBetween and maxDistanceBetween, then move towards target
-            if(distance > minDistanceBetween && distance < maxDistanceBetween)
+            if (distance < maxDistanceBetween)
             {
-                moveVector = (target.transform.position - transform.position).normalized;
+                // If able, attack ravenously while chasing
+                if (canAttack != null) canAttack.Attack();
+                if (distance > minDistanceBetween)
+                {
+                    moveVector = (target.transform.position - transform.position).normalized;
+                    // Rotate according to the direction of movement
+                    if (moveVector != Vector2.zero && canAttack != null) {
+                        float angle = Vector2.SignedAngle(Vector2.down, moveVector);
+                        angle -= canAttack.attackCollider.transform.rotation.eulerAngles.z;
+                        // Rotate the attack collider around the AI
+                        canAttack.attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
+                    }
+                }
             }
         }
         // Use the moveVector to move the AI, no movement if moveVector is zero

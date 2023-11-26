@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 // Implementations for player input
 public class PlayerInputHandler : MonoBehaviour
 {
+    // Reference to the attack collider of the player
+    public GameObject attackCollider;
+
     // Reference to the PlayerActions asset
     private PlayerActions input = null;
     // This is the vector that will be used to move the player
@@ -16,6 +19,8 @@ public class PlayerInputHandler : MonoBehaviour
     private float moveSpeed;
 
     private void Awake() {
+        // Make sure rotation is 0
+        transform.rotation = Quaternion.identity;
         input = new PlayerActions();
         rb = GetComponent<Rigidbody2D>();
         // Unity is able to find the PlayerStats component due to inheritance
@@ -27,6 +32,8 @@ public class PlayerInputHandler : MonoBehaviour
         // Subscribe to the Move action
         input.PlayerControls.Move.performed += OnMove;
         input.PlayerControls.Move.canceled += OnMoveCanceled;
+        // Subscribe to the Attack action
+        input.PlayerControls.Attack.performed += ctx => GetComponent<CanAttack>().Attack();
     }
 
     private void OnDisable() {
@@ -34,11 +41,19 @@ public class PlayerInputHandler : MonoBehaviour
         // Unsubscribe from the Move action
         input.PlayerControls.Move.performed -= OnMove;
         input.PlayerControls.Move.canceled -= OnMoveCanceled;
+        // Unsubscribe from the Attack action
+        input.PlayerControls.Attack.performed -= ctx => GetComponent<CanAttack>().Attack();
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
     private void FixedUpdate() {
         rb.velocity = moveVector * moveSpeed;
+        // Rotate according to the direction of movement
+        if (moveVector != Vector2.zero) {
+            float angle = Vector2.SignedAngle(Vector2.down, moveVector) - attackCollider.transform.rotation.eulerAngles.z;
+            // Rotate the attack collider around the player
+            attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
+        }
     }
 
     private void OnMove(InputAction.CallbackContext context) {
