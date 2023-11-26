@@ -14,10 +14,13 @@ Tämä repo itsessään ei riitä suoraksi Unity-projektiksi, joten sen sisält�
         tool = unityyamlmerge
      [mergetool "unityyamlmerge"]
         trustExitCode = false
+        keepTemporaries = true
+        keepBackup = false
+        path = 'C:/Program Files/Unity/Hub/Editor/2022.3.11f1/Editor/Data/Tools/UnityYAMLMerge.exe'
         cmd = 'C:/Program Files/Unity/Hub/Editor/2022.3.11f1/Editor/Data/Tools/UnityYAMLMerge.exe' merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
      ```
      **Jos kansiota .git ei löydy edes piilotettujen kansioiden näyttämisen jälkeen, aja Git Bashillä projektikansiossa `git init`.**
-   - **Korvaa tarvittaessa polku `cmd = ...` omalla polulla käyttäen '/' eikä '\\'**. Unityn oletuksilla polku on tuo `C:/Program Files/Unity/Hub/Editor/2022.3.11f1/Editor/Data/Tools/UnityYAMLMerge.exe` (voit kokeilla, löytyykö tuo itseltä). Muutoin oma polku löytyy avaamalla Unity Hub -> Installs, näkyvästä listasta 2022.3.11f1 vierestä asetuskuvake ja "Show in explorer", mistä navigoiden vielä `Data/Tools`, josta löytyy `UnityYAMLMerge.exe`.
+   - **Korvaa tarvittaessa polut `path = ...` ja `cmd = ...` omilla poluilla käyttäen '/' tai '\\\\' (ei '\\')**. Unityn oletuksilla polku on tuo `C:/Program Files/Unity/Hub/Editor/2022.3.11f1/Editor/Data/Tools/UnityYAMLMerge.exe` (voit kokeilla, löytyykö tuo itseltä). Muutoin oma polku löytyy avaamalla Unity Hub -> Installs, näkyvästä listasta 2022.3.11f1 vierestä asetuskuvake ja "Show in explorer", mistä navigoiden vielä `Data/Tools`, josta löytyy `UnityYAMLMerge.exe`.
    - **Jos käytät GitHub Desktop:a**, niin varmista, että repositoryn asetuksissa käytössä on *paikallinen* git config, ei globaali.
 5. Tuo GitHub-repon tiedostot omaan projektiisi
    - Yksinkertaisin tapa on ladata repon zip-tiedosto suoraan GitHubista vihreästä _Code_-napista ja korvata oman paikallisen projektin sisältö zipin sisällöllä ylikirjoittaen.
@@ -46,3 +49,10 @@ Siltä varalta, että paketteja joutuu itse asentamaan ennen projektin tuontia:
 
 ## GitHub-reposta
 Käytössä on sääntö, joka ehkäisee suoraan masteriin pushaamista. Tämä siksi, ettei muiden masteriin tekemä työ katoa Unityn erikoisten mergesekoilujen takia, jos yhdistettävä branch on masteria joltain osin jäljessä (valmisteluissa tehtävä Unity Smart Mergen käyttöönotto toivottavasti ehkäisee tätä). Tee siis muutoksesi aina omalle teemoitetulle branchille. Valmiista muutoksista (branchista) voi sitten luoda pull requestin, jossa pyytää mergeä masteriin. Tämä pull request vaatii yhden hyväksynnän joltain muulta kuin requestin luojalta. Tarkistajan tulee yrittää tulkita muutoksista, ettei mitään muutoksiin liittymätöntä poisteta.
+
+## Kiinnostuneille Unityn Smart Mergen käyttö Gitissä
+Unityn Smart Mergen hyödyntäminen aiempien projektin kopiointiohjeiden vaiheen 4 jälkeen on yksinkertaista.
+- Aloitetaan merge normaalisti menemällä kohdebranchille, johon aiotaan toinen yhdistää (yleensä `git checkout master`).
+- Konfliktien löytyessä Git toimii niin, että se jättää tiedostot ns. konfliktinratkaisumuotoon, jossa tiedostojen molemmat versiot näkyvät otsikoituina tiedoston sisällä, jolloin merge jää tietynlaiseen välitilaan, josta voidaan haluttaessa peruuttaa pois lähtötilaan komennolla `git merge --abort`.
+- Konfliktien löydyttyä annetaan komento `git mergetool`. Tämä kutsuu config:n määritelmässä `[merge]` määritettyä työkalua `[mergetool "[NIMI]"]`, tässä tapauksessa `unityyamlmerge` eli tuttavallisemmin Unity Smart Merge.
+- Työkalu tekee taikansa ja ilmoittaa onnistumisesta tai mahd. ongelmista.
