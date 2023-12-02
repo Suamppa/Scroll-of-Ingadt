@@ -11,6 +11,9 @@ public class AIChase : MonoBehaviour
     // This is the distance how far the enemy will start following target
     public float maxDistanceBetween;
 
+    // Add Animator for animations
+    public Animator animator;
+
     // Walking speed of the AI
     private float speed;
     // Distance between the AI and the target
@@ -34,6 +37,7 @@ public class AIChase : MonoBehaviour
     void FixedUpdate() {
         // Reset the moveVector
         moveVector = Vector2.zero;
+        animator.SetFloat("Speed", 0);
         // Only move is target is not null
         if (target != null)
         {
@@ -41,6 +45,7 @@ public class AIChase : MonoBehaviour
             // If distance is between minDistanceBetween and maxDistanceBetween, then move towards target
             if (distance < maxDistanceBetween)
             {
+                animator.SetFloat("Speed", Mathf.Abs(speed));
                 // If able, attack ravenously while chasing
                 if (canAttack != null) canAttack.Attack();
                 if (distance > minDistanceBetween)
