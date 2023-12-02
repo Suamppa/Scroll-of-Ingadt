@@ -62,6 +62,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context) {
         // Save the movement vector from input
         animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        animator.SetBool("IsAttacking", false);
         moveVector = context.ReadValue<Vector2>();
     }
 

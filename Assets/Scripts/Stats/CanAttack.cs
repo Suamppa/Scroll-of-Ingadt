@@ -12,6 +12,9 @@ public class CanAttack : MonoBehaviour
     // Reference to the user's own collider
     public Collider2D selfCollider;
 
+    // Add Animator for animations
+    public Animator animator;
+
     // Filter for the attack detection collider
     private ContactFilter2D contactFilter;
     // How often can attack
@@ -43,12 +46,11 @@ public class CanAttack : MonoBehaviour
     {
         // If time since last attack < attackSpeed, then don't attack
         if (Time.time - lastAttackTime < attackSpeed) return;
-
+        animator.SetBool("IsAttacking", true);
         List<Collider2D> targets = new();
         // "_" means a discard, which means we don't care about the return value;
         // the function fills the targets list with the colliders in range
         _ = attackCollider.OverlapCollider(contactFilter, targets);
-
         // Damage all targets except the user's collider
         foreach (Collider2D target in targets)
         {
