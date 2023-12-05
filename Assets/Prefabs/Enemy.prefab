@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1093409587468433252}
   - component: {fileID: 1292120978787446611}
   - component: {fileID: 4657378720442367714}
+  - component: {fileID: 543083463879418103}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.31, y: -0.94, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6613788880256658369}
@@ -165,8 +166,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  minDistanceBetween: 1.5
+  minDistanceBetween: 1
   maxDistanceBetween: 8
+  animator: {fileID: 543083463879418103}
 --- !u!114 &1292120978787446611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,12 +181,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01238eb8d866b564c83dd284a9da2e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 3
   currentHealth: 0
   moveSpeed: 5
   attackSpeed: 1
   damage: 1
   defense: 0
+  animator: {fileID: 543083463879418103}
 --- !u!114 &4657378720442367714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +205,28 @@ MonoBehaviour:
     m_Bits: 64
   attackCollider: {fileID: 9211267960688534688}
   selfCollider: {fileID: 7097269642557041861}
+  animator: {fileID: 543083463879418103}
+--- !u!95 &543083463879418103
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4249729704366217774}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6bae41c80efe26b4fbc5709073d8f02e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &8641298730997014694
 PrefabInstance:
   m_ObjectHideFlags: 0
