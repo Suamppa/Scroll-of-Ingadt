@@ -39,17 +39,24 @@ public class HUDLogic : MonoBehaviour
 
     // Update the health indicators to the player's current health
     public void UpdateHealthIndicators(int health) {
-        // Set the health indicators accordingly
-        for (int i = 0; i < health; i += 2) {
-            // Even health values are always full hearts
-            hearts[i/2].sprite = fullHeart;
+        if (health < 1) {
+            foreach (Image heart in hearts) {
+                heart.sprite = emptyHeart;
+            }
+            return;
         }
-        if (health % 2 == 1) {
-            // If current health is odd, the last heart is a half heart
-            hearts[health/2].sprite = halfHeart;
+        // Loop through the health indicators up to health
+        for (int i = 0; i < health; i++) {
+            if (i % 2 == 1) {
+                // If the index is odd, set the sprite to fullHeart
+                hearts[i/2].sprite = fullHeart;
+            } else {
+                // If the index is even, set the sprite to halfHeart
+                hearts[i/2].sprite = halfHeart;
+            }
         }
-        for (int i = health/2 + 1; i < hearts.Length; i++) {
-            // The rest of the hearts are empty
+        // Loop through the remaining health indicators
+        for (int i = (health+1)/2; i < hearts.Length; i++) {
             hearts[i].sprite = emptyHeart;
         }
     }
