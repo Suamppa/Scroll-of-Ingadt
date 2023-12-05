@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     // Max health of the entity
-    public int maxHealth = 10;
+    public int maxHealth = 6;
     // Current health of the entity
     public int currentHealth;
     // Movement speed of the entity
