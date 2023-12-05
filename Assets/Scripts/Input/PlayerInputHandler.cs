@@ -8,10 +8,8 @@ public class PlayerInputHandler : MonoBehaviour
 {
     // Reference to the attack collider of the player
     public GameObject attackCollider;
-
     // Add Animator for animations
     public Animator animator;
-
     // Reference to the PlayerActions asset
     private PlayerActions input = null;
     // This is the vector that will be used to move the player
@@ -63,6 +61,7 @@ public class PlayerInputHandler : MonoBehaviour
         // Save the movement vector from input
         animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
         animator.SetBool("IsAttacking", false);
+        animator.SetBool("isWounding", false);
         moveVector = context.ReadValue<Vector2>();
     }
 

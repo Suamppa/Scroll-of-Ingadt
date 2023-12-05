@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIHealth : MonoBehaviour
 {
+
     public int Health;
     // Max health of the target
     public int maxHealth = 5;

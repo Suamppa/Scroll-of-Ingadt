@@ -16,7 +16,6 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
-        Debug.Log("Player took " + damage + " damage. Health is now " + Health);
         if(Health <= 0)
         {
             Destroy(gameObject);
