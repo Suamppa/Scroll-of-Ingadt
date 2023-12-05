@@ -39,6 +39,8 @@ public class HUDLogic : MonoBehaviour
 
     // Update the health indicators to the player's current health
     public void UpdateHealthIndicators(int health) {
+        // If the player is dead, set all health indicators to empty
+        // While not strictly necessary, it's a speedup avoiding unnecessary loops
         if (health < 1) {
             foreach (Image heart in hearts) {
                 heart.sprite = emptyHeart;
