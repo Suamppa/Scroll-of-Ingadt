@@ -30,7 +30,7 @@ public class HUDLogic : MonoBehaviour
 
     private void Start() {
         // Get the player's current health
-        int health = playerStats.currentHealth;
+        int health = playerStats.maxHealth;
         // Set the health indicators to the player's current health
         UpdateHealthIndicators(health);
     }
