@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : Stats
 {
@@ -28,6 +29,6 @@ public class PlayerStats : Stats
         // Death sounds, animations, respawn logic etc. can go here
         Debug.Log(gameObject.name + " died.");
         // Add a game over screen here
-        Destroy(gameObject);
+        SceneManager.LoadScene("DeathScreen", LoadSceneMode.Single);
     }
 }
