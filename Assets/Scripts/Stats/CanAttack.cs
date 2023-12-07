@@ -24,6 +24,10 @@ public class CanAttack : MonoBehaviour
     // Time of last attack
     private float lastAttackTime;
 
+    //Audio source and clips for hit and miss
+    private AudioSource audioSource;
+    public AudioClip attackSound;
+
     private void Awake()
     {
         // Set up the contact filter
@@ -40,6 +44,8 @@ public class CanAttack : MonoBehaviour
 
         attackSpeed = GetComponent<Stats>().attackSpeed;
         damageAmount = GetComponent<Stats>().damage;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Attack()
@@ -58,6 +64,7 @@ public class CanAttack : MonoBehaviour
             {
                 try
                 {
+                    PlayAudioAttack();
                     target.GetComponent<Stats>().TakeDamage(damageAmount);
                 }
                 catch (System.NullReferenceException)
@@ -68,6 +75,13 @@ public class CanAttack : MonoBehaviour
         }
         // Mark this point as last time attacked
         lastAttackTime = Time.time;
+    }
+
+    public void PlayAudioAttack()
+    {
+        audioSource.clip = attackSound;
+        audioSource.Play();
+        Debug.Log(gameObject.name + " Played attack sound");
     }
 
     // Draw the rough outline of the attack collider for debugging (not visible in game)
