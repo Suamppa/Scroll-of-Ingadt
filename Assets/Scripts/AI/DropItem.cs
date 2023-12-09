@@ -15,7 +15,12 @@ public class DropItem : MonoBehaviour
 
     // Roll for a drop and drop a random item from the drop table
     public void Drop() {
-        if (Random.value < chanceToDrop) return;
+        float dropRoll = Random.value;
+        Debug.Log(gameObject.name + " rolled " + dropRoll.ToString("F2") + " / " + chanceToDrop.ToString("F2") + " to drop an item.");
+        if (dropRoll < chanceToDrop) {
+            Debug.Log(gameObject.name + " did not drop an item.");
+            return;
+        }
         GameObject item = dropTable.GetItem();
         if (item != null) {
             Instantiate(item, transform.position, Quaternion.identity);
