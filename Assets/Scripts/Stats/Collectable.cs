@@ -6,7 +6,7 @@ public class Collectable : MonoBehaviour
 
     // This method is called when the collectable is picked up
     public virtual void OnPickup(Collider2D collector) {
-        Debug.Log("Picked up " + gameObject.name);
+        Debug.Log(collector.name + " picked up " + gameObject.name);
         Destroy(gameObject);
     }
 

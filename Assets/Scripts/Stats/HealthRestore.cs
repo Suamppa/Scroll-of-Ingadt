@@ -8,13 +8,19 @@ public class HealthRestore : Collectable
     // This method is called when the collectable is picked up
     public override void OnPickup(Collider2D collector)
     {
-        collector.GetComponent<Stats>().Heal(healthAmount);
+        Stats collectorStats = collector.GetComponent<Stats>();
+        // Ignore collectable if collector is at max health
+        if (collectorStats.currentHealth == collectorStats.maxHealth) return;
+
+        // Restore health
+        collectorStats.Heal(healthAmount);
         base.OnPickup(collector);
     }
 
     // This method is called when something enters the collectable's trigger
     protected override void OnTriggerEnter2D(Collider2D other)
     {
+        // Only pick up the collectable if the other object is the player
         if(other.CompareTag("Player")) {
             OnPickup(other);
         }
