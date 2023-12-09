@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Based on the code created by @Ritumu
@@ -56,14 +57,14 @@ public class CanAttack : MonoBehaviour
         // "_" means a discard, which means we don't care about the return value;
         // the function fills the targets list with the colliders in range
         _ = attackCollider.OverlapCollider(contactFilter, targets);
-        // Damage all targets except the user's collider
+        // Damage all targets except the user's colliders and targets with the same tag as the user
         foreach (Collider2D target in targets)
         {
-            if (target != attackCollider && target != selfCollider)
+            if (target != attackCollider && target != selfCollider && !target.gameObject.CompareTag(tag))
             {
+                PlayAudioAttack();
                 try
                 {
-                    PlayAudioAttack();
                     target.GetComponent<Stats>().TakeDamage(damageAmount);
                 }
                 catch (System.NullReferenceException)
@@ -80,7 +81,7 @@ public class CanAttack : MonoBehaviour
     {
         audioSource.clip = attackSound;
         audioSource.Play();
-        Debug.Log(gameObject.name + " Played attack sound");
+        Debug.Log(gameObject.name + " played attack sound");
     }
 
     // Draw the rough outline of the attack collider for debugging (not visible in game)
