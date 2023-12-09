@@ -4,7 +4,7 @@ using UnityEngine;
 public class DropItem : MonoBehaviour
 {
     // The chance to drop any item at all
-    public float chanceToDrop = 0.5f;
+    public float chanceToNotDrop = 0.5f;
 
     // Reference to the drop table
     private DropTable dropTable;
@@ -16,8 +16,8 @@ public class DropItem : MonoBehaviour
     // Roll for a drop and drop a random item from the drop table
     public void Drop() {
         float dropRoll = Random.value;
-        Debug.Log(gameObject.name + " rolled " + dropRoll.ToString("F2") + " / " + chanceToDrop.ToString("F2") + " to drop an item.");
-        if (dropRoll < chanceToDrop) {
+        Debug.Log(gameObject.name + " rolled " + dropRoll.ToString("F2") + " / " + chanceToNotDrop.ToString("F2") + " to drop an item.");
+        if (dropRoll < chanceToNotDrop) {
             Debug.Log(gameObject.name + " did not drop an item.");
             return;
         }

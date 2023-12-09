@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19535120cd9b9744093a59a5c9841807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToDrop: 0.7
+  chanceToNotDrop: 0.3
 --- !u!1001 &8641298730997014694
 PrefabInstance:
   m_ObjectHideFlags: 0
