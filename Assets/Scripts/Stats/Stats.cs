@@ -37,4 +37,14 @@ public class Stats : MonoBehaviour
         Debug.Log(gameObject.name + " died.");
         Destroy(gameObject);
     }
+
+    public virtual void Heal(int healAmount)
+    {
+        currentHealth += healAmount;
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        Debug.Log(gameObject.name + " healed " + healAmount + " health. Health is now " + currentHealth);
+    }
 }

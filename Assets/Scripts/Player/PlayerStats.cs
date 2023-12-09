@@ -5,8 +5,9 @@ public class PlayerStats : Stats
 {
     // Add Animator for animations
     public Animator animator;
-    public delegate void PlayerDamaged(int newHealth);
-    public static event PlayerDamaged OnPlayerDamaged;
+    public delegate void PlayerHealthChanged(int newHealth);
+    public static event PlayerHealthChanged OnPlayerDamaged;
+    public static event PlayerHealthChanged OnPlayerHealed;
 
     public override void TakeDamage(int damage)
     {
@@ -30,5 +31,12 @@ public class PlayerStats : Stats
         Debug.Log(gameObject.name + " died.");
         // Add a game over screen here
         SceneManager.LoadScene("DeathScreen", LoadSceneMode.Single);
+    }
+
+    public override void Heal(int healAmount)
+    {
+        base.Heal(healAmount);
+        // Invoke the OnPlayerHealed event
+        OnPlayerHealed?.Invoke(currentHealth);
     }
 }

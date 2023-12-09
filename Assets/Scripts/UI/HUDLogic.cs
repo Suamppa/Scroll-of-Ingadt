@@ -21,11 +21,13 @@ public class HUDLogic : MonoBehaviour
     private void OnEnable() {
         // Subscribe to the OnPlayerDamaged event
         PlayerStats.OnPlayerDamaged += UpdateHealthIndicators;
+        PlayerStats.OnPlayerHealed += UpdateHealthIndicators;
     }
 
     private void OnDisable() {
         // Unsubscribe from the OnPlayerDamaged event
         PlayerStats.OnPlayerDamaged -= UpdateHealthIndicators;
+        PlayerStats.OnPlayerHealed -= UpdateHealthIndicators;
     }
 
     private void Start() {
