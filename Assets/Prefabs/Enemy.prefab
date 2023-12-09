@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 4657378720442367714}
   - component: {fileID: 543083463879418103}
   - component: {fileID: 354530302105605948}
+  - component: {fileID: 2387636026950849461}
+  - component: {fileID: -6542565460183703999}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -207,7 +209,7 @@ MonoBehaviour:
   attackCollider: {fileID: 9211267960688534688}
   selfCollider: {fileID: 7097269642557041861}
   animator: {fileID: 543083463879418103}
-  swordHit: {fileID: 0}
+  attackSound: {fileID: 0}
 --- !u!95 &543083463879418103
 Animator:
   serializedVersion: 5
@@ -325,6 +327,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2387636026950849461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4249729704366217774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a84b8c8c601fe248a83630f7eda5879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 3574519497261982101, guid: 46599894bddc6f34f8a7cfd1e6883c36, type: 3}
+--- !u!114 &-6542565460183703999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4249729704366217774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19535120cd9b9744093a59a5c9841807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8641298730997014694
 PrefabInstance:
   m_ObjectHideFlags: 0

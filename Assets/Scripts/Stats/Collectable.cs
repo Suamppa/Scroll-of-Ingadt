@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
+    public float dropChance = 0.5f;
+
     // This method is called when the collectable is picked up
     public virtual void OnPickup(Collider2D collector) {
         Debug.Log("Picked up " + gameObject.name);

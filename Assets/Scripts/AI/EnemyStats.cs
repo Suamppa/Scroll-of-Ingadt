@@ -29,6 +29,9 @@ public class EnemyStats : Stats
     // Override the Die() function to add enemy death logic
     public override void Die()
     {
+        if (TryGetComponent(out DropItem dropItem)) {
+            dropItem.Drop();
+        }
         base.Die();
     }
 }

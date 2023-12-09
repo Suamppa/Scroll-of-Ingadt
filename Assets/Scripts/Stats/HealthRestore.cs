@@ -3,7 +3,7 @@ using UnityEngine;
 public class HealthRestore : Collectable
 {
     // How much health the collectable can restore
-    public int healthAmount = 1;
+    public int healthAmount = 2;
 
     // This method is called when the collectable is picked up
     public override void OnPickup(Collider2D collector)
