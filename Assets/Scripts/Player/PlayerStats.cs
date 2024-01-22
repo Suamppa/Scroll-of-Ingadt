@@ -3,18 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : Stats
 {
-    // Add Animator for animations
-    public Animator animator;
     public delegate void PlayerHealthChanged(int newHealth);
     public static event PlayerHealthChanged OnPlayerDamaged;
     public static event PlayerHealthChanged OnPlayerHealed;
 
     public override void TakeDamage(int damage)
     {
-        int effectiveDamage = damage - defense;
-        currentHealth -= effectiveDamage;
-        animator.SetBool("isWounding", true);
-        Debug.Log(gameObject.name + " took " + effectiveDamage + " damage. Health is now " + currentHealth);
+        if (shield > 0)
+        {
+            ShieldDamage(damage);
+        }
+        else
+        {
+            HealthDamage(damage);
+        }
         // Invoke the OnPlayerDamaged event
         OnPlayerDamaged?.Invoke(currentHealth);
         
@@ -28,7 +30,7 @@ public class PlayerStats : Stats
     public override void Die()
     {
         // Death sounds, animations, respawn logic etc. can go here
-        Debug.Log(gameObject.name + " died.");
+        Debug.Log($"{gameObject.name} died.");
         // Add a game over screen here
         SceneManager.LoadScene("DeathScreen", LoadSceneMode.Single);
     }
