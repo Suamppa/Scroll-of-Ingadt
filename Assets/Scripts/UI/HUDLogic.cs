@@ -9,6 +9,8 @@ public class HUDLogic : MonoBehaviour
     public Sprite fullHeart;
     public Sprite halfHeart;
     public Sprite emptyHeart;
+    // Reference to the shield icon
+    public Sprite shieldIcon;
 
     // Player's Stats component
     private Stats playerStats;
