@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// Replaced by HealthBar.cs
 public class HUDLogic : MonoBehaviour
 {
     // Reference to the health indicators' Image components
