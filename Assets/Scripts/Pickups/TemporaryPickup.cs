@@ -5,10 +5,11 @@ public abstract class TemporaryPickup : Collectable
 {
     public float duration = 10f;
 
-    private SpriteRenderer spriteRenderer;
+    public delegate void PickupEffect(float duration);
+    public static event PickupEffect OnEffectApplied;
+    public static event PickupEffect OnEffectRemoved;
 
-    protected abstract void ApplyEffect(Stats collectorStats);
-    protected abstract void RemoveEffect(Stats collectorStats);
+    private SpriteRenderer spriteRenderer;
 
     protected virtual void Awake()
     {
@@ -37,5 +38,15 @@ public abstract class TemporaryPickup : Collectable
         Debug.Log($"{gameObject.name} effect ended.");
         RemoveEffect(collectorStats);
         base.OnPickup(collector);
+    }
+
+    public virtual void ApplyEffect(Stats collectorStats)
+    {
+        OnEffectApplied?.Invoke(duration);
+    }
+
+    public virtual void RemoveEffect(Stats collectorStats)
+    {
+        OnEffectRemoved?.Invoke(duration);
     }
 }

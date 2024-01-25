@@ -4,8 +4,11 @@ using UnityEngine.SceneManagement;
 public class PlayerStats : Stats
 {
     public delegate void PlayerHealthChanged(int newHealth);
-    public static event PlayerHealthChanged OnPlayerDamaged;
-    public static event PlayerHealthChanged OnPlayerHealed;
+    public delegate void PlayerShieldChanged(int newShield);
+    public event PlayerHealthChanged OnPlayerDamaged;
+    public event PlayerHealthChanged OnPlayerHealed;
+    public event PlayerShieldChanged OnPlayerShieldGained;
+    public event PlayerShieldChanged OnPlayerShieldLost;
 
     public override void TakeDamage(int damage)
     {
@@ -17,13 +20,18 @@ public class PlayerStats : Stats
         {
             HealthDamage(damage);
         }
-        // Invoke the OnPlayerDamaged event
-        OnPlayerDamaged?.Invoke(currentHealth);
-        
         if(currentHealth <= 0)
         {
             Die();
         }
+    }
+
+    protected override int HealthDamage(int damage)
+    {
+        int effectiveDamage = base.HealthDamage(damage);
+        // Invoke the OnPlayerDamaged event
+        OnPlayerDamaged?.Invoke(currentHealth);
+        return effectiveDamage;
     }
 
     // Override the Die() function to add a game over screen
@@ -40,5 +48,19 @@ public class PlayerStats : Stats
         base.Heal(healAmount);
         // Invoke the OnPlayerHealed event
         OnPlayerHealed?.Invoke(currentHealth);
+    }
+
+    public override void GainShield(int shieldAmount)
+    {
+        base.GainShield(shieldAmount);
+        // Invoke the OnPlayerShieldGained event
+        OnPlayerShieldGained?.Invoke(shield);
+    }
+
+    public override void ReduceShield(int shieldAmount)
+    {
+        base.ReduceShield(shieldAmount);
+        // Invoke the OnPlayerShieldLost event
+        OnPlayerShieldLost?.Invoke(shield);
     }
 }

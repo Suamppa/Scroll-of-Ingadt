@@ -17,9 +17,7 @@ public class CanAttack : MonoBehaviour
     // Filter for the attack detection collider
     private ContactFilter2D contactFilter;
     // How often can attack
-    private float attackSpeed;
-    // Damage amount
-    private int damageAmount;
+    private Stats attackerStats;
     // Time of last attack
     private float lastAttackTime;
 
@@ -41,14 +39,16 @@ public class CanAttack : MonoBehaviour
             layerMask = layerMasks
         }; // This syntax is equivalent to setting the parameters row by row
 
-        attackSpeed = GetComponent<Stats>().attackSpeed;
-        damageAmount = GetComponent<Stats>().damage;
+        attackerStats = GetComponent<Stats>();
 
         audioSource = GetComponent<AudioSource>();
     }
 
     public void Attack()
     {
+        int damageAmount = attackerStats.damage;
+        float attackSpeed = attackerStats.attackSpeed;
+
         // If time since last attack < attackSpeed, then don't attack
         if (Time.time - lastAttackTime < attackSpeed) return;
         animator.SetBool("IsAttacking", true);

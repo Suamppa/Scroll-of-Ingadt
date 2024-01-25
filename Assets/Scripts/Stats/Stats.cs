@@ -16,6 +16,8 @@ public class Stats : MonoBehaviour
     public int defense = 0;
     // Shield prevents hits until depleted
     public int shield = 0;
+    // Temporary shield is a shield with a duration; null when not available
+    public TempShield tempShield;
 
     // Animator may be null for some entities
     protected Animator animator;
@@ -23,6 +25,7 @@ public class Stats : MonoBehaviour
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
+        tempShield = GetComponentInChildren<TempShield>();
     }
 
     protected virtual void OnEnable()
@@ -46,14 +49,14 @@ public class Stats : MonoBehaviour
         }
     }
 
-    protected void ShieldDamage(int damage)
+    protected virtual void ShieldDamage(int damage)
     {
-        shield--;
+        ReduceShield(1);
         Debug.Log($"{gameObject.name} blocked {damage} damage with shield. Shield is now {shield}");
     }
 
     // Take damage to health and return the amount of damage taken
-    protected int HealthDamage(int damage)
+    protected virtual int HealthDamage(int damage)
     {
         int effectiveDamage = damage - defense;
         currentHealth -= effectiveDamage;
@@ -81,5 +84,23 @@ public class Stats : MonoBehaviour
             currentHealth = maxHealth;
         }
         Debug.Log($"{gameObject.name} healed {healAmount} health. Health is now {currentHealth}");
+    }
+
+    public virtual void GainShield(int shieldAmount)
+    {
+        shield += shieldAmount;
+        Debug.Log($"{gameObject.name} gained {shieldAmount} shield. Shield is now {shield}");
+    }
+
+    public virtual void ReduceShield(int shieldAmount)
+    {
+        if (shield < shieldAmount) shieldAmount = shield;
+        shield -= shieldAmount;
+        Debug.Log($"{gameObject.name} lost {shieldAmount} shield. Shield is now {shield}");
+    }
+
+    public virtual void GainTempShield(TempShield tempShield)
+    {
+        return;
     }
 }

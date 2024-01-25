@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,26 +12,38 @@ public class HealthBar : MonoBehaviour
     public Sprite halfHeart;
     public Sprite emptyHeart;
     // Reference to the shield icon
-    public Sprite shieldIcon;
+    public GameObject shieldIcon;
 
     // Player's Stats component
-    private Stats playerStats;
+    private PlayerStats playerStats;
+    private TMP_Text shieldAmountText;
+    private TMP_Text shieldDurationText;
+    private IEnumerator shieldCountdown;
+    private float shieldDuration = 0f;
 
     private void Awake() {
         // Find the player's Stats component
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
+        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+        TMP_Text[] shieldTexts = shieldIcon.GetComponentsInChildren<TMP_Text>();
+        shieldAmountText = shieldTexts[0];
+        shieldDurationText = shieldTexts[1];
+        shieldIcon.SetActive(false);
     }
 
     private void OnEnable() {
         // Subscribe to the OnPlayerDamaged event
-        PlayerStats.OnPlayerDamaged += UpdateHealthIndicators;
-        PlayerStats.OnPlayerHealed += UpdateHealthIndicators;
+        playerStats.OnPlayerDamaged += UpdateHealthIndicators;
+        playerStats.OnPlayerHealed += UpdateHealthIndicators;
+        TempShield.OnTempShieldApplied += UpdateShieldIndicator;
+        TempShield.OnTempShieldRemoved += UpdateShieldIndicator;
     }
 
     private void OnDisable() {
         // Unsubscribe from the OnPlayerDamaged event
-        PlayerStats.OnPlayerDamaged -= UpdateHealthIndicators;
-        PlayerStats.OnPlayerHealed -= UpdateHealthIndicators;
+        playerStats.OnPlayerDamaged -= UpdateHealthIndicators;
+        playerStats.OnPlayerHealed -= UpdateHealthIndicators;
+        TempShield.OnTempShieldApplied -= UpdateShieldIndicator;
+        TempShield.OnTempShieldRemoved -= UpdateShieldIndicator;
     }
 
     private void Start() {
@@ -63,5 +77,38 @@ public class HealthBar : MonoBehaviour
         for (int i = (health+1)/2; i < hearts.Length; i++) {
             hearts[i].sprite = emptyHeart;
         }
+    }
+
+    public void UpdateShieldIndicator(float duration, int shieldAmount) {
+        if (playerStats.shield > 0)
+        {
+            // Update shield amount indicator
+            if (!shieldIcon.activeSelf) shieldIcon.SetActive(true);
+            shieldAmountText.text = shieldAmount.ToString();
+
+            // Update or add countdown timer
+            if (shieldCountdown != null)
+            {
+                StopCoroutine(shieldCountdown);
+            }
+            shieldCountdown = ShieldCountdown(duration);
+            StartCoroutine(shieldCountdown);
+        }
+        else
+        {
+            if (shieldIcon.activeSelf) shieldIcon.SetActive(false);
+        }
+    }
+
+    // TODO: Create Timer class
+    private IEnumerator ShieldCountdown(float duration) {
+        shieldDuration += duration;
+        while (shieldDuration > 0)
+        {
+            shieldDurationText.text = shieldDuration.ToString("F1");
+            yield return new WaitForSeconds(0.1f);
+            shieldDuration -= 0.1f;
+        }
+        shieldIcon.SetActive(false);
     }
 }
