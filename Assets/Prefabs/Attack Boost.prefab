@@ -143,6 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1327e502a7e4c4cb2bca1da28c67ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropChance: 0.5
-  damageBoost: 2
+  dropChance: 0.1
   duration: 10
+  damageBoost: 2

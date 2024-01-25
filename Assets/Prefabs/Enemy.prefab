@@ -190,7 +190,8 @@ MonoBehaviour:
   attackSpeed: 1
   damage: 1
   defense: 0
-  animator: {fileID: 543083463879418103}
+  shield: 0
+  tempShield: {fileID: 0}
 --- !u!114 &4657378720442367714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,6 +342,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 3574519497261982101, guid: 46599894bddc6f34f8a7cfd1e6883c36, type: 3}
+  - {fileID: 4202800682689500197, guid: 6c70201ab959d114ca4ec99dc368d41e, type: 3}
+  - {fileID: 4202800682689500197, guid: 5b23c44efecc3f647a5fa548578680ff, type: 3}
+  - {fileID: 4202800682689500197, guid: 70872701859850b40aa605b7f870057a, type: 3}
 --- !u!114 &-6542565460183703999
 MonoBehaviour:
   m_ObjectHideFlags: 0
