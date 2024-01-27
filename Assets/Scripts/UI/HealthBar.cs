@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,39 +10,27 @@ public class HealthBar : MonoBehaviour
     public Sprite fullHeart;
     public Sprite halfHeart;
     public Sprite emptyHeart;
-    // Reference to the shield icon
-    public GameObject shieldIcon;
 
     // Player's Stats component
     private PlayerStats playerStats;
-    private TMP_Text shieldAmountText;
-    private TMP_Text shieldDurationText;
-    private IEnumerator shieldCountdown;
-    private float shieldDuration = 0f;
 
     private void Awake() {
         // Find the player's Stats component
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        TMP_Text[] shieldTexts = shieldIcon.GetComponentsInChildren<TMP_Text>();
-        shieldAmountText = shieldTexts[0];
-        shieldDurationText = shieldTexts[1];
-        shieldIcon.SetActive(false);
+        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
     }
 
     private void OnEnable() {
         // Subscribe to the OnPlayerDamaged event
         playerStats.OnPlayerDamaged += UpdateHealthIndicators;
         playerStats.OnPlayerHealed += UpdateHealthIndicators;
-        TempShield.OnTempShieldApplied += UpdateShieldIndicator;
-        TempShield.OnTempShieldRemoved += UpdateShieldIndicator;
+        playerStats.OnPlayerTempShield += AddTempShieldIcon;
     }
 
     private void OnDisable() {
         // Unsubscribe from the OnPlayerDamaged event
         playerStats.OnPlayerDamaged -= UpdateHealthIndicators;
         playerStats.OnPlayerHealed -= UpdateHealthIndicators;
-        TempShield.OnTempShieldApplied -= UpdateShieldIndicator;
-        TempShield.OnTempShieldRemoved -= UpdateShieldIndicator;
+        playerStats.OnPlayerTempShield -= AddTempShieldIcon;
     }
 
     private void Start() {
@@ -79,36 +66,31 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    public void UpdateShieldIndicator(float duration, int shieldAmount) {
-        if (playerStats.shield > 0)
-        {
-            // Update shield amount indicator
-            if (!shieldIcon.activeSelf) shieldIcon.SetActive(true);
-            shieldAmountText.text = shieldAmount.ToString();
+    private void AddTempShieldIcon(TempShield shield)
+    {
+        GameObject icon = Instantiate(shield.iconPrefab, transform);
+        TMP_Text[] shieldTexts = icon.GetComponentsInChildren<TMP_Text>();
+        TMP_Text shieldAmountText = shieldTexts[0];
+        TMP_Text shieldTimerText = shieldTexts[1];
 
-            // Update or add countdown timer
-            if (shieldCountdown != null)
-            {
-                StopCoroutine(shieldCountdown);
-            }
-            shieldCountdown = ShieldCountdown(duration);
-            StartCoroutine(shieldCountdown);
-        }
-        else
+        shieldAmountText.text = shield.shieldAmount.ToString();
+        shield.Timer.AssignText(shieldTimerText);
+        shield.Timer.OnTimerEnd += () => RemoveTempShieldIcon(icon);
+        playerStats.OnPlayerShieldLost += (shieldValue) => UpdateTempShieldIcon(shieldAmountText, shieldValue, shield.Timer);
+    }
+
+    private void UpdateTempShieldIcon(TMP_Text shieldAmountText, int shieldAmount, Timer timer)
+    {
+        shieldAmountText.text = shieldAmount.ToString();
+        if (shieldAmount < 1 && timer.IsRunning)
         {
-            if (shieldIcon.activeSelf) shieldIcon.SetActive(false);
+            // This will trigger the OnTimerEnd event
+            timer.StopTimer();
         }
     }
 
-    // TODO: Create Timer class
-    private IEnumerator ShieldCountdown(float duration) {
-        shieldDuration += duration;
-        while (shieldDuration > 0)
-        {
-            shieldDurationText.text = shieldDuration.ToString("F1");
-            yield return new WaitForSeconds(0.1f);
-            shieldDuration -= 0.1f;
-        }
-        shieldIcon.SetActive(false);
+    private void RemoveTempShieldIcon(GameObject icon)
+    {
+        Destroy(icon);
     }
 }

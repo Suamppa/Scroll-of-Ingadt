@@ -2,22 +2,21 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    // Shield prevents hits until depleted
+    public int Shield { get; private set; }
+
     // Max health of the entity
     public int maxHealth = 6;
     // Current health of the entity
     public int currentHealth;
     // Movement speed of the entity
     public float moveSpeed = 10f;
-    // Attack speed of the entity
-    public float attackSpeed = 1f;
+    // Attack speed of the entity as the delay between attacks
+    public float attackDelay = 1f;
     // Damage dealt by the entity
     public int damage = 1;
     // Defense is subtracted from incoming damage
     public int defense = 0;
-    // Shield prevents hits until depleted
-    public int shield = 0;
-    // Temporary shield is a shield with a duration; null when not available
-    public TempShield tempShield;
 
     // Animator may be null for some entities
     protected Animator animator;
@@ -25,7 +24,6 @@ public class Stats : MonoBehaviour
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
-        tempShield = GetComponentInChildren<TempShield>();
     }
 
     protected virtual void OnEnable()
@@ -35,7 +33,7 @@ public class Stats : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-        if (shield > 0)
+        if (Shield > 0)
         {
             ShieldDamage(damage);
         }
@@ -52,7 +50,7 @@ public class Stats : MonoBehaviour
     protected virtual void ShieldDamage(int damage)
     {
         ReduceShield(1);
-        Debug.Log($"{gameObject.name} blocked {damage} damage with shield. Shield is now {shield}");
+        Debug.Log($"{gameObject.name} blocked {damage} damage with shield. Shield is now {Shield}");
     }
 
     // Take damage to health and return the amount of damage taken
@@ -88,19 +86,20 @@ public class Stats : MonoBehaviour
 
     public virtual void GainShield(int shieldAmount)
     {
-        shield += shieldAmount;
-        Debug.Log($"{gameObject.name} gained {shieldAmount} shield. Shield is now {shield}");
+        Shield += shieldAmount;
+        Debug.Log($"{gameObject.name} gained {shieldAmount} shield. Shield is now {Shield}");
     }
 
     public virtual void ReduceShield(int shieldAmount)
     {
-        if (shield < shieldAmount) shieldAmount = shield;
-        shield -= shieldAmount;
-        Debug.Log($"{gameObject.name} lost {shieldAmount} shield. Shield is now {shield}");
+        if (Shield < shieldAmount) shieldAmount = Shield;
+        Shield -= shieldAmount;
+        Debug.Log($"{gameObject.name} lost {shieldAmount} shield. Shield is now {Shield}");
     }
 
-    public virtual void GainTempShield(TempShield tempShield)
+    // Overload this method to add handling for different effect types
+    public virtual void AddEffect(TemporaryPickup pickup)
     {
-        return;
+        pickup.ApplyEffect(this);
     }
 }

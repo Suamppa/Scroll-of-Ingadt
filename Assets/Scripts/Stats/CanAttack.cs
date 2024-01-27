@@ -4,15 +4,19 @@ using UnityEngine;
 // Based on the code created by @Ritumu
 public class CanAttack : MonoBehaviour
 {
+    public int DamageAmount { get => attackerStats.damage; }
+    public float AttackDelay { get => attackerStats.attackDelay; }
+
     // Layers that can be attacked
     public LayerMask[] targetLayers;
     // Reference to the attack detection collider
     public Collider2D attackCollider;
     // Reference to the user's own collider
     public Collider2D selfCollider;
-
     // Add Animator for animations
     public Animator animator;
+    // Clips for hit and miss
+    public AudioClip attackSound;
 
     // Filter for the attack detection collider
     private ContactFilter2D contactFilter;
@@ -20,10 +24,7 @@ public class CanAttack : MonoBehaviour
     private Stats attackerStats;
     // Time of last attack
     private float lastAttackTime;
-
-    //Audio source and clips for hit and miss
     private AudioSource audioSource;
-    public AudioClip attackSound;
 
     private void Awake()
     {
@@ -46,11 +47,8 @@ public class CanAttack : MonoBehaviour
 
     public void Attack()
     {
-        int damageAmount = attackerStats.damage;
-        float attackSpeed = attackerStats.attackSpeed;
-
-        // If time since last attack < attackSpeed, then don't attack
-        if (Time.time - lastAttackTime < attackSpeed) return;
+        // If time since last attack < attack delay, then don't attack
+        if (Time.time - lastAttackTime < AttackDelay) return;
         animator.SetBool("IsAttacking", true);
         List<Collider2D> targets = new();
         // "_" means a discard, which means we don't care about the return value;
@@ -64,7 +62,7 @@ public class CanAttack : MonoBehaviour
                 PlayAudioAttack();
                 try
                 {
-                    target.GetComponent<Stats>().TakeDamage(damageAmount);
+                    target.GetComponent<Stats>().TakeDamage(DamageAmount);
                 }
                 catch (System.NullReferenceException)
                 {

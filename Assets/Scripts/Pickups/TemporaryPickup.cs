@@ -1,19 +1,20 @@
-using System.Collections;
 using UnityEngine;
 
 public abstract class TemporaryPickup : Collectable
 {
+    public Timer Timer { get; private set; }
+    
+    public GameObject iconPrefab;
     public float duration = 10f;
-
-    public delegate void PickupEffect(float duration);
-    public static event PickupEffect OnEffectApplied;
-    public static event PickupEffect OnEffectRemoved;
-
-    private SpriteRenderer spriteRenderer;
 
     protected virtual void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (iconPrefab == null)
+        {
+            Debug.LogError($"No icon prefab set for {gameObject.name}.");
+        }
+        Timer = gameObject.AddComponent<Timer>();
+        Timer.SetTimer(duration);
     }
 
     // This method is called when the collectable is picked up
@@ -21,32 +22,23 @@ public abstract class TemporaryPickup : Collectable
     {
         Debug.Log($"{gameObject.name} picked up");
         // Disable sprite renderer and parent to collector
-        spriteRenderer.enabled = false;
-        gameObject.transform.SetParent(collector.transform);
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        gameObject.transform.SetParent(collector.transform, false);
 
-        // Start coroutine to remove effect after duration
-        collector.GetComponent<MonoBehaviour>().StartCoroutine(EffectActive(collector));
-    }
-
-    protected virtual IEnumerator EffectActive(Collider2D collector)
-    {
-        Stats collectorStats = collector.GetComponent<Stats>();
-        
-        ApplyEffect(collectorStats);
-        Debug.Log($"{gameObject.name} effect started for {duration}.");
-        yield return new WaitForSeconds(duration);
-        Debug.Log($"{gameObject.name} effect ended.");
-        RemoveEffect(collectorStats);
-        base.OnPickup(collector);
+        // Go through this intermediary method to allow for overriding and special cases
+        collector.GetComponent<Stats>().AddEffect(this);
     }
 
     public virtual void ApplyEffect(Stats collectorStats)
     {
-        OnEffectApplied?.Invoke(duration);
+        // Garbage collection will remove the event listener when the object is destroyed
+        Timer.OnTimerEnd += () => RemoveEffect(collectorStats);
+        Timer.StartTimer(duration);
     }
 
     public virtual void RemoveEffect(Stats collectorStats)
     {
-        OnEffectRemoved?.Invoke(duration);
+        Destroy(gameObject);
     }
 }

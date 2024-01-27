@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3214c731cd52a24da0a7aaad86010f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropChance: 0.1
-  duration: 10
-  speedAmount: 5
+  dropChance: 0.15
+  iconPrefab: {fileID: 7102498665583643904, guid: ae0bb28cd83659c41bc5e74444866bc3, type: 3}
+  duration: 5
+  moveSpeedAmount: 5
+  attackDelayReduction: 0.5

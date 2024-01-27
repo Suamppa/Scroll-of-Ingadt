@@ -4,39 +4,36 @@ using TMPro;
 using UnityEngine;
 
 // Class for handling timers
-[RequireComponent(typeof(TMP_Text))]
 public class Timer : MonoBehaviour
 {
     private TMP_Text timerText;
     private IEnumerator countdown;
 
-    // Only invoked when the timer ends naturally
     public event Action OnTimerEnd;
 
     public float TimeLeft { get; private set; } = 0f;
-
-    private void Awake()
-    {
-        if (!TryGetComponent(out timerText))
-        {
-            Debug.LogError("Timer component not found on the game object.");
-        }
-    }
+    public bool IsRunning { get { return countdown != null; } }
 
     // Start a timer for the given duration
     public void StartTimer(float duration)
     {
-        StopTimer();
+        PauseTimer();
         countdown = Countdown(duration);
         StartCoroutine(countdown);
+    }
+
+    public void SetTimer(float duration)
+    {
+        TimeLeft = duration;
     }
 
     public void StopTimer()
     {
         PauseTimer();
-        countdown = null;
         TimeLeft = 0f;
-        timerText.text = TimeLeft.ToString("F1");
+        if (timerText != null) timerText.text = TimeLeft.ToString("F1");
+        OnTimerEnd?.Invoke();
+        Debug.Log($"Countdown on {gameObject.name} ended.");
     }
 
     public void PauseTimer()
@@ -44,6 +41,7 @@ public class Timer : MonoBehaviour
         if (countdown != null)
         {
             StopCoroutine(countdown);
+            countdown = null;
         }
     }
 
@@ -51,8 +49,10 @@ public class Timer : MonoBehaviour
     {
         if (countdown != null)
         {
-            StartCoroutine(countdown);
+            PauseTimer();
         }
+        countdown = Countdown(TimeLeft);
+        StartCoroutine(countdown);
     }
 
     public void AddTime(float duration)
@@ -65,19 +65,23 @@ public class Timer : MonoBehaviour
         TimeLeft -= duration;
     }
 
+    // Assign a text component to display the timer
+    public void AssignText(TMP_Text text)
+    {
+        timerText = text;
+        Debug.Log($"Assigned {gameObject.name}'s timer text to {text.gameObject.name}.");
+    }
+
     private IEnumerator Countdown(float duration)
     {
-        Debug.Log($"Starting countdown on {transform.parent.name} for {duration}.");
+        Debug.Log($"Starting countdown on {gameObject.name} for {duration}.");
         TimeLeft = duration;
         while (TimeLeft > 0)
         {
-            timerText.text = TimeLeft.ToString("F1");
+            if (timerText != null) timerText.text = TimeLeft.ToString("F1");
             yield return new WaitForSeconds(0.1f);
             TimeLeft -= 0.1f;
         }
-        timerText.text = "0.0";
-        countdown = null;
-        OnTimerEnd?.Invoke();
-        Debug.Log($"Countdown on {transform.parent.name} ended.");
+        StopTimer();
     }
 }

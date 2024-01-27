@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50403f228a8a29b49b3d7b2012fb483f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropChance: 0.1
+  dropChance: 0.15
+  iconPrefab: {fileID: 798536476910019787, guid: ff5955a5cd034834b86fed73680d7bbb, type: 3}
   duration: 10
   shieldAmount: 2

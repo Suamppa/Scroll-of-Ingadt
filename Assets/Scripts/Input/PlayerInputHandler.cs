@@ -4,18 +4,21 @@ using UnityEngine.InputSystem;
 // Implementations for player input
 public class PlayerInputHandler : MonoBehaviour
 {
+    // This is the speed of the player
+    public float MoveSpeed { get => stats.moveSpeed; }
     // Reference to the attack collider of the player
     public GameObject attackCollider;
     // Add Animator for animations
     public Animator animator;
+
     // Reference to the PlayerActions asset
     private PlayerActions input = null;
     // This is the vector that will be used to move the player
     private Vector2 moveVector = Vector2.zero;
     // Reference to the Rigidbody2D component, movement is physics-based
     private Rigidbody2D rb = null;
-    // This is the speed of the player
-    private float moveSpeed;
+    // Reference to the Stats component
+    private Stats stats = null;
 
     private void Awake() {
         // Make sure rotation is 0
@@ -23,7 +26,7 @@ public class PlayerInputHandler : MonoBehaviour
         input = new PlayerActions();
         rb = GetComponent<Rigidbody2D>();
         // Unity is able to find the PlayerStats component due to inheritance
-        moveSpeed = GetComponent<Stats>().moveSpeed;
+        stats = GetComponent<Stats>();
     }
 
     private void OnEnable() {
@@ -46,7 +49,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
     private void FixedUpdate() {
-        rb.velocity = moveVector * moveSpeed;
+        rb.velocity = moveVector * MoveSpeed;
         // Rotate according to the direction of movement
         if (moveVector != Vector2.zero) {
             float angle = Vector2.SignedAngle(Vector2.down, moveVector) - attackCollider.transform.rotation.eulerAngles.z;
@@ -57,7 +60,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext context) {
         // Save the movement vector from input
-        animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        animator.SetFloat("Speed", Mathf.Abs(MoveSpeed));
         animator.SetBool("IsAttacking", false);
         animator.SetBool("isWounding", false);
         moveVector = context.ReadValue<Vector2>();

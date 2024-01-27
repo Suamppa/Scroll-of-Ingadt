@@ -3,11 +3,22 @@ using UnityEngine;
 public class SpeedBoost : TemporaryPickup
 {
     // Boost amount is flat and additive
-    public float speedAmount = 5f;
+    public float moveSpeedAmount = 5f;
+    public float attackDelayReduction = 0.5f;
 
-    public delegate void SpeedBoostEffect(float duration, float speedAmount);
-    public static event SpeedBoostEffect OnSpeedBoostApplied;
-    public static event SpeedBoostEffect OnSpeedBoostRemoved;
+    public override void OnPickup(Collider2D collector)
+    {
+        SpeedBoost existingBoost = collector.GetComponentInChildren<SpeedBoost>();
+        if (existingBoost != null)
+        {
+            existingBoost.Timer.AddTime(duration);
+            Destroy(gameObject);
+        }
+        else
+        {
+            base.OnPickup(collector);
+        }
+    }
 
     // This method is called when something enters the collectable's trigger
     protected override void OnTriggerEnter2D(Collider2D other)
@@ -20,16 +31,26 @@ public class SpeedBoost : TemporaryPickup
 
     public override void ApplyEffect(Stats collectorStats)
     {
-        Debug.Log($"Initial speed is {collectorStats.moveSpeed}");
-        collectorStats.moveSpeed += speedAmount;
+        Debug.Log($"Initial move speed is {collectorStats.moveSpeed}");
+        Debug.Log($"Initial attack delay is {collectorStats.attackDelay}");
+        
+        collectorStats.moveSpeed += moveSpeedAmount;
+        collectorStats.attackDelay -= attackDelayReduction;
+
         Debug.Log($"Speed is now {collectorStats.moveSpeed}");
-        OnSpeedBoostApplied?.Invoke(duration, speedAmount);
+        Debug.Log($"Attack delay is now {collectorStats.attackDelay}");
+
+        base.ApplyEffect(collectorStats);
     }
 
     public override void RemoveEffect(Stats collectorStats)
     {
-        collectorStats.moveSpeed -= speedAmount;
+        collectorStats.moveSpeed -= moveSpeedAmount;
+        collectorStats.attackDelay += attackDelayReduction;
+
         Debug.Log($"Speed is now {collectorStats.moveSpeed}");
-        OnSpeedBoostRemoved?.Invoke(duration, speedAmount);
+        Debug.Log($"Attack delay is now {collectorStats.attackDelay}");
+
+        base.RemoveEffect(collectorStats);
     }
 }

@@ -11,7 +11,7 @@ public class EnemyStats : Stats
 
     public override void TakeDamage(int damage)
     {
-        if (shield > 0)
+        if (Shield > 0)
         {
             ShieldDamage(damage);
         }

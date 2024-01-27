@@ -5,9 +5,19 @@ public class AttackBoost : TemporaryPickup
     // Boost is flat and additive
     public int damageBoost = 2;
 
-    public delegate void AttackBoostEffect(float duration, int damageBoost);
-    public static event AttackBoostEffect OnAttackBoostApplied;
-    public static event AttackBoostEffect OnAttackBoostRemoved;
+    public override void OnPickup(Collider2D collector)
+    {
+        AttackBoost existingBoost = collector.GetComponentInChildren<AttackBoost>();
+        if (existingBoost != null)
+        {
+            existingBoost.Timer.AddTime(duration);
+            Destroy(gameObject);
+        }
+        else
+        {
+            base.OnPickup(collector);
+        }
+    }
 
     // This method is called when something enters the collectable's trigger
     protected override void OnTriggerEnter2D(Collider2D other)
@@ -24,13 +34,13 @@ public class AttackBoost : TemporaryPickup
         Debug.Log($"Initial damage is {collectorStats.damage}");
         collectorStats.damage += damageBoost;
         Debug.Log($"Damage is now {collectorStats.damage}");
-        OnAttackBoostApplied?.Invoke(duration, damageBoost);
+        base.ApplyEffect(collectorStats);
     }
 
     public override void RemoveEffect(Stats collectorStats)
     {
         collectorStats.damage -= damageBoost;
         Debug.Log($"Damage is now {collectorStats.damage}");
-        OnAttackBoostRemoved?.Invoke(duration, damageBoost);
+        base.RemoveEffect(collectorStats);
     }
 }

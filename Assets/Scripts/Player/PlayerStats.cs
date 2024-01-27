@@ -5,14 +5,17 @@ public class PlayerStats : Stats
 {
     public delegate void PlayerHealthChanged(int newHealth);
     public delegate void PlayerShieldChanged(int newShield);
+    public delegate void PlayerStatusEffect<T>(T effect);
     public event PlayerHealthChanged OnPlayerDamaged;
     public event PlayerHealthChanged OnPlayerHealed;
-    public event PlayerShieldChanged OnPlayerShieldGained;
+    // public event PlayerShieldChanged OnPlayerShieldGained;
     public event PlayerShieldChanged OnPlayerShieldLost;
+    public event PlayerStatusEffect<TemporaryPickup> OnPlayerStatus;
+    public event PlayerStatusEffect<TempShield> OnPlayerTempShield;
 
     public override void TakeDamage(int damage)
     {
-        if (shield > 0)
+        if (Shield > 0)
         {
             ShieldDamage(damage);
         }
@@ -50,17 +53,23 @@ public class PlayerStats : Stats
         OnPlayerHealed?.Invoke(currentHealth);
     }
 
-    public override void GainShield(int shieldAmount)
-    {
-        base.GainShield(shieldAmount);
-        // Invoke the OnPlayerShieldGained event
-        OnPlayerShieldGained?.Invoke(shield);
-    }
-
     public override void ReduceShield(int shieldAmount)
     {
         base.ReduceShield(shieldAmount);
         // Invoke the OnPlayerShieldLost event
-        OnPlayerShieldLost?.Invoke(shield);
+        OnPlayerShieldLost?.Invoke(Shield);
+    }
+
+    public override void AddEffect(TemporaryPickup effect)
+    {
+        base.AddEffect(effect);
+        if (effect is TempShield tempShield)
+        {
+            OnPlayerTempShield?.Invoke(tempShield);
+        }
+        else
+        {
+            OnPlayerStatus?.Invoke(effect);
+        }
     }
 }
