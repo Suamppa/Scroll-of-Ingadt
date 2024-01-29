@@ -8,6 +8,7 @@ public class TempShield : TemporaryPickup
     public override void OnPickup(Collider2D collector)
     {
         TempShield existingShield = collector.GetComponentInChildren<TempShield>();
+        // If the collector already has a shield, add time to it
         if (existingShield != null)
         {
             existingShield.Timer.AddTime(duration);
@@ -15,6 +16,7 @@ public class TempShield : TemporaryPickup
         }
         else
         {
+            // Always call base.OnPickup() last to make sure the effect is applied
             base.OnPickup(collector);
         }
     }
@@ -32,12 +34,16 @@ public class TempShield : TemporaryPickup
     {
         Debug.Log($"Initial shield is {collectorStats.Shield}");
         collectorStats.GainShield(shieldAmount);
+
+        // Always call base.ApplyEffect() to start the timer
         base.ApplyEffect(collectorStats);
     }
 
     public override void RemoveEffect(Stats collectorStats)
     {
         collectorStats.ReduceShield(shieldAmount);
+        
+        // Always call base.RemoveEffect() to destroy the object
         base.RemoveEffect(collectorStats);
     }
 }

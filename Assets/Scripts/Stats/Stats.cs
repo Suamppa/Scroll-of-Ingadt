@@ -100,6 +100,9 @@ public class Stats : MonoBehaviour
     // Overload this method to add handling for different effect types
     public virtual void AddEffect(TemporaryPickup pickup)
     {
+        // Special handling/conditionals can go here
+
+        // Apply the effect
         pickup.ApplyEffect(this);
     }
 }

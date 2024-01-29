@@ -9,6 +9,7 @@ public class SpeedBoost : TemporaryPickup
     public override void OnPickup(Collider2D collector)
     {
         SpeedBoost existingBoost = collector.GetComponentInChildren<SpeedBoost>();
+        // If the collector already has this boost, add time to it
         if (existingBoost != null)
         {
             existingBoost.Timer.AddTime(duration);
@@ -16,6 +17,7 @@ public class SpeedBoost : TemporaryPickup
         }
         else
         {
+            // Always call base.OnPickup() last to make sure the effect is applied
             base.OnPickup(collector);
         }
     }
@@ -40,6 +42,7 @@ public class SpeedBoost : TemporaryPickup
         Debug.Log($"Speed is now {collectorStats.moveSpeed}");
         Debug.Log($"Attack delay is now {collectorStats.attackDelay}");
 
+        // Always call base.ApplyEffect() to start the timer
         base.ApplyEffect(collectorStats);
     }
 
@@ -51,6 +54,7 @@ public class SpeedBoost : TemporaryPickup
         Debug.Log($"Speed is now {collectorStats.moveSpeed}");
         Debug.Log($"Attack delay is now {collectorStats.attackDelay}");
 
+        // Always call base.RemoveEffect() to destroy the object
         base.RemoveEffect(collectorStats);
     }
 }

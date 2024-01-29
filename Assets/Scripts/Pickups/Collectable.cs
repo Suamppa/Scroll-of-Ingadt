@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Base class for collectables
 public abstract class Collectable : MonoBehaviour
 {
     public float dropChance = 0.5f;

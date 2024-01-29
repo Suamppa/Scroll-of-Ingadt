@@ -22,11 +22,13 @@ public class Timer : MonoBehaviour
         StartCoroutine(countdown);
     }
 
+    // Set the timer to the given duration without stopping or starting it
     public void SetTimer(float duration)
     {
         TimeLeft = duration;
     }
 
+    // Stop the timer and set the time left to 0, invoking the OnTimerEnd event
     public void StopTimer()
     {
         PauseTimer();
@@ -36,6 +38,7 @@ public class Timer : MonoBehaviour
         Debug.Log($"Countdown on {gameObject.name} ended.");
     }
 
+    // Pause the timer without resetting the time left or invoking the OnTimerEnd event
     public void PauseTimer()
     {
         if (countdown != null)
@@ -45,6 +48,7 @@ public class Timer : MonoBehaviour
         }
     }
 
+    // Resume the timer from where it left off
     public void ResumeTimer()
     {
         if (countdown != null)
@@ -65,13 +69,14 @@ public class Timer : MonoBehaviour
         TimeLeft -= duration;
     }
 
-    // Assign a text component to display the timer
+    // Assign a text component to display the timer value
     public void AssignText(TMP_Text text)
     {
         timerText = text;
         Debug.Log($"Assigned {gameObject.name}'s timer text to {text.gameObject.name}.");
     }
 
+    // Coroutine for a countdown timer
     private IEnumerator Countdown(float duration)
     {
         Debug.Log($"Starting countdown on {gameObject.name} for {duration}.");

@@ -65,10 +65,12 @@ public class PlayerStats : Stats
         base.AddEffect(effect);
         if (effect is TempShield tempShield)
         {
+            // HealthBar will listen for this event
             OnPlayerTempShield?.Invoke(tempShield);
         }
         else
         {
+            // StatusBar will listen for this event
             OnPlayerStatus?.Invoke(effect);
         }
     }
