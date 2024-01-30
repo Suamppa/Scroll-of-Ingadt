@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_wound
+  m_Name: Player_attack_up_axe
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 410962985, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
+      value: {fileID: 630715635, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
     - time: 0.2
-      value: {fileID: 365220450, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
+      value: {fileID: 2012014049, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 410962985, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
-    - {fileID: 365220450, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
+    - {fileID: 630715635, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
+    - {fileID: 2012014049, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
