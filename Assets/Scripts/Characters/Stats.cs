@@ -77,7 +77,7 @@ public class Stats : MonoBehaviour
     public virtual void Heal(int healAmount)
     {
         currentHealth += healAmount;
-        if(currentHealth > maxHealth)
+        if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }

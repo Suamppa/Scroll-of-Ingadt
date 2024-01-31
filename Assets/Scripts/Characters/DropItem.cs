@@ -9,20 +9,24 @@ public class DropItem : MonoBehaviour
     // Reference to the drop table
     private DropTable dropTable;
 
-    private void Start() {
+    private void Start()
+    {
         dropTable = GetComponent<DropTable>();
     }
 
     // Roll for a drop and drop a random item from the drop table
-    public void Drop() {
+    public void Drop()
+    {
         float dropRoll = Random.value;
         Debug.Log(gameObject.name + " rolled " + dropRoll.ToString("F2") + " / " + chanceToNotDrop.ToString("F2") + " to drop an item.");
-        if (dropRoll < chanceToNotDrop) {
+        if (dropRoll < chanceToNotDrop)
+        {
             Debug.Log(gameObject.name + " did not drop an item.");
             return;
         }
         GameObject item = dropTable.GetItem();
-        if (item != null) {
+        if (item != null)
+        {
             Instantiate(item, transform.position, Quaternion.identity);
         }
         Debug.Log(gameObject.name + " dropped " + item.name);

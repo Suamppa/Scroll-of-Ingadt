@@ -4,7 +4,8 @@ public class EnemyStats : Stats
 {
     private Rigidbody2D rb = null;
 
-    protected override void Awake() {
+    protected override void Awake()
+    {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -20,7 +21,7 @@ public class EnemyStats : Stats
             int effectiveDamage = HealthDamage(damage);
             rb.AddForce(-rb.velocity.normalized * effectiveDamage, ForceMode2D.Impulse);
         }
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }

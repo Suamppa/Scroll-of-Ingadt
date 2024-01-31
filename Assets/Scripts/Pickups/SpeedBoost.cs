@@ -26,7 +26,8 @@ public class SpeedBoost : TemporaryPickup
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         // Only pick up the collectable if the other object is the player
-        if(other.CompareTag("Player")) {
+        if (other.CompareTag("Player"))
+        {
             OnPickup(other);
         }
     }
@@ -35,7 +36,7 @@ public class SpeedBoost : TemporaryPickup
     {
         Debug.Log($"Initial move speed is {collectorStats.moveSpeed}");
         Debug.Log($"Initial attack delay is {collectorStats.attackDelay}");
-        
+
         collectorStats.moveSpeed += moveSpeedAmount;
         collectorStats.attackDelay -= attackDelayReduction;
 
