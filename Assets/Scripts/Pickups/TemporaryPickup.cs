@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class TemporaryPickup : Collectable
 {
     public Timer Timer { get; private set; }
-    
+
     // Icon to pass to the collector
     public GameObject iconPrefab;
     public float duration = 10f;
@@ -23,7 +23,7 @@ public abstract class TemporaryPickup : Collectable
     public override void OnPickup(Collider2D collector)
     {
         Debug.Log($"{gameObject.name} picked up");
-        
+
         // Pickup is hidden and moved to the collector for the duration of its effect
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;

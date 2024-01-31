@@ -23,7 +23,7 @@ public class PlayerStats : Stats
         {
             HealthDamage(damage);
         }
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
