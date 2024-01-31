@@ -14,26 +14,30 @@ public class HealthBar : MonoBehaviour
     // Player's Stats component
     private PlayerStats playerStats;
 
-    private void Awake() {
+    private void Awake()
+    {
         // Find the player's Stats component
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         // Subscribe to the OnPlayerDamaged event
         playerStats.OnPlayerDamaged += UpdateHealthIndicators;
         playerStats.OnPlayerHealed += UpdateHealthIndicators;
         playerStats.OnPlayerTempShield += AddTempShieldIcon;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         // Unsubscribe from the OnPlayerDamaged event
         playerStats.OnPlayerDamaged -= UpdateHealthIndicators;
         playerStats.OnPlayerHealed -= UpdateHealthIndicators;
         playerStats.OnPlayerTempShield -= AddTempShieldIcon;
     }
 
-    private void Start() {
+    private void Start()
+    {
         // Get the player's current health
         int health = playerStats.maxHealth;
         // Set the health indicators to the player's current health
@@ -41,27 +45,35 @@ public class HealthBar : MonoBehaviour
     }
 
     // Update the health indicators to the player's current health
-    public void UpdateHealthIndicators(int health) {
+    public void UpdateHealthIndicators(int health)
+    {
         // If the player is dead, set all health indicators to empty
         // While not strictly necessary, it's a speedup avoiding unnecessary loops
-        if (health < 1) {
-            foreach (Image heart in hearts) {
+        if (health < 1)
+        {
+            foreach (Image heart in hearts)
+            {
                 heart.sprite = emptyHeart;
             }
             return;
         }
         // Loop through the health indicators up to health
-        for (int i = 0; i < health; i++) {
-            if (i % 2 == 1) {
+        for (int i = 0; i < health; i++)
+        {
+            if (i % 2 == 1)
+            {
                 // If the index is odd, set the sprite to fullHeart
-                hearts[i/2].sprite = fullHeart;
-            } else {
+                hearts[i / 2].sprite = fullHeart;
+            }
+            else
+            {
                 // If the index is even, set the sprite to halfHeart
-                hearts[i/2].sprite = halfHeart;
+                hearts[i / 2].sprite = halfHeart;
             }
         }
         // Loop through the remaining health indicators
-        for (int i = (health+1)/2; i < hearts.Length; i++) {
+        for (int i = (health + 1) / 2; i < hearts.Length; i++)
+        {
             hearts[i].sprite = emptyHeart;
         }
     }
