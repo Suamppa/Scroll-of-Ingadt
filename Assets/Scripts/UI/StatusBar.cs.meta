@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 6e20f62e0be0f874dbf5003df30b41e2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - attackBoostIcon: {fileID: 7102498665583643904, guid: 2a5bc6382b41e6e418fc517576a5fdd4, type: 3}
+  - speedBoostIcon: {fileID: 7102498665583643904, guid: ae0bb28cd83659c41bc5e74444866bc3, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
