@@ -9,16 +9,19 @@ public class StatusBar : MonoBehaviour
     private PlayerStats playerStats;
     private List<(GameObject Icon, Timer Countdown)> activeStatuses;
 
-    private void Awake() {
+    private void Awake()
+    {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
         activeStatuses = new List<(GameObject Icon, Timer Countdown)>();
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         playerStats.OnPlayerStatus += AddStatusIcon;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         playerStats.OnPlayerStatus -= AddStatusIcon;
     }
 
