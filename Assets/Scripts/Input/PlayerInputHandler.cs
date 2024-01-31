@@ -20,7 +20,8 @@ public class PlayerInputHandler : MonoBehaviour
     // Reference to the Stats component
     private Stats stats = null;
 
-    private void Awake() {
+    private void Awake()
+    {
         // Make sure rotation is 0
         transform.rotation = Quaternion.identity;
         input = new PlayerActions();
@@ -29,7 +30,8 @@ public class PlayerInputHandler : MonoBehaviour
         stats = GetComponent<Stats>();
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         input.Enable();
         // Subscribe to the Move action
         input.PlayerControls.Move.performed += OnMove;
@@ -38,7 +40,8 @@ public class PlayerInputHandler : MonoBehaviour
         input.PlayerControls.Attack.performed += ctx => GetComponent<CanAttack>().Attack();
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         input.Disable();
         // Unsubscribe from the Move action
         input.PlayerControls.Move.performed -= OnMove;
@@ -48,17 +51,20 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         rb.velocity = moveVector * MoveSpeed;
         // Rotate according to the direction of movement
-        if (moveVector != Vector2.zero) {
+        if (moveVector != Vector2.zero)
+        {
             float angle = Vector2.SignedAngle(Vector2.down, moveVector) - attackCollider.transform.rotation.eulerAngles.z;
             // Rotate the attack collider around the player
             attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
         }
     }
 
-    private void OnMove(InputAction.CallbackContext context) {
+    private void OnMove(InputAction.CallbackContext context)
+    {
         // Save the movement vector from input
         animator.SetFloat("Speed", Mathf.Abs(MoveSpeed));
         animator.SetBool("IsAttacking", false);
@@ -66,7 +72,8 @@ public class PlayerInputHandler : MonoBehaviour
         moveVector = context.ReadValue<Vector2>();
     }
 
-    private void OnMoveCanceled(InputAction.CallbackContext context) {
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
         // Reset the movement vector
         animator.SetFloat("Speed", 0);
         moveVector = Vector2.zero;

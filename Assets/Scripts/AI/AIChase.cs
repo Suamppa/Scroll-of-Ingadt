@@ -22,7 +22,8 @@ public class AIChase : MonoBehaviour
     private Vector2 moveVector = Vector2.zero;
     private CanAttack canAttack = null;
 
-    private void Awake() {
+    private void Awake()
+    {
         // Make sure rotation is 0
         transform.rotation = Quaternion.identity;
         rb = GetComponent<Rigidbody2D>();
@@ -32,7 +33,8 @@ public class AIChase : MonoBehaviour
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         // Reset the moveVector
         moveVector = Vector2.zero;
         animator.SetBool("isWounding", false);
@@ -51,7 +53,8 @@ public class AIChase : MonoBehaviour
                 {
                     moveVector = (target.transform.position - transform.position).normalized;
                     // Rotate according to the direction of movement
-                    if (moveVector != Vector2.zero && canAttack != null) {
+                    if (moveVector != Vector2.zero && canAttack != null)
+                    {
                         float angle = Vector2.SignedAngle(Vector2.down, moveVector);
                         angle -= canAttack.attackCollider.transform.rotation.eulerAngles.z;
                         // Rotate the attack collider around the AI

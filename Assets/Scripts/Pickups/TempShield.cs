@@ -25,7 +25,8 @@ public class TempShield : TemporaryPickup
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         // Only pick up the collectable if the other object is the player
-        if(other.CompareTag("Player")) {
+        if (other.CompareTag("Player"))
+        {
             OnPickup(other);
         }
     }
@@ -42,7 +43,7 @@ public class TempShield : TemporaryPickup
     public override void RemoveEffect(Stats collectorStats)
     {
         collectorStats.ReduceShield(shieldAmount);
-        
+
         // Always call base.RemoveEffect() to destroy the object
         base.RemoveEffect(collectorStats);
     }

@@ -9,12 +9,15 @@ public class DropTable : MonoBehaviour
     // An array of the normalized drop rates for the items
     private float[] normalizedDropRates;
 
-    private void Start() {
+    private void Start()
+    {
         if (items is null || items.Length == 0) return;
-        try {
+        try
+        {
             normalizedDropRates = NormalizeDropRates();
         }
-        catch (System.NullReferenceException) {
+        catch (System.NullReferenceException)
+        {
             Debug.LogError("DropTable on " + gameObject.name + " is missing items or drop rates.");
         }
     }
