@@ -106,6 +106,28 @@ public class Stats : MonoBehaviour
         pickup.ApplyEffect(this);
     }
 
+    public virtual void GainShield(int shieldAmount)
+    {
+        Shield += shieldAmount;
+        Debug.Log($"{gameObject.name} gained {shieldAmount} shield. Shield is now {Shield}");
+    }
+
+    public virtual void ReduceShield(int shieldAmount)
+    {
+        if (Shield < shieldAmount) shieldAmount = Shield;
+        Shield -= shieldAmount;
+        Debug.Log($"{gameObject.name} lost {shieldAmount} shield. Shield is now {Shield}");
+    }
+
+    // Overload this method to add handling for different effect types
+    public virtual void AddEffect(TemporaryPickup pickup)
+    {
+        // Special handling/conditionals can go here
+
+        // Apply the effect
+        pickup.ApplyEffect(this);
+    }
+
     public virtual void ChangeWeaponStats(WeaponPickup pickedWeapon)
     {
         pickedWeapon.ChangeWeapon(this);
