@@ -38,6 +38,8 @@ public class PlayerInputHandler : MonoBehaviour
         input.PlayerControls.Move.canceled += OnMoveCanceled;
         // Subscribe to the Attack action
         input.PlayerControls.Attack.performed += ctx => GetComponent<CanAttack>().Attack();
+        // Subscribe to the WeaponPickup action
+        input.PlayerControls.Pickupweapon.performed += ctx => GetComponent<WeaponPickupHandler>().PlayerWeaponPick();
     }
 
     private void OnDisable()
@@ -48,6 +50,8 @@ public class PlayerInputHandler : MonoBehaviour
         input.PlayerControls.Move.canceled -= OnMoveCanceled;
         // Unsubscribe from the Attack action
         input.PlayerControls.Attack.performed -= ctx => GetComponent<CanAttack>().Attack();
+        // Unsubscribe from WeaponPickup action
+        input.PlayerControls.Pickupweapon.performed += ctx => GetComponent<WeaponPickupHandler>().PlayerWeaponPick();
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
