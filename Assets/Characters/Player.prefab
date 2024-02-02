@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.37, y: 0.37, z: 0.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 804814713711150271}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2048806914, guid: 6eb467575981f9b45a933aa596f68cc3, type: 3}
+  m_Sprite: {fileID: 365220450, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -152,18 +152,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05, y: 0.2}
+  m_Offset: {x: 0.15, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.2, y: 3.2}
+    oldSize: {x: 1.5, y: 1.5}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 2.5}
+  m_Size: {x: 0.6, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &8859153384515164762
 MonoBehaviour:
@@ -224,10 +224,9 @@ MonoBehaviour:
   maxHealth: 6
   currentHealth: 0
   moveSpeed: 10
-  attackSpeed: 1
+  attackDelay: 1
   damage: 1
   defense: 0
-  animator: {fileID: 4967062050162571204}
 --- !u!114 &8601401870154143956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,15 +373,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_Size.x
-      value: 4.5
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_Size.y
-      value: 4
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_Offset.y
-      value: -2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_LocalPosition.x

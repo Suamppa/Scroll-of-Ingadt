@@ -230,10 +230,9 @@ MonoBehaviour:
   - {fileID: 4565325604976067289}
   - {fileID: 1978995827374612937}
   - {fileID: 3893477077889987657}
-  fullHeart: {fileID: 21300000, guid: e98b4bc38c518014eae4932246e32676, type: 3}
-  halfHeart: {fileID: 21300000, guid: db4c3e86fd197a843a3b57dbc65f6669, type: 3}
-  emptyHeart: {fileID: 21300000, guid: 2a858dc331b38cd48a57e086080e085b, type: 3}
-  tempShieldIcon: {fileID: 0}
+  fullHeart: {fileID: -1197302450, guid: b960b33c064fbf045b0862c465362312, type: 3}
+  halfHeart: {fileID: -50436654, guid: b960b33c064fbf045b0862c465362312, type: 3}
+  emptyHeart: {fileID: -360453216, guid: b960b33c064fbf045b0862c465362312, type: 3}
 --- !u!1 &5381416840832862259
 GameObject:
   m_ObjectHideFlags: 0
