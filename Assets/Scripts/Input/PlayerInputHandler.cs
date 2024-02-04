@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     // This is the speed of the player
-    public float MoveSpeed { get => stats.moveSpeed; }
+    public float MoveSpeed { get => stats.MoveSpeed; }
+    
     // Reference to the attack collider of the player
     public GameObject attackCollider;
     // Add Animator for animations

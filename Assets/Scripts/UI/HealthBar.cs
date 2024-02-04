@@ -39,7 +39,7 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         // Get the player's current health
-        int health = playerStats.maxHealth;
+        int health = playerStats.MaxHealth;
         // Set the health indicators to the player's current health
         UpdateHealthIndicators(health);
     }

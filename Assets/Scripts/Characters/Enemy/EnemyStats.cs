@@ -21,7 +21,7 @@ public class EnemyStats : Stats
             int effectiveDamage = HealthDamage(damage);
             rb.AddForce(-rb.velocity.normalized * effectiveDamage, ForceMode2D.Impulse);
         }
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }

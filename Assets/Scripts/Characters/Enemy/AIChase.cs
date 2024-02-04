@@ -13,22 +13,23 @@ public class AIChase : MonoBehaviour
     public Animator animator;
 
     // Walking speed of the AI
-    private float speed;
+    private float Speed { get => stats.MoveSpeed; }
+
     // Distance between the AI and the target
     private float distance;
+    private Stats stats = null;
     // Reference to the Rigidbody2D component, movement is physics-based
     private Rigidbody2D rb = null;
     // This is the vector that will be used to move the AI
     private Vector2 moveVector = Vector2.zero;
     private CanAttack canAttack = null;
 
-    private void Awake()
+    private void OnEnable()
     {
+        stats = GetComponent<Stats>();
         // Make sure rotation is 0
         transform.rotation = Quaternion.identity;
         rb = GetComponent<Rigidbody2D>();
-        // Unity is able to find the EnemyStats component due to inheritance
-        speed = GetComponent<Stats>().moveSpeed;
         canAttack = GetComponent<CanAttack>();
     }
 
@@ -46,7 +47,7 @@ public class AIChase : MonoBehaviour
             // If distance is between minDistanceBetween and maxDistanceBetween, then move towards target
             if (distance < maxDistanceBetween)
             {
-                animator.SetFloat("Speed", Mathf.Abs(speed));
+                animator.SetFloat("Speed", Mathf.Abs(Speed));
                 // If able, attack ravenously while chasing
                 if (canAttack != null) canAttack.Attack();
                 if (distance > minDistanceBetween)
@@ -64,6 +65,6 @@ public class AIChase : MonoBehaviour
             }
         }
         // Use the moveVector to move the AI, no movement if moveVector is zero
-        rb.velocity = moveVector * speed;
+        rb.velocity = moveVector * Speed;
     }
 }
