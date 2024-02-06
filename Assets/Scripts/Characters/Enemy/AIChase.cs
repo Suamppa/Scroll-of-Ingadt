@@ -8,10 +8,8 @@ public class AIChase : MonoBehaviour
     public float minDistanceBetween;
     // This is the distance how far the enemy will start following target
     public float maxDistanceBetween;
-
     // Add Animator for animations
     public Animator animator;
-
     // Walking speed of the AI
     private float speed;
     // Distance between the AI and the target
@@ -76,8 +74,7 @@ public class AIChase : MonoBehaviour
             } else if (angle >= 135 || angle < -135) {
                 // Moving left
                 animator.SetInteger("Direction", -1); // Set animator parameter for left animation
-            } 
-            else {
+            } else {
                 // Moving down
                 animator.SetInteger("Direction", 0); // Set animator parameter for down animation
             }
