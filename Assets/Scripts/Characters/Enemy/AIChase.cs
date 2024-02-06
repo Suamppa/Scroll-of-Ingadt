@@ -52,18 +52,35 @@ public class AIChase : MonoBehaviour
                 if (distance > minDistanceBetween)
                 {
                     moveVector = (target.transform.position - transform.position).normalized;
-                    // Rotate according to the direction of movement
-                    if (moveVector != Vector2.zero && canAttack != null)
-                    {
-                        float angle = Vector2.SignedAngle(Vector2.down, moveVector);
-                        angle -= canAttack.attackCollider.transform.rotation.eulerAngles.z;
-                        // Rotate the attack collider around the AI
-                        canAttack.attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
-                    }
+                    UpdateAnimatorDirection(moveVector);
                 }
             }
         }
         // Use the moveVector to move the AI, no movement if moveVector is zero
         rb.velocity = moveVector * speed;
+    }
+    private void UpdateAnimatorDirection(Vector2 moveVector)
+    {
+        // Rotate according to the direction of movement
+        if (moveVector != Vector2.zero)
+        {
+            float angle = Vector2.SignedAngle(Vector2.down, moveVector);
+            angle -= canAttack.attackCollider.transform.rotation.eulerAngles.z;
+            canAttack.attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
+             if (angle >= -45 && angle < 45) {
+            // Moving right
+                animator.SetInteger("Direction", 1); // Set animator parameter for right animation
+            } else if (angle >= 45 && angle < 135) {
+                // Moving up
+                animator.SetInteger("Direction", 2); // Set animator parameter for up animation
+            } else if (angle >= 135 || angle < -135) {
+                // Moving left
+                animator.SetInteger("Direction", -1); // Set animator parameter for left animation
+            } 
+            else {
+                // Moving down
+                animator.SetInteger("Direction", 0); // Set animator parameter for down animation
+            }
+        }
     }
 }
