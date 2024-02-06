@@ -83,8 +83,6 @@ public class PlayerInputHandler : MonoBehaviour
             // Moving down
             animator.SetInteger("Direction", 0); // Set animator parameter for down animation
         }
-        animator.SetBool("IsAttacking", false);
-        animator.SetBool("isWounding", false);
         moveVector = movement;
     }
 
