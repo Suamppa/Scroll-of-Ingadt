@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponPickup : Collectable
@@ -10,17 +6,20 @@ public class WeaponPickup : Collectable
 
     private Collider2D player;
 
+    // Icon to pass to the collector
+    public GameObject iconPrefab;
+
     protected virtual void Awake()
     {        
-        
+        if (iconPrefab == null)
+        {
+            Debug.LogError($"No icon prefab set for {gameObject.name}.");
+        }
     }
 
     public override void OnPickup(Collider2D collector)
     {
-        if(player.gameObject.transform.childCount > 1)
-        {
-            DropWeaponInUse();
-        }
+        DropWeaponInUse();
         Debug.Log($"{gameObject.name} picked up");
 
         GetComponent<SpriteRenderer>().enabled = false;
@@ -34,16 +33,19 @@ public class WeaponPickup : Collectable
     public void DropWeaponInUse()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        GameObject oldWeapon = player.transform.GetChild(1).gameObject;
-        if(oldWeapon != null)
+        GameObject oldWeapon;
+        foreach(Transform t in player.GetComponentInChildren<Transform>())
         {
-            oldWeapon.transform.position = player.transform.position;
-            oldWeapon.GetComponent<SpriteRenderer>().enabled = true;
-            oldWeapon.GetComponent<Collider2D>().enabled = true;
-            oldWeapon.GetComponentInChildren<TextMeshPro>().enabled = true;
-            oldWeapon.transform.SetParent(null);
-            Debug.Log("Dropped the used weapon");
-             
+            if(t.CompareTag("Weapon"))
+            {
+                oldWeapon = t.gameObject;
+                oldWeapon.transform.position = player.transform.position;
+                oldWeapon.GetComponent<SpriteRenderer>().enabled = true;
+                oldWeapon.GetComponent<Collider2D>().enabled = true;
+                oldWeapon.GetComponentInChildren<TextMeshPro>().enabled = true;
+                oldWeapon.transform.SetParent(null);
+                Debug.Log("Dropped the used weapon");
+            }
         }
     }
 
@@ -58,7 +60,6 @@ public class WeaponPickup : Collectable
         {
             // If the collider is the player, set variable to player
             player = other;
-            Debug.Log("Player can pickup weapon");
         }
     }
     // This will delete the reference to player when player leaves the weapons trigger
@@ -68,13 +69,10 @@ public class WeaponPickup : Collectable
         {
             // If the collider is the player, empty the variable
             player = null;
-            Debug.Log("Player can't pickup weapon");
         }
         
     }
-
-
-
+    
     public virtual void ChangeWeapon(Stats collectorStats)
     {
 

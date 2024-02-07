@@ -6,12 +6,14 @@ public class PlayerStats : Stats
     public delegate void PlayerHealthChanged(int newHealth);
     public delegate void PlayerShieldChanged(int newShield);
     public delegate void PlayerStatusEffect<T>(T effect);
+    public delegate void PlayerWeapon<T>(T weapon);
     public event PlayerHealthChanged OnPlayerDamaged;
     public event PlayerHealthChanged OnPlayerHealed;
     // public event PlayerShieldChanged OnPlayerShieldGained;
     public event PlayerShieldChanged OnPlayerShieldLost;
     public event PlayerStatusEffect<TemporaryPickup> OnPlayerStatus;
     public event PlayerStatusEffect<TempShield> OnPlayerTempShield;
+    public event PlayerWeapon<WeaponPickup> OnPlayerWeaponPickup;
 
     public override void TakeDamage(int damage)
     {
@@ -74,8 +76,10 @@ public class PlayerStats : Stats
             OnPlayerStatus?.Invoke(effect);
         }
     }
+
     public override void ChangeWeaponStats(WeaponPickup pickedWeapon)
     {
         base.ChangeWeaponStats(pickedWeapon);
+        OnPlayerWeaponPickup?.Invoke(pickedWeapon);
     }
 }
