@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     // This is the speed of the player
-    public float MoveSpeed { get => stats.moveSpeed; }
+    public float MoveSpeed { get => stats.MoveSpeed; }
+    
     // Reference to the attack collider of the player
     public GameObject attackCollider;
     // Add Animator for animations
@@ -40,6 +41,8 @@ public class PlayerInputHandler : MonoBehaviour
         input.PlayerControls.Move.canceled += OnMoveCanceled;
         // Subscribe to the Attack action
         input.PlayerControls.Attack.performed += ctx => GetComponent<CanAttack>().Attack();
+        // Subscribe to the WeaponPickup action
+        input.PlayerControls.PickUpWeapon.performed += ctx => GetComponent<WeaponPickupHandler>().PlayerWeaponPick();
         // Subscribe to the Pause action
         input.PlayerControls.PauseGame.performed += OnPause;
     }
@@ -51,6 +54,8 @@ public class PlayerInputHandler : MonoBehaviour
         input.PlayerControls.Move.canceled -= OnMoveCanceled;
         // Unsubscribe from the Attack action
         input.PlayerControls.Attack.performed -= ctx => GetComponent<CanAttack>().Attack();
+        // Unsubscribe from WeaponPickup action
+        input.PlayerControls.PickUpWeapon.performed += ctx => GetComponent<WeaponPickupHandler>().PlayerWeaponPick();
         // Unsubscribe from the Pause action
         input.PlayerControls.PauseGame.performed -= OnPause;
         input.PlayerControls.Disable();
@@ -71,11 +76,25 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        // Save the movement vector from input
-        animator.SetFloat("Speed", Mathf.Abs(MoveSpeed));
-        animator.SetBool("IsAttacking", false);
-        animator.SetBool("isWounding", false);
-        moveVector = context.ReadValue<Vector2>();
+        Vector2 movement = context.ReadValue<Vector2>();
+        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+        animator.SetFloat("Speed", Mathf.Abs(movement.magnitude * MoveSpeed));
+
+        if (angle >= -45 && angle < 45) {
+            // Moving right
+            animator.SetInteger("Direction", 1); // Set animator parameter for right animation
+        } else if (angle >= 45 && angle < 135) {
+            // Moving up
+            animator.SetInteger("Direction", 2); // Set animator parameter for up animation
+        } else if (angle >= 135 || angle < -135) {
+            // Moving left
+            animator.SetInteger("Direction", -1); // Set animator parameter for left animation
+        } 
+        else {
+            // Moving down
+            animator.SetInteger("Direction", 0); // Set animator parameter for down animation
+        }
+        moveVector = movement;
     }
 
     private void OnMoveCanceled(InputAction.CallbackContext context)
