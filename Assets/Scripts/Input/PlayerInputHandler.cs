@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -102,5 +103,12 @@ public class PlayerInputHandler : MonoBehaviour
         // Reset the movement vector
         animator.SetFloat("Speed", 0);
         moveVector = Vector2.zero;
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Draw a line to show the direction of the player
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3) moveVector);
     }
 }
