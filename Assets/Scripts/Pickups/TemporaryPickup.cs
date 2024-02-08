@@ -36,9 +36,6 @@ public abstract class TemporaryPickup : Collectable
     // Override this method to apply the effect of the pickup
     public virtual void ApplyEffect(Stats collectorStats)
     {
-        // Create an icon to represent the effect
-
-
         // Garbage collection will remove the event listener when the object is destroyed
         Timer.OnTimerEnd += () => RemoveEffect(collectorStats);
         Timer.StartTimer(duration);
