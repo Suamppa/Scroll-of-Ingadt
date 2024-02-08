@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +7,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     // This is the speed of the player
     public float MoveSpeed { get => stats.MoveSpeed; }
-    
+
     // Reference to the attack collider of the player
     public GameObject attackCollider;
     // Add Animator for animations
@@ -22,6 +23,8 @@ public class PlayerInputHandler : MonoBehaviour
     private Rigidbody2D rb = null;
     // Reference to the Stats component
     private Stats stats = null;
+    // Direction of the player (0 = down, 1 = right, 2 = up, -1 = left)
+    private int direction = 0;
 
     private void Awake()
     {
@@ -74,26 +77,30 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        // Set the direction for the animator
+        animator.SetInteger("Direction", direction);
+    }
+
     private void OnMove(InputAction.CallbackContext context)
     {
         Vector2 movement = context.ReadValue<Vector2>();
-        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
         animator.SetFloat("Speed", Mathf.Abs(movement.magnitude * MoveSpeed));
 
-        if (angle >= -45 && angle < 45) {
-            // Moving right
-            animator.SetInteger("Direction", 1); // Set animator parameter for right animation
-        } else if (angle >= 45 && angle < 135) {
-            // Moving up
-            animator.SetInteger("Direction", 2); // Set animator parameter for up animation
-        } else if (angle >= 135 || angle < -135) {
-            // Moving left
-            animator.SetInteger("Direction", -1); // Set animator parameter for left animation
-        } 
-        else {
-            // Moving down
-            animator.SetInteger("Direction", 0); // Set animator parameter for down animation
+        if (movement != Vector2.zero)
+        {
+            float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+
+            direction = angle switch
+            {
+                >= -45 and < 45 => 1, // Moving right
+                >= 45 and < 135 => 2, // Moving up
+                >= 135 or < -135 => -1, // Moving left
+                _ => 0, // Moving down
+            };
         }
+
         moveVector = movement;
     }
 
@@ -107,5 +114,12 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnPause(InputAction.CallbackContext context)
     {
         pauseMenu.PauseGame(input);
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Draw a line to show the direction of the player
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3) moveVector);
     }
 }
