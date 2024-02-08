@@ -315,9 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c97e0567cafd25449d3ef63489d60ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropChance: 0.5
-  weaponDamage: 0
-  weaponAttackDelay: 0
+  dropChance: 0.05
+  iconPrefab: {fileID: 7102498665583643904, guid: 19eadea3d6d50c541a36d196c66bcc69, type: 3}
   damageRangeMin: 1
   damageRangeMax: 2
   attSpeedRangeMin: 0.5
