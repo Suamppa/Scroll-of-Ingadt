@@ -26,7 +26,7 @@
                 {
                     "name": "Pick Up Weapon",
                     "type": "Button",
-                    "id": "fdc28bd4-8078-4295-965e-abced13232fa",
+                    "id": "b64b1f4d-0970-450e-b3cc-339523045827",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -243,7 +243,7 @@
                 },
                 {
                     "name": "",
-                    "id": "1f5f2d13-6fb3-482b-9512-eeaf9236b63d",
+                    "id": "47a92a11-c2f4-44c3-ba5d-36208c4bd90c",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
@@ -254,7 +254,7 @@
                 },
                 {
                     "name": "",
-                    "id": "9d27510a-f0ce-4cd8-9814-9e7c29600d0d",
+                    "id": "43c3b79b-f6ab-4563-8b87-4f2764637634",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
