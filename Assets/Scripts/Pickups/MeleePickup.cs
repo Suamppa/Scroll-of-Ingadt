@@ -36,16 +36,16 @@ public class MeleePickup : WeaponPickup
 
     public override void ChangeWeapon(Stats collectorStats)
     {
-        Debug.Log($"Initial attackDelay is {collectorStats.attackDelay}");
-        Debug.Log($"Initial damage is {collectorStats.damage}");
+        Debug.Log($"Initial attackDelay is {collectorStats.AttackDelay}");
+        Debug.Log($"Initial damage is {collectorStats.Damage}");
 
         // This will change attack speed
-        collectorStats.attackDelay = weaponAttackDelay;
+        collectorStats.bonusAttackDelay = weaponAttackDelay;
         // This will change damage
-        collectorStats.damage = weaponDamage;
+        collectorStats.bonusDamage = weaponDamage;
         
-        Debug.Log($"attackDelay is now {collectorStats.attackDelay}");
-        Debug.Log($"Damage is now {collectorStats.damage}");
+        Debug.Log($"attackDelay is now {collectorStats.AttackDelay}");
+        Debug.Log($"Damage is now {collectorStats.Damage}");
 
         // Always call base.ApplyEffect() to start the timer
         base.ChangeWeapon(collectorStats);
