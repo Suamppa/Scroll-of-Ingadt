@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using System;
+using TMPro;
+using UnityEngine;
 
 public class MeleePickup : WeaponPickup
 {
@@ -30,7 +28,7 @@ public class MeleePickup : WeaponPickup
         // This will convert the attack speed to seconds (how many hits in second) and round it up
         attackSpeedSeconds = (float) Math.Round(1 / weaponAttackDelay, 2);
         // This will update the text under the pickup
-        GetComponentInChildren<TextMeshPro>().SetText("Damage: " + weaponDamage + "\nSpeed: " + attackSpeedSeconds + "/s");      
+        GetComponentInChildren<TextMeshPro>().SetText($"Damage: {weaponDamage}\nSpeed: {attackSpeedSeconds}/s");
     }
 
 
@@ -47,7 +45,6 @@ public class MeleePickup : WeaponPickup
         Debug.Log($"attackDelay is now {collectorStats.AttackDelay}");
         Debug.Log($"Damage is now {collectorStats.Damage}");
 
-        // Always call base.ApplyEffect() to start the timer
         base.ChangeWeapon(collectorStats);
     }
 }

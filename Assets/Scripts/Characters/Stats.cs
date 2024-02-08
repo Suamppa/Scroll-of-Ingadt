@@ -150,5 +150,4 @@ public class Stats : MonoBehaviour
     {
         pickedWeapon.ChangeWeapon(this);
     }
-
 }
