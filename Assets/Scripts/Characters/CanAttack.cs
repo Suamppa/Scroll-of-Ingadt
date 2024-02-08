@@ -83,7 +83,7 @@ public class CanAttack : MonoBehaviour
     }
 
     // Draw the rough outline of the attack collider for debugging (not visible in game)
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         // Set Gizmo color
         Gizmos.color = Color.red;
