@@ -46,7 +46,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pick-up weapon"",
+                    ""name"": ""Pick Up Weapon"",
                     ""type"": ""Button"",
                     ""id"": ""814f4ac6-4b43-488d-a9a6-e61e648dca89"",
                     ""expectedControlType"": ""Button"",
@@ -227,8 +227,19 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pick-up weapon"",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pick Up Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3956fda-672d-4998-9d04-19b083cb5663"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pick Up Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -252,7 +263,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Move = m_PlayerControls.FindAction("Move", throwIfNotFound: true);
         m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
-        m_PlayerControls_Pickupweapon = m_PlayerControls.FindAction("Pick-up weapon", throwIfNotFound: true);
+        m_PlayerControls_PickUpWeapon = m_PlayerControls.FindAction("Pick Up Weapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -316,14 +327,14 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private List<IPlayerControlsActions> m_PlayerControlsActionsCallbackInterfaces = new List<IPlayerControlsActions>();
     private readonly InputAction m_PlayerControls_Move;
     private readonly InputAction m_PlayerControls_Attack;
-    private readonly InputAction m_PlayerControls_Pickupweapon;
+    private readonly InputAction m_PlayerControls_PickUpWeapon;
     public struct PlayerControlsActions
     {
         private @PlayerActions m_Wrapper;
         public PlayerControlsActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_PlayerControls_Move;
         public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
-        public InputAction @Pickupweapon => m_Wrapper.m_PlayerControls_Pickupweapon;
+        public InputAction @PickUpWeapon => m_Wrapper.m_PlayerControls_PickUpWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -339,9 +350,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @Pickupweapon.started += instance.OnPickupweapon;
-            @Pickupweapon.performed += instance.OnPickupweapon;
-            @Pickupweapon.canceled += instance.OnPickupweapon;
+            @PickUpWeapon.started += instance.OnPickUpWeapon;
+            @PickUpWeapon.performed += instance.OnPickUpWeapon;
+            @PickUpWeapon.canceled += instance.OnPickUpWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -352,9 +363,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @Pickupweapon.started -= instance.OnPickupweapon;
-            @Pickupweapon.performed -= instance.OnPickupweapon;
-            @Pickupweapon.canceled -= instance.OnPickupweapon;
+            @PickUpWeapon.started -= instance.OnPickUpWeapon;
+            @PickUpWeapon.performed -= instance.OnPickUpWeapon;
+            @PickUpWeapon.canceled -= instance.OnPickUpWeapon;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -394,6 +405,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnPickupweapon(InputAction.CallbackContext context);
+        void OnPickUpWeapon(InputAction.CallbackContext context);
     }
 }

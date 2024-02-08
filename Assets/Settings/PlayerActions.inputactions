@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pick-up weapon",
+                    "name": "Pick Up Weapon",
                     "type": "Button",
                     "id": "814f4ac6-4b43-488d-a9a6-e61e648dca89",
                     "expectedControlType": "Button",
@@ -205,8 +205,19 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Pick-up weapon",
+                    "groups": "Keyboard",
+                    "action": "Pick Up Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3956fda-672d-4998-9d04-19b083cb5663",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pick Up Weapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
