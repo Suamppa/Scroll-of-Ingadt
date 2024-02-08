@@ -4,8 +4,8 @@ using UnityEngine;
 // Based on the code created by @Ritumu
 public class CanAttack : MonoBehaviour
 {
-    public int DamageAmount { get => attackerStats.damage; }
-    public float AttackDelay { get => attackerStats.attackDelay; }
+    public int DamageAmount { get => attackerStats.Damage; }
+    public float AttackDelay { get => attackerStats.AttackDelay; }
 
     // Layers that can be attacked
     public LayerMask[] targetLayers;
@@ -49,7 +49,8 @@ public class CanAttack : MonoBehaviour
     {
         // If time since last attack < attack delay, then don't attack
         if (Time.time - lastAttackTime < AttackDelay) return;
-        animator.SetBool("IsAttacking", true);
+        // Trigger the attack animation
+        animator.SetTrigger("Attacking");
         List<Collider2D> targets = new();
         // "_" means a discard, which means we don't care about the return value;
         // the function fills the targets list with the colliders in range

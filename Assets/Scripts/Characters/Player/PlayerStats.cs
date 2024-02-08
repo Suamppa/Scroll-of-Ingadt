@@ -15,27 +15,27 @@ public class PlayerStats : Stats
     public event PlayerStatusEffect<TempShield> OnPlayerTempShield;
     public event PlayerWeapon<WeaponPickup> OnPlayerWeaponPickup;
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int incomingDamage)
     {
         if (Shield > 0)
         {
-            ShieldDamage(damage);
+            ShieldDamage(incomingDamage);
         }
         else
         {
-            HealthDamage(damage);
+            HealthDamage(incomingDamage);
         }
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
     }
 
-    protected override int HealthDamage(int damage)
+    protected override int HealthDamage(int incomingDamage)
     {
-        int effectiveDamage = base.HealthDamage(damage);
+        int effectiveDamage = base.HealthDamage(incomingDamage);
         // Invoke the OnPlayerDamaged event
-        OnPlayerDamaged?.Invoke(currentHealth);
+        OnPlayerDamaged?.Invoke(CurrentHealth);
         return effectiveDamage;
     }
 
@@ -52,7 +52,7 @@ public class PlayerStats : Stats
     {
         base.Heal(healAmount);
         // Invoke the OnPlayerHealed event
-        OnPlayerHealed?.Invoke(currentHealth);
+        OnPlayerHealed?.Invoke(CurrentHealth);
     }
 
     public override void ReduceShield(int shieldAmount)
