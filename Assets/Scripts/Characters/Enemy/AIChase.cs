@@ -64,15 +64,17 @@ public class AIChase : MonoBehaviour
         if (moveVector != Vector2.zero)
         {
             float angle = Vector2.SignedAngle(Vector2.down, moveVector);
+            float moveDirection = angle;
             angle -= canAttack.attackCollider.transform.rotation.eulerAngles.z;
             canAttack.attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
-             if (angle >= -45 && angle < 45) {
+            Debug.Log("moveDirection is: " + moveDirection);
+             if (moveDirection >= 45 && moveDirection < 135) {
             // Moving right
                 animator.SetInteger("Direction", 1); // Set animator parameter for right animation
-            } else if (angle >= 45 && angle < 135) {
+            } else if (moveDirection >= 135 || moveDirection < -135) {
                 // Moving up
                 animator.SetInteger("Direction", 2); // Set animator parameter for up animation
-            } else if (angle >= 135 || angle < -135) {
+            } else if (moveDirection >= -135 && moveDirection < -45) {
                 // Moving left
                 animator.SetInteger("Direction", -1); // Set animator parameter for left animation
             } else {
