@@ -46,6 +46,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Pick Up Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdc28bd4-8078-4295-965e-abced13232fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Pause Game"",
                     ""type"": ""Button"",
                     ""id"": ""7a702ed5-6554-490b-a72a-68b5bbee2ac1"",
@@ -253,6 +262,28 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Pause Game"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f5f2d13-6fb3-482b-9512-eeaf9236b63d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pick Up Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d27510a-f0ce-4cd8-9814-9e7c29600d0d"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pick Up Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -324,6 +355,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Move = m_PlayerControls.FindAction("Move", throwIfNotFound: true);
         m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerControls_PickUpWeapon = m_PlayerControls.FindAction("Pick Up Weapon", throwIfNotFound: true);
         m_PlayerControls_PauseGame = m_PlayerControls.FindAction("Pause Game", throwIfNotFound: true);
         // MenuControls
         m_MenuControls = asset.FindActionMap("MenuControls", throwIfNotFound: true);
@@ -391,6 +423,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private List<IPlayerControlsActions> m_PlayerControlsActionsCallbackInterfaces = new List<IPlayerControlsActions>();
     private readonly InputAction m_PlayerControls_Move;
     private readonly InputAction m_PlayerControls_Attack;
+    private readonly InputAction m_PlayerControls_PickUpWeapon;
     private readonly InputAction m_PlayerControls_PauseGame;
     public struct PlayerControlsActions
     {
@@ -398,6 +431,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         public PlayerControlsActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_PlayerControls_Move;
         public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
+        public InputAction @PickUpWeapon => m_Wrapper.m_PlayerControls_PickUpWeapon;
         public InputAction @PauseGame => m_Wrapper.m_PlayerControls_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
@@ -414,6 +448,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @PickUpWeapon.started += instance.OnPickUpWeapon;
+            @PickUpWeapon.performed += instance.OnPickUpWeapon;
+            @PickUpWeapon.canceled += instance.OnPickUpWeapon;
             @PauseGame.started += instance.OnPauseGame;
             @PauseGame.performed += instance.OnPauseGame;
             @PauseGame.canceled += instance.OnPauseGame;
@@ -427,6 +464,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @PickUpWeapon.started -= instance.OnPickUpWeapon;
+            @PickUpWeapon.performed -= instance.OnPickUpWeapon;
+            @PickUpWeapon.canceled -= instance.OnPickUpWeapon;
             @PauseGame.started -= instance.OnPauseGame;
             @PauseGame.performed -= instance.OnPauseGame;
             @PauseGame.canceled -= instance.OnPauseGame;
@@ -515,6 +555,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnPickUpWeapon(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
     }
     public interface IMenuControlsActions
