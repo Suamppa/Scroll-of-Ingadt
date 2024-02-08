@@ -221,12 +221,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf737e058ea99814a8658408f97c21f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
-  currentHealth: 0
-  moveSpeed: 10
-  attackDelay: 1
-  damage: 1
-  defense: 0
+  characterData: {fileID: 11400000, guid: 430a0c236b5748c4e952b5ea73f58182, type: 2}
+  bonusHealth: 0
+  bonusMoveSpeed: 0
+  bonusAttackDelay: 0
+  bonusDamage: 0
+  bonusDefense: 0
+  bonusShield: 0
 --- !u!114 &8601401870154143956
 MonoBehaviour:
   m_ObjectHideFlags: 0

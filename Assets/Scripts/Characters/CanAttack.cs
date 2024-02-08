@@ -4,8 +4,8 @@ using UnityEngine;
 // Based on the code created by @Ritumu
 public class CanAttack : MonoBehaviour
 {
-    public int DamageAmount { get => attackerStats.damage; }
-    public float AttackDelay { get => attackerStats.attackDelay; }
+    public int DamageAmount { get => attackerStats.Damage; }
+    public float AttackDelay { get => attackerStats.AttackDelay; }
 
     // Layers that can be attacked
     public LayerMask[] targetLayers;
