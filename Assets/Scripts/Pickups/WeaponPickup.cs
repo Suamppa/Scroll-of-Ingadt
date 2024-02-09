@@ -10,7 +10,7 @@ public class WeaponPickup : Collectable
 
     protected virtual void Awake()
     {
-        if (iconPrefab == null)
+        if (Debug.isDebugBuild && iconPrefab == null)
         {
             Debug.LogError($"No icon prefab set for {gameObject.name}.");
         }
@@ -19,7 +19,11 @@ public class WeaponPickup : Collectable
     public override void OnPickup(Collider2D collector)
     {
         DropWeaponInUse();
-        Debug.Log($"{gameObject.name} picked up");
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} picked up");
+        }
 
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
@@ -43,7 +47,11 @@ public class WeaponPickup : Collectable
                 oldWeapon.GetComponent<Collider2D>().enabled = true;
                 oldWeapon.GetComponentInChildren<TextMeshPro>().enabled = true;
                 oldWeapon.transform.SetParent(null);
-                Debug.Log("Dropped the used weapon");
+
+                if (Debug.isDebugBuild)
+                {
+                    Debug.Log("Dropped the used weapon");
+                }
             }
         }
     }

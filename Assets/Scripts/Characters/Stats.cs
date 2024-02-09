@@ -75,7 +75,11 @@ public class Stats : MonoBehaviour
     protected virtual void ShieldDamage(int incomingDamage)
     {
         ReduceShield(1);
-        Debug.Log($"{gameObject.name} blocked {incomingDamage} damage with shield. Shield is now {Shield}");
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} blocked {incomingDamage} damage with shield. Shield is now {Shield}");
+        }
     }
 
     // Take damage to health and return the amount of damage taken
@@ -87,7 +91,12 @@ public class Stats : MonoBehaviour
         {
             animator.SetBool("isWounding", true);
         }
-        Debug.Log($"{gameObject.name} took {incomingDamage} damage. Health is now {CurrentHealth}");
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} took {incomingDamage} damage. Health is now {CurrentHealth}");
+        }
+
         return effectiveDamage;
     }
 
@@ -95,7 +104,11 @@ public class Stats : MonoBehaviour
     public virtual void Die()
     {
         // Death sounds, animations, respawn logic etc. can go here
-        Debug.Log($"{gameObject.name} died.");
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} died.");
+        }
+
         Destroy(gameObject);
     }
 
@@ -106,13 +119,21 @@ public class Stats : MonoBehaviour
         {
             CurrentHealth = MaxHealth;
         }
-        Debug.Log($"{gameObject.name} healed {healAmount} health. Health is now {CurrentHealth}");
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} healed {healAmount} health. Health is now {CurrentHealth}");
+        }
     }
 
     public virtual void GainShield(int shieldAmount)
     {
         bonusShield += shieldAmount;
-        Debug.Log($"{gameObject.name} gained {shieldAmount} shield. Shield is now {Shield}");
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} gained {shieldAmount} shield. Shield is now {Shield}");
+        }
     }
 
     public virtual void ReduceShield(int reduceAmount)
@@ -134,7 +155,11 @@ public class Stats : MonoBehaviour
                 baseShield = 0;
             }
         }
-        Debug.Log($"{gameObject.name} lost {reduceAmount} shield. Shield is now {Shield}");
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} lost {reduceAmount} shield. Shield is now {Shield}");
+        }
     }
 
     // Overload this method to add handling for different effect types

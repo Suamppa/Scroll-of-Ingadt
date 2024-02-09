@@ -18,7 +18,10 @@ public class DropTable : MonoBehaviour
         }
         catch (System.NullReferenceException)
         {
-            Debug.LogError("DropTable on " + gameObject.name + " is missing items or drop rates.");
+            if (Debug.isDebugBuild)
+            {
+                Debug.LogError($"DropTable on {gameObject.name} is missing items or drop rates.");
+            }
         }
     }
 

@@ -67,7 +67,12 @@ public class AIChase : MonoBehaviour
             float moveDirection = angle;
             angle -= canAttack.attackCollider.transform.rotation.eulerAngles.z;
             canAttack.attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
-            Debug.Log("moveDirection is: " + moveDirection);
+
+            // if (Debug.isDebugBuild)
+            // {
+            //     Debug.Log("moveDirection is: " + moveDirection);
+            // }
+
              if (moveDirection >= 45 && moveDirection < 135) {
             // Moving right
                 animator.SetInteger("Direction", 1); // Set animator parameter for right animation

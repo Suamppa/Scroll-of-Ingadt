@@ -18,17 +18,30 @@ public class DropItem : MonoBehaviour
     public void Drop()
     {
         float dropRoll = Random.value;
-        Debug.Log(gameObject.name + " rolled " + dropRoll.ToString("F2") + " / " + chanceToNotDrop.ToString("F2") + " to drop an item.");
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} rolled {dropRoll:F2} / {chanceToNotDrop:F2} to drop an item.");
+        }
+
         if (dropRoll < chanceToNotDrop)
         {
-            Debug.Log(gameObject.name + " did not drop an item.");
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log($"{gameObject.name} did not drop an item.");
+            }
             return;
         }
+
         GameObject item = dropTable.GetItem();
         if (item != null)
         {
             Instantiate(item, transform.position, Quaternion.identity);
         }
-        Debug.Log(gameObject.name + " dropped " + item.name);
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} dropped {item.name}");
+        }
     }
 }

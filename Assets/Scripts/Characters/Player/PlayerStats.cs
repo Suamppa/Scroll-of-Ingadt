@@ -43,8 +43,12 @@ public class PlayerStats : Stats
     public override void Die()
     {
         // Death sounds, animations, respawn logic etc. can go here
-        Debug.Log($"{gameObject.name} died.");
-        // Add a game over screen here
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} died.");
+        }
+
         SceneManager.LoadScene("DeathScreen", LoadSceneMode.Single);
     }
 

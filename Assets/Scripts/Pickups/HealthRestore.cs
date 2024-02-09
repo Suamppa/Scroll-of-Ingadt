@@ -11,7 +11,11 @@ public class HealthRestore : Collectable
         Stats collectorStats = collector.GetComponent<Stats>();
         // Ignore collectable if collector is at max health
         if (collectorStats.CurrentHealth == collectorStats.MaxHealth) return;
-        Debug.Log($"{collector.name} picked up {gameObject.name}");
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{collector.name} picked up {gameObject.name}");
+        }
 
         // Restore health
         collectorStats.Heal(healthAmount);

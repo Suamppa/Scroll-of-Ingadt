@@ -67,7 +67,10 @@ public class CanAttack : MonoBehaviour
                 }
                 catch (System.NullReferenceException)
                 {
-                    Debug.LogWarning("Target " + target.name + " does not have a Stats component.");
+                    if (Debug.isDebugBuild)
+                    {
+                        Debug.LogWarning("Target " + target.name + " does not have a Stats component.");
+                    }
                 }
             }
         }
@@ -79,7 +82,11 @@ public class CanAttack : MonoBehaviour
     {
         audioSource.clip = attackSound;
         audioSource.Play();
-        Debug.Log(gameObject.name + " played attack sound");
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log(gameObject.name + " played attack sound");
+        }
     }
 
     // Draw the rough outline of the attack collider for debugging (not visible in game)

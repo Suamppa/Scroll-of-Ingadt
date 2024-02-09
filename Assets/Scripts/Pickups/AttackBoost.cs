@@ -33,9 +33,14 @@ public class AttackBoost : TemporaryPickup
 
     public override void ApplyEffect(Stats collectorStats)
     {
-        Debug.Log($"Initial damage is {collectorStats.Damage}");
+        string preMessage = $"Initial damage is {collectorStats.Damage}";
         collectorStats.bonusDamage += damageBoost;
-        Debug.Log($"Damage is now {collectorStats.Damage}");
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log(preMessage);
+            Debug.Log($"Damage is now {collectorStats.Damage}");
+        }
 
         // Always call base.ApplyEffect() to start the timer
         base.ApplyEffect(collectorStats);
@@ -44,7 +49,11 @@ public class AttackBoost : TemporaryPickup
     public override void RemoveEffect(Stats collectorStats)
     {
         collectorStats.bonusDamage -= damageBoost;
-        Debug.Log($"Damage is now {collectorStats.Damage}");
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"Damage is now {collectorStats.Damage}");
+        }
 
         // Always call base.RemoveEffect() to destroy the object
         base.RemoveEffect(collectorStats);

@@ -34,14 +34,17 @@ public class SpeedBoost : TemporaryPickup
 
     public override void ApplyEffect(Stats collectorStats)
     {
-        Debug.Log($"Initial move speed is {collectorStats.MoveSpeed}");
-        Debug.Log($"Initial attack delay is {collectorStats.AttackDelay}");
+        string preMessage = $"Initial move speed is {collectorStats.MoveSpeed}\nInitial attack delay is {collectorStats.AttackDelay}";
 
         collectorStats.bonusMoveSpeed += moveSpeedAmount;
         collectorStats.bonusAttackDelay -= attackDelayReduction;
 
-        Debug.Log($"Speed is now {collectorStats.MoveSpeed}");
-        Debug.Log($"Attack delay is now {collectorStats.AttackDelay}");
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log(preMessage);
+            Debug.Log($"Speed is now {collectorStats.MoveSpeed}");
+            Debug.Log($"Attack delay is now {collectorStats.AttackDelay}");
+        }
 
         // Always call base.ApplyEffect() to start the timer
         base.ApplyEffect(collectorStats);
@@ -52,8 +55,11 @@ public class SpeedBoost : TemporaryPickup
         collectorStats.bonusMoveSpeed -= moveSpeedAmount;
         collectorStats.bonusAttackDelay += attackDelayReduction;
 
-        Debug.Log($"Speed is now {collectorStats.MoveSpeed}");
-        Debug.Log($"Attack delay is now {collectorStats.AttackDelay}");
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"Speed is now {collectorStats.MoveSpeed}");
+            Debug.Log($"Attack delay is now {collectorStats.AttackDelay}");
+        }
 
         // Always call base.RemoveEffect() to destroy the object
         base.RemoveEffect(collectorStats);

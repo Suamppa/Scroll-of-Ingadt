@@ -10,14 +10,18 @@ public class WeaponPickupHandler : MonoBehaviour
     // This method will be called when player presses 'Pick up weapon' keybinding
     public void PlayerWeaponPick()
     {
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log("Trying to pick-up weapon");
+        }
+
         /* If weapon is allowed to be picked up (e.g. there is a weapon and player is in the trigger),
         * then pickup the weapon */
-        Debug.Log("Trying to pick-up weapon");
         if (pickUpAllowed)
         {
             weapon.GetComponent<WeaponPickup>().PlayerPickupWeapon();
         }
-        else
+        else if (Debug.isDebugBuild)
         {
             Debug.LogWarning("Nothing to pick up!");
         }
