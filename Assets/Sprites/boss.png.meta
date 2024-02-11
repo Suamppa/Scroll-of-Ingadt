@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dee52e35f03f4104c937e1dad5ea9047
+guid: 5dab64d771182594a8e65d4f8dd00457
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,64 +110,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character_and_weapons_0
+      name: boss_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 136
+        width: 64
+        height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 11, y: 7, z: 7, w: 6}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9eb090575f251a42bdf0123c0897b9d
-      internalID: -1370459941
+      spriteID: 2985de5c1c9e14c4e92847659a2f5415
+      internalID: 710885076
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_and_weapons_1
+      name: boss_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
+        x: 64
+        y: 142
+        width: 61
+        height: 62
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 15, y: 0, z: 0, w: 5}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1eea5021a714bed47bb487ec8afa8fba
-      internalID: -1809130428
+      spriteID: 33115823f8bd77f42996211ea5e14e99
+      internalID: -2054206856
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_and_weapons_2
+      name: boss_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 68
+        width: 57
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 11, y: 6, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2f91c1a8b768a44fa2290451cc84625
+      internalID: -1421212879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 68
+        width: 61
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 15, y: 7, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a20abc8fe173164ba114b5ab0db6974
+      internalID: 109196419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 62
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 11, y: 7, z: 7, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 917d0293c493b7547b26435294fd5e41
-      internalID: 1013550483
+      spriteID: 6dd991932426d9d43a09a59be7e4c649
+      internalID: 1915827197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 5
+        width: 64
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 15, y: 0, z: 3, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99b5f78f16740ae49b0812815e00b2cb
+      internalID: 1822619628
       vertices: []
       indices: 
       edges: []
@@ -183,9 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      character_and_weapons_0: -1370459941
-      character_and_weapons_1: -1809130428
-      character_and_weapons_2: 1013550483
+      boss_0: 710885076
+      boss_1: -2054206856
+      boss_2: -1421212879
+      boss_3: 109196419
+      boss_4: 1915827197
+      boss_5: 1822619628
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
