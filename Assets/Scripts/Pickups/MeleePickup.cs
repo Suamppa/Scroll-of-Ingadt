@@ -19,7 +19,7 @@ public class MeleePickup : WeaponPickup
     // Max value for rng attack speed
     public float attSpeedRangeMax = 1.5f;
 
-    protected override void Awake()
+    protected override void OnEnable()
     {
         // Generate random attack damage between desired values
         weaponDamage = UnityEngine.Random.Range(damageRangeMin,damageRangeMax);
