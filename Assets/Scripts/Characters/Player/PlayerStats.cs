@@ -6,34 +6,36 @@ public class PlayerStats : Stats
     public delegate void PlayerHealthChanged(int newHealth);
     public delegate void PlayerShieldChanged(int newShield);
     public delegate void PlayerStatusEffect<T>(T effect);
+    public delegate void PlayerWeapon<T>(T weapon);
     public event PlayerHealthChanged OnPlayerDamaged;
     public event PlayerHealthChanged OnPlayerHealed;
     // public event PlayerShieldChanged OnPlayerShieldGained;
     public event PlayerShieldChanged OnPlayerShieldLost;
     public event PlayerStatusEffect<TemporaryPickup> OnPlayerStatus;
     public event PlayerStatusEffect<TempShield> OnPlayerTempShield;
+    public event PlayerWeapon<WeaponPickup> OnPlayerWeaponPickup;
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int incomingDamage)
     {
         if (Shield > 0)
         {
-            ShieldDamage(damage);
+            ShieldDamage(incomingDamage);
         }
         else
         {
-            HealthDamage(damage);
+            HealthDamage(incomingDamage);
         }
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
     }
 
-    protected override int HealthDamage(int damage)
+    protected override int HealthDamage(int incomingDamage)
     {
-        int effectiveDamage = base.HealthDamage(damage);
+        int effectiveDamage = base.HealthDamage(incomingDamage);
         // Invoke the OnPlayerDamaged event
-        OnPlayerDamaged?.Invoke(currentHealth);
+        OnPlayerDamaged?.Invoke(CurrentHealth);
         return effectiveDamage;
     }
 
@@ -41,8 +43,12 @@ public class PlayerStats : Stats
     public override void Die()
     {
         // Death sounds, animations, respawn logic etc. can go here
-        Debug.Log($"{gameObject.name} died.");
-        // Add a game over screen here
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} died.");
+        }
+
         SceneManager.LoadScene("DeathScreen", LoadSceneMode.Single);
     }
 
@@ -50,7 +56,7 @@ public class PlayerStats : Stats
     {
         base.Heal(healAmount);
         // Invoke the OnPlayerHealed event
-        OnPlayerHealed?.Invoke(currentHealth);
+        OnPlayerHealed?.Invoke(CurrentHealth);
     }
 
     public override void ReduceShield(int shieldAmount)
@@ -73,5 +79,11 @@ public class PlayerStats : Stats
             // StatusBar will listen for this event
             OnPlayerStatus?.Invoke(effect);
         }
+    }
+
+    public override void ChangeWeaponStats(WeaponPickup pickedWeapon)
+    {
+        base.ChangeWeaponStats(pickedWeapon);
+        OnPlayerWeaponPickup?.Invoke(pickedWeapon);
     }
 }

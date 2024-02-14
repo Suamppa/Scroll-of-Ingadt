@@ -38,6 +38,7 @@ Siltä varalta, että paketteja joutuu itse asentamaan ennen projektin tuontia:
 - Cinemachine: _com.unity.cinemachine_
 - Input System: _com.unity.inputsystem_
 - JetBrains Rider Editor: _com.unity.ide.rider_
+- Recorder: _com.unity.recorder_
 - Test Framework: _com.unity.test-framework_
 - TextMeshPro: _com.unity.textmeshpro_
 - Timeline: _com.unity.timeline_

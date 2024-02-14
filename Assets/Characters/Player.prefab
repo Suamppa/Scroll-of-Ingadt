@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8859153384515164762}
   - component: {fileID: 3586983735354653975}
   - component: {fileID: 737133022027031172}
+  - component: {fileID: 6929788456193337198}
   - component: {fileID: 8601401870154143956}
   - component: {fileID: 4967062050162571204}
   - component: {fileID: 608487972043144716}
@@ -152,7 +153,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.15, y: 0}
+  m_Offset: {x: 0.155, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -163,7 +164,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 1}
+  m_Size: {x: 0.45, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &8859153384515164762
 MonoBehaviour:
@@ -207,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e476bb47d815b3428a56421fe2de5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCollider: {fileID: 7329860488159130747}
+  attackCollider: {fileID: 4807391842446064547, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
   animator: {fileID: 4967062050162571204}
 --- !u!114 &737133022027031172
 MonoBehaviour:
@@ -221,12 +222,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf737e058ea99814a8658408f97c21f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
-  currentHealth: 0
-  moveSpeed: 10
-  attackDelay: 1
-  damage: 1
-  defense: 0
+  characterData: {fileID: 11400000, guid: 430a0c236b5748c4e952b5ea73f58182, type: 2}
+  bonusHealth: 0
+  bonusMoveSpeed: 0
+  bonusAttackDelay: 0
+  bonusDamage: 0
+  bonusDefense: 0
+  bonusShield: 0
+--- !u!114 &6929788456193337198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8621232032380378850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ce4ad3702a9534e86c620d05fdb2c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8601401870154143956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,10 +458,5 @@ Transform:
 --- !u!70 &3402289396343655390 stripped
 CapsuleCollider2D:
   m_CorrespondingSourceObject: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
-  m_PrefabInstance: {fileID: 2814657612694343640}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7329860488159130747 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4807391842446064547, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
   m_PrefabInstance: {fileID: 2814657612694343640}
   m_PrefabAsset: {fileID: 0}

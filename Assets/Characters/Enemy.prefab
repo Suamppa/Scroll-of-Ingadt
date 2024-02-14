@@ -153,8 +153,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: 0}
-  m_Size: {x: 0.85, y: 1.08}
+  m_Offset: {x: -0.03, y: -0.05}
+  m_Size: {x: 0.75, y: 0.9}
   m_Direction: 0
 --- !u!114 &1093409587468433252
 MonoBehaviour:
@@ -184,12 +184,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01238eb8d866b564c83dd284a9da2e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  currentHealth: 0
-  moveSpeed: 5
-  attackDelay: 1
-  damage: 1
-  defense: 0
+  characterData: {fileID: 11400000, guid: c9aeb9fe84879c944aa1da36d8abd760, type: 2}
+  bonusHealth: 0
+  bonusMoveSpeed: 0
+  bonusAttackDelay: 0
+  bonusDamage: 0
+  bonusDefense: 0
+  bonusShield: 0
 --- !u!114 &4657378720442367714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,6 +344,8 @@ MonoBehaviour:
   - {fileID: 4202800682689500197, guid: 6c70201ab959d114ca4ec99dc368d41e, type: 3}
   - {fileID: 4202800682689500197, guid: 5b23c44efecc3f647a5fa548578680ff, type: 3}
   - {fileID: 4202800682689500197, guid: 70872701859850b40aa605b7f870057a, type: 3}
+  - {fileID: 5888854352264479137, guid: bd2c294921d950f45b1cc08a77736e64, type: 3}
+  - {fileID: 5743111297820396489, guid: d25fabc04fcd1bb4092f71da49ff528f, type: 3}
 --- !u!114 &-6542565460183703999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +382,26 @@ PrefabInstance:
     - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_Offset.y
       value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
