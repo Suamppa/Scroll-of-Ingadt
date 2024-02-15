@@ -67,7 +67,7 @@ public class WeaponPickup : Collectable
 
     public void PlayerPickupWeapon()
     {
-        OnPickup(player);
+        if (player != null) OnPickup(player);
     }
     
     protected override void OnTriggerEnter2D(Collider2D other)

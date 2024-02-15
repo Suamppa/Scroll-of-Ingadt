@@ -210,6 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCollider: {fileID: 4807391842446064547, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
   animator: {fileID: 4967062050162571204}
+  pauseMenu: {fileID: 0}
 --- !u!114 &737133022027031172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,11 +388,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_Size.x
-      value: 2.25
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_Size.y
-      value: 1.75
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_Offset.x
@@ -399,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_Offset.y
-      value: -1
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
       propertyPath: m_LocalPosition.x

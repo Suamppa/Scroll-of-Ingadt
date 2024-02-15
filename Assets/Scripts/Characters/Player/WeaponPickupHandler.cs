@@ -5,7 +5,7 @@ public class WeaponPickupHandler : MonoBehaviour
     // Collider of the weapon that has been encountered on the ground
     private Collider2D weapon;
     // Boolean value if the pickup is allowed
-    private bool pickUpAllowed;
+    private bool pickUpAllowed = false;
 
     // This method will be called when player presses 'Pick up weapon' keybinding
     public void PlayerWeaponPick()
@@ -17,7 +17,7 @@ public class WeaponPickupHandler : MonoBehaviour
 
         /* If weapon is allowed to be picked up (e.g. there is a weapon and player is in the trigger),
         * then pickup the weapon */
-        if (pickUpAllowed)
+        if (pickUpAllowed && weapon != null)
         {
             weapon.GetComponent<WeaponPickup>().PlayerPickupWeapon();
         }
