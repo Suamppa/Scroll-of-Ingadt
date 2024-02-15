@@ -35,7 +35,11 @@ public class Timer : MonoBehaviour
         TimeLeft = 0f;
         if (timerText != null) timerText.text = TimeLeft.ToString("F1");
         OnTimerEnd?.Invoke();
-        Debug.Log($"Countdown on {gameObject.name} ended.");
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"Countdown on {gameObject.name} ended.");
+        }
     }
 
     // Pause the timer without resetting the time left or invoking the OnTimerEnd event
@@ -73,13 +77,21 @@ public class Timer : MonoBehaviour
     public void AssignText(TMP_Text text)
     {
         timerText = text;
-        Debug.Log($"Assigned {gameObject.name}'s timer text to {text.gameObject.name}.");
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"Assigned {gameObject.name}'s timer text to {text.gameObject.name}.");
+        }
     }
 
     // Coroutine for a countdown timer
     private IEnumerator Countdown(float duration)
     {
-        Debug.Log($"Starting countdown on {gameObject.name} for {duration}.");
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"Starting countdown on {gameObject.name} for {duration}.");
+        }
+
         TimeLeft = duration;
         while (TimeLeft > 0)
         {

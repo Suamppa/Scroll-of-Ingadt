@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8877321654311615869}
   - component: {fileID: 1708517585260351251}
   - component: {fileID: 3950635993782450256}
+  - component: {fileID: -8211609302218789679}
   m_Layer: 0
   m_Name: Shield Pickup
   m_TagString: Collectable
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 775860726, guid: 857bc2f815e14714cbd49f4b66023d30, type: 3}
+  m_Sprite: {fileID: -165630234, guid: 857bc2f815e14714cbd49f4b66023d30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,7 +123,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.2307693, y: 1.2307693}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -147,3 +148,24 @@ MonoBehaviour:
   iconPrefab: {fileID: 798536476910019787, guid: ff5955a5cd034834b86fed73680d7bbb, type: 3}
   duration: 10
   shieldAmount: 2
+--- !u!95 &-8211609302218789679
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4202800682689500197}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9094b94c20cc39c4ebce138613edc12c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

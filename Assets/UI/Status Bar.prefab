@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 150}
+  m_SizeDelta: {x: 300, y: 162.5}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &3398809267212227177
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_ChildAlignment: 2
   m_StartCorner: 1
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
+  m_CellSize: {x: 100, y: 112.5}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
@@ -82,5 +82,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e20f62e0be0f874dbf5003df30b41e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackBoostIcon: {fileID: 7102498665583643904, guid: 2a5bc6382b41e6e418fc517576a5fdd4, type: 3}
-  speedBoostIcon: {fileID: 7102498665583643904, guid: ae0bb28cd83659c41bc5e74444866bc3, type: 3}

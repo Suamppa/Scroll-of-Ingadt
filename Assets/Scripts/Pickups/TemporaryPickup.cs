@@ -13,7 +13,10 @@ public abstract class TemporaryPickup : Collectable
     {
         if (iconPrefab == null)
         {
-            Debug.LogError($"No icon prefab set for {gameObject.name}.");
+            if (Debug.isDebugBuild)
+            {
+                Debug.LogError($"No icon prefab set for {gameObject.name}.");
+            }
         }
         Timer = gameObject.AddComponent<Timer>();
         Timer.SetTimer(duration);
@@ -22,7 +25,10 @@ public abstract class TemporaryPickup : Collectable
     // This method is called when the collectable is picked up
     public override void OnPickup(Collider2D collector)
     {
-        Debug.Log($"{gameObject.name} picked up");
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"{gameObject.name} picked up");
+        }
 
         // Pickup is hidden and moved to the collector for the duration of its effect
         GetComponent<SpriteRenderer>().enabled = false;
@@ -36,9 +42,6 @@ public abstract class TemporaryPickup : Collectable
     // Override this method to apply the effect of the pickup
     public virtual void ApplyEffect(Stats collectorStats)
     {
-        // Create an icon to represent the effect
-
-
         // Garbage collection will remove the event listener when the object is destroyed
         Timer.OnTimerEnd += () => RemoveEffect(collectorStats);
         Timer.StartTimer(duration);

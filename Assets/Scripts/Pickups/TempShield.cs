@@ -33,7 +33,10 @@ public class TempShield : TemporaryPickup
 
     public override void ApplyEffect(Stats collectorStats)
     {
-        Debug.Log($"Initial shield is {collectorStats.Shield}");
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log($"Initial shield is {collectorStats.Shield}");
+        }
         collectorStats.GainShield(shieldAmount);
 
         // Always call base.ApplyEffect() to start the timer

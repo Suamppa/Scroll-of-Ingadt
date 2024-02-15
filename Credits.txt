@@ -1,11 +1,16 @@
-Original menu music by Rami Levälehto.
+Music:
 
-Gameplay music:
-Floating cat
+Main menu music by Rami Levälehto.
 
+Intro, level 2, boss theme, and outro by Milo Ruuttunen:
+https://soundcloud.com/music-by-milo
+
+Level 1 music: Floating cat
 Music from #Uppbeat (free for Creators!):
 https://uppbeat.io/t/michael-grubb/floating-cat
 License code: 6FPKWL9IYYIAAGNW
+
+--------------------------------------------------------------------
 
 Attack sound effect:
 Dagger shield slash
