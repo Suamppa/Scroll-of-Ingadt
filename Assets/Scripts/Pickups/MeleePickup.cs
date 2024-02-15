@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class MeleePickup : WeaponPickup
 {
-    // Weapons damage, the amount of damge weapon makes
-    private int weaponDamage;
-    // Weapon's attack speed (delay between each attack)
-    private float weaponAttackDelay;
-    // Attack delay changed to seconds for text field
-    private float attackSpeedSeconds;
     // Min value for rng damage
     public int damageRangeMin = 2;
     // Max value for rng damage
@@ -22,13 +16,13 @@ public class MeleePickup : WeaponPickup
     protected override void OnEnable()
     {
         // Generate random attack damage between desired values
-        weaponDamage = UnityEngine.Random.Range(damageRangeMin,damageRangeMax);
+        WeaponDamage = UnityEngine.Random.Range(damageRangeMin,damageRangeMax);
         // Generate random attack speed between desired values
-        weaponAttackDelay = UnityEngine.Random.Range(attSpeedRangeMin, attSpeedRangeMax);
+        WeaponAttackDelay = UnityEngine.Random.Range(attSpeedRangeMin, attSpeedRangeMax);
         // This will convert the attack speed to seconds (how many hits in second) and round it up
-        attackSpeedSeconds = (float) Math.Round(1 / weaponAttackDelay, 2);
-        // This will update the text under the pickup
-        GetComponentInChildren<TextMeshPro>().SetText($"Damage: {weaponDamage}\nSpeed: {attackSpeedSeconds}/s");
+        AttackSpeedSeconds = (float) Math.Round(1 / WeaponAttackDelay, 2);
+
+        base.OnEnable();
     }
 
 
@@ -37,9 +31,9 @@ public class MeleePickup : WeaponPickup
         string preMessage = $"Initial attackDelay is {collectorStats.AttackDelay}\nInitial damage is {collectorStats.Damage}";
 
         // This will change attack speed
-        collectorStats.bonusAttackDelay = weaponAttackDelay;
+        collectorStats.bonusAttackDelay = WeaponAttackDelay;
         // This will change damage
-        collectorStats.bonusDamage = weaponDamage;
+        collectorStats.bonusDamage = WeaponDamage;
         
         if (Debug.isDebugBuild)
         {

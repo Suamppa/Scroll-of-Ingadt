@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class WeaponPickup : Collectable
 {
-    private Collider2D player;
+    protected Collider2D player;
+
+    // Weapons damage, the amount of damge weapon makes
+    public int WeaponDamage { get; protected set; }
+    // Weapon's attack speed (delay between each attack)
+    public float WeaponAttackDelay { get; protected set; }
+    // Attack delay changed to seconds for text field
+    public float AttackSpeedSeconds { get; protected set; }
 
     // Icon to pass to the collector
     public GameObject iconPrefab;
@@ -14,6 +21,8 @@ public class WeaponPickup : Collectable
         {
             Debug.LogError($"No icon prefab set for {gameObject.name}.");
         }
+        // This will update the text under the pickup
+        GetComponentInChildren<TextMeshPro>().SetText($"Damage: {WeaponDamage}\nSpeed: {AttackSpeedSeconds}/s");
     }
 
     public override void OnPickup(Collider2D collector)
