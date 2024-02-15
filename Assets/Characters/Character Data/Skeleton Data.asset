@@ -18,3 +18,6 @@ MonoBehaviour:
   damage: 2
   defense: 0
   shield: 0
+  characterModel:
+  - characterSprite: {fileID: -763849316, guid: 06ad056e4b666394082d00f3a058474b, type: 3}
+    characterController: {fileID: 9100000, guid: 41f62fdaff1bb5541bd2db5867e0e597, type: 2}
