@@ -12,3 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b5ff905ae16a747af208134eaa9624, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
+  maxHealth: 6
+  moveSpeed: 10
+  attackDelay: 1
+  damage: 1
+  defense: 0
+  shield: 0
+  characterModel:
+  - characterSprite: {fileID: 365220450, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
+    characterController: {fileID: 9100000, guid: d2f15c18c6aa86c41800fec2f2185bb5, type: 2}
+  - characterSprite: {fileID: 719853055, guid: b1b27f27cf209464590b5c90cb76370c, type: 3}
+    characterController: {fileID: 9100000, guid: 36d4dba12d6c07245b356dbe12ccc681, type: 2}

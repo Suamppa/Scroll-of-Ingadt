@@ -175,4 +175,9 @@ public class Stats : MonoBehaviour
     {
         pickedWeapon.ChangeWeapon(this);
     }
+    // This getter is needed in character selection
+    public CharacterData GetCharacterData()
+    {
+        return this.characterData;
+    }
 }
