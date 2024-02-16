@@ -1,8 +1,6 @@
-using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
-[CreateAssetMenu(fileName = "Character Data", menuName = "Character Data")]
+[CreateAssetMenu(fileName = "Character Data", menuName = "Character/Character Data")]
 public class CharacterData : ScriptableObject
 {
     // Max health of the entity
