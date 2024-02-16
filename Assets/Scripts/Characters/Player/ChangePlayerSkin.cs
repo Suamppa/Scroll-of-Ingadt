@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class ChangePlayerSkin : MonoBehaviour
 {
-
     private int selectedOption;
-    // Start is called before the first frame update
+    
     void Start()
     {
         Load();
@@ -24,10 +20,9 @@ public class ChangePlayerSkin : MonoBehaviour
         }        
     }
     
-    private void SetPlayerSkin(AnimatorController animator)
+    private void SetPlayerSkin(RuntimeAnimatorController animator)
     {
         gameObject.GetComponent<Animator>().runtimeAnimatorController = animator;
-    
     }
 
     private void Load()
