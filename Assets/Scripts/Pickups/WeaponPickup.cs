@@ -92,6 +92,18 @@ public class WeaponPickup : Collectable
 
     public virtual void ChangeWeapon(Stats collectorStats)
     {
-        return;
+        string preMessage = $"Initial attackDelay is {collectorStats.AttackDelay}\nInitial damage is {collectorStats.Damage}";
+
+        // This will change attack speed
+        collectorStats.bonusAttackDelay = WeaponAttackDelay;
+        // This will change damage
+        collectorStats.bonusDamage = WeaponDamage;
+        
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log(preMessage);
+            Debug.Log($"attackDelay is now {collectorStats.AttackDelay}");
+            Debug.Log($"Damage is now {collectorStats.Damage}");
+        }
     }
 }
