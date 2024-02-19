@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 448851203334593485}
   - component: {fileID: 8738817474854886621}
   - component: {fileID: 2505204063911866356}
-  - component: {fileID: 7097269642557041861}
+  - component: {fileID: 5117839005368800249}
   - component: {fileID: 1093409587468433252}
   - component: {fileID: 1292120978787446611}
   - component: {fileID: 4657378720442367714}
@@ -121,8 +121,8 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &7097269642557041861
-CapsuleCollider2D:
+--- !u!61 &5117839005368800249
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -153,9 +153,19 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: 0}
-  m_Size: {x: 0.85, y: 1.08}
-  m_Direction: 0
+  m_Offset: {x: -0.05, y: -0.22}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.9375, y: 1}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 0.55}
+  m_EdgeRadius: 0
 --- !u!114 &1093409587468433252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,8 +216,6 @@ MonoBehaviour:
   targetLayers:
   - serializedVersion: 2
     m_Bits: 64
-  attackCollider: {fileID: 9211267960688534688}
-  selfCollider: {fileID: 7097269642557041861}
   animator: {fileID: 543083463879418103}
   attackSound: {fileID: 0}
 --- !u!95 &543083463879418103
@@ -431,10 +439,5 @@ PrefabInstance:
 --- !u!4 &6613788880256658369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
-  m_PrefabInstance: {fileID: 8641298730997014694}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &9211267960688534688 stripped
-CapsuleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
   m_PrefabInstance: {fileID: 8641298730997014694}
   m_PrefabAsset: {fileID: 0}
