@@ -23,7 +23,7 @@ public class WeaponPickupHandler : MonoBehaviour
         }
         else if (Debug.isDebugBuild)
         {
-            Debug.LogWarning("Nothing to pick up!");
+            Debug.Log("Nothing to pick up!");
         }
     }
 
@@ -39,7 +39,7 @@ public class WeaponPickupHandler : MonoBehaviour
             pickUpAllowed = true;
         }
     }
-    
+
     // When leaving the trigger, if it is a weapon trigger, then forget the weapon
     protected void OnTriggerExit2D(Collider2D other)
     {

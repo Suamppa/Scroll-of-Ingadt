@@ -27,8 +27,6 @@ public class WeaponPickup : Collectable
 
     public override void OnPickup(Collider2D collector)
     {
-        DropWeaponInUse();
-        
         if (Debug.isDebugBuild)
         {
             Debug.Log($"{gameObject.name} picked up");
@@ -39,37 +37,23 @@ public class WeaponPickup : Collectable
         GetComponentInChildren<TextMeshPro>().enabled = false;
         gameObject.transform.SetParent(collector.transform, false);
 
-        collector.GetComponent<Stats>().ChangeWeaponStats(this);
+        collector.GetComponent<Stats>().ChangeWeapon();
     }
 
     public void DropWeaponInUse()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        GameObject oldWeapon;
-        foreach (Transform t in player.GetComponentInChildren<Transform>())
-        {
-            if (t.CompareTag("Weapon"))
-            {
-                oldWeapon = t.gameObject;
-                oldWeapon.transform.position = player.transform.position;
-                oldWeapon.GetComponent<SpriteRenderer>().enabled = true;
-                oldWeapon.GetComponent<Collider2D>().enabled = true;
-                oldWeapon.GetComponentInChildren<TextMeshPro>().enabled = true;
-                oldWeapon.transform.SetParent(null);
-
-                if (Debug.isDebugBuild)
-                {
-                    Debug.Log("Dropped the used weapon");
-                }
-            }
-        }
+        gameObject.transform.position = player.transform.position;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        gameObject.GetComponent<Collider2D>().enabled = true;
+        gameObject.GetComponentInChildren<TextMeshPro>().enabled = true;
+        gameObject.transform.SetParent(null);
     }
 
     public void PlayerPickupWeapon()
     {
         if (player != null) OnPickup(player);
     }
-    
+
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -98,7 +82,7 @@ public class WeaponPickup : Collectable
         collectorStats.bonusAttackDelay = WeaponAttackDelay;
         // This will change damage
         collectorStats.bonusDamage = WeaponDamage;
-        
+
         if (Debug.isDebugBuild)
         {
             Debug.Log(preMessage);
