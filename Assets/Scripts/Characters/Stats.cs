@@ -10,9 +10,31 @@ public class Stats : MonoBehaviour
     // Movement speed of the entity
     public float MoveSpeed { get { return baseMoveSpeed + bonusMoveSpeed; } }
     // Attack speed of the entity as the delay between attacks
-    public float AttackDelay { get { return Mathf.Max(baseAttackDelay + bonusAttackDelay + equippedWeapon.WeaponAttackDelay, 0f); } }
+    public float AttackDelay
+    {
+        get
+        {
+            float total = baseAttackDelay + bonusAttackDelay;
+            if (equippedWeapon != null)
+            {
+                total += equippedWeapon.WeaponAttackDelay;
+            }
+            return Mathf.Max(total, 0f);
+        }
+    }
     // Damage dealt by the entity
-    public int Damage { get { return baseDamage + bonusDamage + equippedWeapon.WeaponDamage; } }
+    public int Damage
+    {
+        get
+        {
+            int total = baseDamage + bonusDamage;
+            if (equippedWeapon != null)
+            {
+                total += equippedWeapon.WeaponDamage;
+            }
+            return total;
+        }
+    }
     // Defense is subtracted from incoming damage
     public int Defense { get { return baseDefense + bonusDefense; } }
     // Shield prevents hits until depleted
@@ -58,7 +80,7 @@ public class Stats : MonoBehaviour
     protected virtual void OnEnable()
     {
         CurrentHealth = MaxHealth;
-        ChangeWeapon();
+        equippedWeapon = GetComponentInChildren<WeaponPickup>();
     }
 
     public virtual void ChangeWeapon()
@@ -212,6 +234,6 @@ public class Stats : MonoBehaviour
     // This getter is needed in character selection
     public CharacterData GetCharacterData()
     {
-        return this.characterData;
+        return characterData;
     }
 }

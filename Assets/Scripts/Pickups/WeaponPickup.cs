@@ -23,6 +23,12 @@ public class WeaponPickup : Collectable
         }
         // This will update the text under the pickup
         GetComponentInChildren<TextMeshPro>().SetText($"Damage: {WeaponDamage}\nSpeed: {AttackSpeedSeconds}/s");
+
+        // If the weapon is already picked up, apply its stats and hide it
+        if (transform.parent != null && transform.parent.TryGetComponent(out Collider2D parentCollider))
+        {
+            OnPickup(parentCollider);
+        }
     }
 
     public override void OnPickup(Collider2D collector)
@@ -42,7 +48,7 @@ public class WeaponPickup : Collectable
 
     public void DropWeaponInUse()
     {
-        gameObject.transform.position = player.transform.position;
+        gameObject.transform.position = transform.parent.position;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         gameObject.GetComponent<Collider2D>().enabled = true;
         gameObject.GetComponentInChildren<TextMeshPro>().enabled = true;
