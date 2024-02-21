@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,14 @@ public class WeaponPickup : Collectable
     // Weapon's attack speed (delay between each attack)
     public float WeaponAttackDelay { get; protected set; }
     // Attack delay changed to seconds for text field
-    public float AttackSpeedSeconds { get; protected set; }
+    public float AttackSpeedSeconds
+    {
+        get
+        {
+            // This will convert the attack speed to seconds (how many hits in second) and round it up
+            return (float)Math.Round(1 / WeaponAttackDelay, 2);
+        }
+    }
 
     // Icon to pass to the collector
     public GameObject iconPrefab;
@@ -78,22 +86,5 @@ public class WeaponPickup : Collectable
             player = null;
         }
 
-    }
-
-    public virtual void ChangeWeapon(Stats collectorStats)
-    {
-        string preMessage = $"Initial attackDelay is {collectorStats.AttackDelay}\nInitial damage is {collectorStats.Damage}";
-
-        // This will change attack speed
-        collectorStats.bonusAttackDelay = WeaponAttackDelay;
-        // This will change damage
-        collectorStats.bonusDamage = WeaponDamage;
-
-        if (Debug.isDebugBuild)
-        {
-            Debug.Log(preMessage);
-            Debug.Log($"attackDelay is now {collectorStats.AttackDelay}");
-            Debug.Log($"Damage is now {collectorStats.Damage}");
-        }
     }
 }

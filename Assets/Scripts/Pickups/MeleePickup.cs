@@ -14,11 +14,9 @@ public class MeleePickup : WeaponPickup
     protected override void OnEnable()
     {
         // Generate random attack damage between desired values
-        WeaponDamage = UnityEngine.Random.Range(damageRangeMin,damageRangeMax);
+        WeaponDamage = UnityEngine.Random.Range(damageRangeMin, damageRangeMax);
         // Generate random attack speed between desired values
         WeaponAttackDelay = UnityEngine.Random.Range(attSpeedRangeMin, attSpeedRangeMax);
-        // This will convert the attack speed to seconds (how many hits in second) and round it up
-        AttackSpeedSeconds = (float) Math.Round(1 / WeaponAttackDelay, 2);
 
         base.OnEnable();
     }

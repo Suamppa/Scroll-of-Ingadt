@@ -1,4 +1,4 @@
-using TMPro;
+using System;
 using UnityEngine;
 
 public class Stats : MonoBehaviour
@@ -20,6 +20,14 @@ public class Stats : MonoBehaviour
                 total += equippedWeapon.WeaponAttackDelay;
             }
             return Mathf.Max(total, 0f);
+        }
+    }
+    public float AttackSpeedSeconds
+    {
+        get
+        {
+            // This will convert the attack speed to seconds (how many hits in second) and round it up
+            return (float)Math.Round(1 / AttackDelay, 2);
         }
     }
     // Damage dealt by the entity
@@ -224,11 +232,6 @@ public class Stats : MonoBehaviour
 
         // Apply the effect
         pickup.ApplyEffect(this);
-    }
-
-    public virtual void ChangeWeaponStats(WeaponPickup pickedWeapon)
-    {
-        pickedWeapon.ChangeWeapon(this);
     }
 
     // This getter is needed in character selection

@@ -26,9 +26,9 @@ public class WeaponSlot : MonoBehaviour
     {
         RemoveWeaponIcon();
         activeIcon = Instantiate(pickup.iconPrefab, transform);
-        string text = $"Damage: {pickup.WeaponDamage}\nSpeed: {pickup.AttackSpeedSeconds}/s";
+        string text = $"Damage: {playerStats.Damage}\nSpeed: {playerStats.AttackSpeedSeconds}/s";
         // activeIcon.GetComponentInChildren<TextMeshPro>().SetText(text);
-        activeIcon.GetComponentInChildren<TMP_Text>().text = $"Damage: {pickup.WeaponDamage}\nSpeed: {pickup.AttackSpeedSeconds}/s";
+        activeIcon.GetComponentInChildren<TMP_Text>().text = text;
 
         if (Debug.isDebugBuild)
         {
