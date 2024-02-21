@@ -14,9 +14,11 @@ public class PlayerStats : Stats
     public event PlayerStatusEffect<TemporaryPickup> OnPlayerStatus;
     public event PlayerStatusEffect<TempShield> OnPlayerTempShield;
     public event PlayerWeapon<WeaponPickup> OnPlayerWeaponPickup;
+    
 
     public override void TakeDamage(int incomingDamage)
     {
+        
         if (Shield > 0)
         {
             ShieldDamage(incomingDamage);
