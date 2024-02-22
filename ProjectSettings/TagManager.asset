@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Timer
   - Pause
+  - Weapon
+  - NPC
   layers:
   - Default
   - TransparentFX
