@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 354530302105605948}
   - component: {fileID: 6875157412538874146}
   - component: {fileID: 5704774724017538489}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: NPC
-  m_TagString: Enemy
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -336,6 +336,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 448851203334593485}
     m_Modifications:
+    - target: {fileID: 1399857505862129506, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065196217762265268, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5351277891956375257, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -451,6 +459,10 @@ PrefabInstance:
     - target: {fileID: 8278052588884804533, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278052588884804533, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
