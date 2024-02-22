@@ -97,6 +97,12 @@ public class Stats : MonoBehaviour
 
         DropEquippedWeapon();
         equippedWeapon = GetComponentInChildren<WeaponPickup>();
+        Debug.Log($"weapons type: {equippedWeapon.weaponType}");
+        Debug.Log($"should be this: {WeaponPickup.WeaponType.Axe}");
+
+        if (equippedWeapon.weaponType == WeaponPickup.WeaponType.Axe) {
+            animator.SetBool("isAxe", true);
+        }
 
         if (Debug.isDebugBuild)
         {
@@ -111,12 +117,17 @@ public class Stats : MonoBehaviour
         if (equippedWeapon != null)
         {
             equippedWeapon.DropWeaponInUse();
-
-            if (Debug.isDebugBuild)
-            {
-                Debug.Log("Dropped the used weapon");
+            if (equippedWeapon.weaponType == WeaponPickup.WeaponType.Axe) {
+                animator.SetBool("isAxe", false);
             }
+            
         }
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log("Dropped the used weapon");
+        }
+        
     }
 
     public virtual void TakeDamage(int incomingDamage)
