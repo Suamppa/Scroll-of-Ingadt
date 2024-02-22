@@ -3,7 +3,7 @@ using UnityEngine;
 public class ChangePlayerSkin : MonoBehaviour
 {
     private int selectedOption;
-    
+
     void Start()
     {
         Load();
@@ -14,12 +14,12 @@ public class ChangePlayerSkin : MonoBehaviour
     public void GetSelectedSkin(int index)
     {
         CharacterData characterDB = gameObject.GetComponent<PlayerStats>().GetCharacterData();
-        if(index <= characterDB.characterModel.Length && index >= 0)
+        if (index <= characterDB.characterModel.Length && index >= 0)
         {
             SetPlayerSkin(characterDB.characterModel[index].characterController);
-        }        
+        }
     }
-    
+
     private void SetPlayerSkin(RuntimeAnimatorController animator)
     {
         gameObject.GetComponent<Animator>().runtimeAnimatorController = animator;

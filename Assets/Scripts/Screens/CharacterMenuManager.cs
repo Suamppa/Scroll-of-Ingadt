@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class CharacterMenuManager : MonoBehaviour
 {
-
-    
     public CharacterData characterDB;
     public Image entityAnimation;
     private int selectedOption = 0;
@@ -15,15 +13,17 @@ public class CharacterMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(!PlayerPrefs.HasKey("selectedOption"))
+        if (!PlayerPrefs.HasKey("selectedOption"))
         {
             selectedOption = 0;
-        } else
+            Save();
+        }
+        else
         {
             Load();
         }
     }
-    
+
     public void StartGame()
     {
         SceneManager.LoadScene(gameStartScene);
@@ -32,7 +32,7 @@ public class CharacterMenuManager : MonoBehaviour
     public void NextOption()
     {
         selectedOption++;
-        if(selectedOption >= characterDB.characterModel.Length)
+        if (selectedOption >= characterDB.characterModel.Length)
         {
             selectedOption = 0;
         }
@@ -43,7 +43,7 @@ public class CharacterMenuManager : MonoBehaviour
     public void PreviousOption()
     {
         selectedOption--;
-        if(selectedOption < 0)
+        if (selectedOption < 0)
         {
             selectedOption = characterDB.characterModel.Length - 1;
         }
@@ -56,7 +56,7 @@ public class CharacterMenuManager : MonoBehaviour
         CharacterModel characterModel = characterDB.GetCharacter(selectedOption);
         gameObject.GetComponent<Image>().sprite = characterModel.characterSprite;
     }
-    
+
     private void Load()
     {
         selectedOption = PlayerPrefs.GetInt("selectedOption");
