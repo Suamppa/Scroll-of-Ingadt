@@ -88,7 +88,6 @@ public class Stats : MonoBehaviour
     protected virtual void OnEnable()
     {
         CurrentHealth = MaxHealth;
-        equippedWeapon = GetComponentInChildren<WeaponPickup>();
     }
 
     public virtual void ChangeWeapon()
@@ -97,18 +96,36 @@ public class Stats : MonoBehaviour
 
         DropEquippedWeapon();
         equippedWeapon = GetComponentInChildren<WeaponPickup>();
-        Debug.Log($"weapons type: {equippedWeapon.weaponType}");
-        Debug.Log($"should be this: {WeaponPickup.WeaponType.Axe}");
-
-        if (equippedWeapon.weaponType == WeaponPickup.WeaponType.Axe) {
-            animator.SetBool("isAxe", true);
-        }
 
         if (Debug.isDebugBuild)
         {
             Debug.Log(preMessage);
             Debug.Log($"attackDelay is now {AttackDelay}");
             Debug.Log($"Damage is now {Damage}");
+        }
+
+        if (equippedWeapon == null)
+        {
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("No weapon equipped");
+            }
+            animator.SetBool("isAxe", false);
+            return;
+        }
+
+        Debug.Log($"Equipped weapon type: {equippedWeapon.weaponType}");
+
+        switch (equippedWeapon.weaponType)
+        {
+            case WeaponPickup.WeaponType.Sword:
+                animator.SetBool("isAxe", false);
+                break;
+            case WeaponPickup.WeaponType.Axe:
+                animator.SetBool("isAxe", true);
+                break;
+            default:
+                break;
         }
     }
 
@@ -117,17 +134,12 @@ public class Stats : MonoBehaviour
         if (equippedWeapon != null)
         {
             equippedWeapon.DropWeaponInUse();
-            if (equippedWeapon.weaponType == WeaponPickup.WeaponType.Axe) {
-                animator.SetBool("isAxe", false);
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log($"Dropped {equippedWeapon.gameObject.name}");
             }
-            
+            equippedWeapon = null;
         }
-
-        if (Debug.isDebugBuild)
-        {
-            Debug.Log("Dropped the used weapon");
-        }
-        
     }
 
     public virtual void TakeDamage(int incomingDamage)
