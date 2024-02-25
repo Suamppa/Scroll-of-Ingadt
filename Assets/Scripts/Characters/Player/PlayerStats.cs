@@ -15,6 +15,21 @@ public class PlayerStats : Stats
     public event PlayerStatusEffect<TempShield> OnPlayerTempShield;
     public event PlayerWeapon<WeaponPickup> OnPlayerWeaponPickup;
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        if (equippedWeapon != null)
+        {
+            OnPlayerWeaponPickup?.Invoke(equippedWeapon);
+        }
+    }
+
+    public override void ChangeWeapon()
+    {
+        base.ChangeWeapon();
+        OnPlayerWeaponPickup?.Invoke(equippedWeapon);
+    }
+
     public override void TakeDamage(int incomingDamage)
     {
         if (Shield > 0)
@@ -79,11 +94,5 @@ public class PlayerStats : Stats
             // StatusBar will listen for this event
             OnPlayerStatus?.Invoke(effect);
         }
-    }
-
-    public override void ChangeWeaponStats(WeaponPickup pickedWeapon)
-    {
-        base.ChangeWeaponStats(pickedWeapon);
-        OnPlayerWeaponPickup?.Invoke(pickedWeapon);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Stats : MonoBehaviour
@@ -9,9 +10,39 @@ public class Stats : MonoBehaviour
     // Movement speed of the entity
     public float MoveSpeed { get { return baseMoveSpeed + bonusMoveSpeed; } }
     // Attack speed of the entity as the delay between attacks
-    public float AttackDelay { get { return baseAttackDelay + bonusAttackDelay; } }
+    public float AttackDelay
+    {
+        get
+        {
+            float total = baseAttackDelay + bonusAttackDelay;
+            if (equippedWeapon != null)
+            {
+                total += equippedWeapon.WeaponAttackDelay;
+            }
+            return Mathf.Max(total, 0f);
+        }
+    }
+    public float AttackSpeedSeconds
+    {
+        get
+        {
+            // This will convert the attack speed to seconds (how many hits in second) and round it up
+            return (float)Math.Round(1 / AttackDelay, 2);
+        }
+    }
     // Damage dealt by the entity
-    public int Damage { get { return baseDamage + bonusDamage; } }
+    public int Damage
+    {
+        get
+        {
+            int total = baseDamage + bonusDamage;
+            if (equippedWeapon != null)
+            {
+                total += equippedWeapon.WeaponDamage;
+            }
+            return total;
+        }
+    }
     // Defense is subtracted from incoming damage
     public int Defense { get { return baseDefense + bonusDefense; } }
     // Shield prevents hits until depleted
@@ -24,13 +55,11 @@ public class Stats : MonoBehaviour
     // These can be modified by effects, items, etc.
     public int bonusHealth = 0;
     public float bonusMoveSpeed = 0f;
+    // Negative values mean faster attacks, positive slower
     public float bonusAttackDelay = 0f;
     public int bonusDamage = 0;
     public int bonusDefense = 0;
     public int bonusShield = 0;
-
-    // Animator may be null for some entities
-    protected Animator animator;
 
     // Base stats are set from the character data
     protected int baseHealth;
@@ -39,6 +68,11 @@ public class Stats : MonoBehaviour
     protected int baseDamage;
     protected int baseDefense;
     protected int baseShield;
+
+    // Animator may be null for some entities
+    protected Animator animator;
+    // Reference to the equipped weapon, null if none
+    protected WeaponPickup equippedWeapon;
 
     protected virtual void Awake()
     {
@@ -54,6 +88,35 @@ public class Stats : MonoBehaviour
     protected virtual void OnEnable()
     {
         CurrentHealth = MaxHealth;
+        equippedWeapon = GetComponentInChildren<WeaponPickup>();
+    }
+
+    public virtual void ChangeWeapon()
+    {
+        string preMessage = $"Initial attackDelay is {AttackDelay}\nInitial damage is {Damage}";
+
+        DropEquippedWeapon();
+        equippedWeapon = GetComponentInChildren<WeaponPickup>();
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log(preMessage);
+            Debug.Log($"attackDelay is now {AttackDelay}");
+            Debug.Log($"Damage is now {Damage}");
+        }
+    }
+
+    public virtual void DropEquippedWeapon()
+    {
+        if (equippedWeapon != null)
+        {
+            equippedWeapon.DropWeaponInUse();
+
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("Dropped the used weapon");
+            }
+        }
     }
 
     public virtual void TakeDamage(int incomingDamage)
@@ -155,7 +218,7 @@ public class Stats : MonoBehaviour
                 baseShield = 0;
             }
         }
-        
+
         if (Debug.isDebugBuild)
         {
             Debug.Log($"{gameObject.name} lost {reduceAmount} shield. Shield is now {Shield}");
@@ -171,13 +234,9 @@ public class Stats : MonoBehaviour
         pickup.ApplyEffect(this);
     }
 
-    public virtual void ChangeWeaponStats(WeaponPickup pickedWeapon)
-    {
-        pickedWeapon.ChangeWeapon(this);
-    }
     // This getter is needed in character selection
     public CharacterData GetCharacterData()
     {
-        return this.characterData;
+        return characterData;
     }
 }

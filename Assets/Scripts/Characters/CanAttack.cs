@@ -6,13 +6,13 @@ public class CanAttack : MonoBehaviour
 {
     public int DamageAmount { get => attackerStats.Damage; }
     public float AttackDelay { get => attackerStats.AttackDelay; }
+    // Reference to the attack detection collider
+    public CapsuleCollider2D AttackCollider { get; set; }
+    // Reference to the user's own collider
+    public BoxCollider2D SelfCollider { get; set; }
 
     // Layers that can be attacked
     public LayerMask[] targetLayers;
-    // Reference to the attack detection collider
-    public Collider2D attackCollider;
-    // Reference to the user's own collider
-    public Collider2D selfCollider;
     // Add Animator for animations
     public Animator animator;
     // Clips for hit and miss
@@ -28,10 +28,14 @@ public class CanAttack : MonoBehaviour
 
     private void Awake()
     {
+        SelfCollider = GetComponent<BoxCollider2D>();
+        AttackCollider = GetComponentInChildren<CapsuleCollider2D>();
+
         // Set up the contact filter
         LayerMask layerMasks = new();
         foreach (LayerMask targetLayer in targetLayers)
         {
+            // Use bitwise OR to combine the layers
             layerMasks |= targetLayer;
         }
         contactFilter = new ContactFilter2D
@@ -45,6 +49,11 @@ public class CanAttack : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void OnEnable()
+    {
+        AttackCollider = GetComponentInChildren<CapsuleCollider2D>();
+    }
+
     public void Attack()
     {
         // If time since last attack < attack delay, then don't attack
@@ -54,11 +63,11 @@ public class CanAttack : MonoBehaviour
         List<Collider2D> targets = new();
         // "_" means a discard, which means we don't care about the return value;
         // the function fills the targets list with the colliders in range
-        _ = attackCollider.OverlapCollider(contactFilter, targets);
+        _ = AttackCollider.OverlapCollider(contactFilter, targets);
         // Damage all targets except the user's colliders and targets with the same tag as the user
         foreach (Collider2D target in targets)
         {
-            if (target != attackCollider && target != selfCollider && !target.gameObject.CompareTag(tag))
+            if (target != AttackCollider && target != SelfCollider && !target.gameObject.CompareTag(tag))
             {
                 PlayAudioAttack();
                 try
@@ -92,10 +101,12 @@ public class CanAttack : MonoBehaviour
     // Draw the rough outline of the attack collider for debugging (not visible in game)
     private void OnDrawGizmos()
     {
+        if (AttackCollider == null) return;
+
         // Set Gizmo color
         Gizmos.color = Color.red;
 
         // Draw a wire cube with the same position and size as our collider
-        Gizmos.DrawWireCube(attackCollider.bounds.center, attackCollider.bounds.size);
+        Gizmos.DrawWireCube(AttackCollider.bounds.center, AttackCollider.bounds.size);
     }
 }
