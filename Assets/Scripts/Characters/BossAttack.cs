@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class BossAttack : MonoBehaviour
 {
     public int DamageAmount { get => attackerStats.Damage; }
     public float AttackDelay { get => attackerStats.AttackDelay; }
+    // Reference to the attack detection collider (Boss currently doesn't use this)
+    public CapsuleCollider2D AttackCollider { get; set; }
+    // Reference to the user's own collider
+    public BoxCollider2D SelfCollider { get; set; }
 
     // Layers that can be attacked
     public LayerMask[] targetLayers;
-    // Reference to the attack detection collider
-    public Collider2D attackCollider;
-    // Reference to the user's own collider
-    public Collider2D selfCollider;
     // Add Animator for animations
     public Animator animator;
     // Clips for hit and miss
@@ -29,10 +24,11 @@ public class BossAttack : MonoBehaviour
     private float lastAttackTime;
     private AudioSource audioSource;
 
-    Rigidbody2D rb2D;
-
     private void Awake()
     {
+        SelfCollider = GetComponent<BoxCollider2D>();
+        AttackCollider = GetComponentInChildren<CapsuleCollider2D>();
+
         // Set up the contact filter
         LayerMask layerMasks = new();
         foreach (LayerMask targetLayer in targetLayers)
@@ -48,8 +44,11 @@ public class BossAttack : MonoBehaviour
         attackerStats = GetComponent<Stats>();
 
         audioSource = GetComponent<AudioSource>();
+    }
 
-        rb2D = GetComponent<Rigidbody2D>();
+    private void OnEnable()
+    {
+        AttackCollider = GetComponentInChildren<CapsuleCollider2D>();
     }
 
     public virtual void Attack()
@@ -62,21 +61,16 @@ public class BossAttack : MonoBehaviour
         // Trigger the attack animation
         animator.SetTrigger("Attacking");
 
-
         GameObject target = GetComponent<BossChase>().target;
 
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1.0f, (target.transform.position - transform.position).normalized, 10.0f, mask);
 
-
-        
-        
-
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
-            if(hit.collider.CompareTag("Player"))
+            if (hit.collider.CompareTag("Player"))
             {
-                
-                if(Debug.isDebugBuild)
+
+                if (Debug.isDebugBuild)
                 {
                     Debug.Log("Boss is trying to attack");
                 }
@@ -85,7 +79,7 @@ public class BossAttack : MonoBehaviour
                 {
                     hit.collider.GetComponent<Stats>().TakeDamage(DamageAmount);
                     Debug.DrawLine(transform.position, target.transform.position);
-                    
+
                 }
                 catch (System.NullReferenceException)
                 {
@@ -96,7 +90,6 @@ public class BossAttack : MonoBehaviour
                 }
             }
         }
-
         // Mark this point as last time attacked
         lastAttackTime = Time.time;
     }
@@ -105,7 +98,7 @@ public class BossAttack : MonoBehaviour
     {
         audioSource.clip = attackSound;
         audioSource.Play();
-        
+
         if (Debug.isDebugBuild)
         {
             Debug.Log(gameObject.name + " played attack sound");
@@ -115,12 +108,13 @@ public class BossAttack : MonoBehaviour
     // Draw the rough outline of the attack collider for debugging (not visible in game)
     private void OnDrawGizmos()
     {
+        if (AttackCollider == null) return;
+
         // Set Gizmo color
         Gizmos.color = Color.red;
 
         // Draw a wire cube with the same position and size as our collider
-        Gizmos.DrawWireCube(attackCollider.bounds.center, attackCollider.bounds.size);
-
+        Gizmos.DrawWireCube(AttackCollider.bounds.center, AttackCollider.bounds.size);
     }
 
 }
