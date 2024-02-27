@@ -83,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_Sprite: {fileID: 365220450, guid: 5d66ff8c654533248ba7f2a9c1b72703, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -209,7 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e476bb47d815b3428a56421fe2de5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCollider: {fileID: 4807391842446064547, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
   animator: {fileID: 4967062050162571204}
   pauseMenu: {fileID: 0}
 --- !u!114 &737133022027031172
@@ -258,8 +257,6 @@ MonoBehaviour:
   targetLayers:
   - serializedVersion: 2
     m_Bits: 64
-  attackCollider: {fileID: 3402289396343655390}
-  selfCollider: {fileID: 549749237532883341}
   animator: {fileID: 4967062050162571204}
   attackSound: {fileID: 8300000, guid: c7f4c79d14bdb634a92a740d6f7bbf9a, type: 3}
 --- !u!95 &4967062050162571204
@@ -467,10 +464,5 @@ PrefabInstance:
 --- !u!4 &804814713711150271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
-  m_PrefabInstance: {fileID: 2814657612694343640}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &3402289396343655390 stripped
-CapsuleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
   m_PrefabInstance: {fileID: 2814657612694343640}
   m_PrefabAsset: {fileID: 0}
