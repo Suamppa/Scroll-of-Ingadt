@@ -4,70 +4,75 @@ using UnityEngine.UI;
 
 public class CharacterMenuManager : MonoBehaviour
 {
-    public CharacterData characterDB;
-    public Image entityAnimation;
-    private int selectedOption = 0;
+    public CharacterData characterData;
     public int gameStartScene;
 
+    private const string SelectedCharacterKey = "selectedCharacter";
 
-    // Start is called before the first frame update
-    void Start()
+    private CharacterModel[] AvailableCharacters
     {
-        if (!PlayerPrefs.HasKey("selectedOption"))
+        get { return characterData.characterModels; }
+    }
+
+    private int SelectedOption
+    {
+        get { return selectedOption; }
+        set
         {
-            selectedOption = 0;
-            Save();
+            if (value >= AvailableCharacters.Length)
+            {
+                value = 0;
+            }
+            else if (value < 0)
+            {
+                value = AvailableCharacters.Length - 1;
+            }
+            selectedOption = value;
+            UpdateCharacter();
         }
-        else
+    }
+
+    private int selectedOption;
+
+    private void Awake()
+    {
+        // Clear the selected character if in debug mode
+        if (Debug.isDebugBuild)
         {
-            Load();
+            PlayerPrefs.DeleteKey(SelectedCharacterKey);
         }
+    }
+
+    private void Start()
+    {
+        SelectedOption = PlayerPrefs.GetInt(SelectedCharacterKey, 0);
     }
 
     public void StartGame()
     {
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log("Saving skin " + SelectedOption);
+        }
+        PlayerPrefs.SetInt(SelectedCharacterKey, SelectedOption);
         SceneManager.LoadScene(gameStartScene);
     }
 
     public void NextOption()
     {
-        selectedOption++;
-        if (selectedOption >= characterDB.characterModel.Length)
-        {
-            selectedOption = 0;
-        }
-        UpdateCharacter(selectedOption);
-        Save();
+        SelectedOption++;
     }
 
     public void PreviousOption()
     {
-        selectedOption--;
-        if (selectedOption < 0)
+        SelectedOption--;
+    }
+
+    private void UpdateCharacter()
+    {
+        if (AvailableCharacters.Length > 0)
         {
-            selectedOption = characterDB.characterModel.Length - 1;
+            gameObject.GetComponent<Image>().sprite = AvailableCharacters[SelectedOption].characterSprite;
         }
-        UpdateCharacter(selectedOption);
-        Save();
-    }
-
-    private void UpdateCharacter(int selectedOption)
-    {
-        CharacterModel characterModel = characterDB.GetCharacter(selectedOption);
-        gameObject.GetComponent<Image>().sprite = characterModel.characterSprite;
-    }
-
-    private void Load()
-    {
-        selectedOption = PlayerPrefs.GetInt("selectedOption");
-    }
-
-    private void Save()
-    {
-        if (Debug.isDebugBuild)
-        {
-            Debug.Log("Saving skin " + selectedOption);
-        }
-        PlayerPrefs.SetInt("selectedOption", selectedOption);
     }
 }

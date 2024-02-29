@@ -1066,7 +1066,6 @@ GameObject:
   - component: {fileID: 1379853195}
   - component: {fileID: 1379853194}
   - component: {fileID: 1379853193}
-  - component: {fileID: 1379853196}
   m_Layer: 5
   m_Name: ButtonCanvas
   m_TagString: Untagged
@@ -1159,21 +1158,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1379853196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1379853191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14817543177843f4eb052996569c87d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterDB: {fileID: 0}
-  entityAnimation: {fileID: 0}
-  gameStartScene: 0
 --- !u!1 &1570167678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,8 +1379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14817543177843f4eb052996569c87d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDB: {fileID: 11400000, guid: 430a0c236b5748c4e952b5ea73f58182, type: 2}
-  entityAnimation: {fileID: 1839078465}
+  characterData: {fileID: 11400000, guid: 430a0c236b5748c4e952b5ea73f58182, type: 2}
   gameStartScene: 2
 --- !u!1 &1997474967
 GameObject:
