@@ -151,7 +151,7 @@ public class BossAttack : MonoBehaviour
                     PlayAudioAttack();
                     try
                     {
-                        hit.collider.GetComponent<Stats>().TakeDamage(DamageAmount); 
+                        hit.collider.GetComponent<Stats>().TakeDamage(LaserDamageAmount); 
                     }
                     catch (NullReferenceException)
                     {
@@ -208,11 +208,11 @@ public class BossAttack : MonoBehaviour
         List<Collider2D> targets = new();
         // "_" means a discard, which means we don't care about the return value;
         // the function fills the targets list with the colliders in range
-        _ = attackCollider.OverlapCollider(contactFilter, targets);
+        _ = AttackCollider.OverlapCollider(contactFilter, targets);
         // Damage all targets except the user's colliders and targets with the same tag as the user
         foreach (Collider2D target in targets)
         {
-            if (target != attackCollider && target != selfCollider && !target.gameObject.CompareTag(tag))
+            if (target != AttackCollider && target != SelfCollider && !target.gameObject.CompareTag(tag))
             {
                 PlayAudioAttack();
                 try
