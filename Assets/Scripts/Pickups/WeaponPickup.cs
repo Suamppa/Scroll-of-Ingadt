@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class WeaponPickup : Collectable
 {
+    public enum WeaponType
+    {
+        Sword,
+        Axe
+    }
+
     protected Collider2D player;
 
     // Weapons damage, the amount of damge weapon makes
@@ -19,6 +25,8 @@ public class WeaponPickup : Collectable
             return (float)Math.Round(1 / WeaponAttackDelay, 2);
         }
     }
+
+    public WeaponType weaponType;
 
     // Icon to pass to the collector
     public GameObject iconPrefab;

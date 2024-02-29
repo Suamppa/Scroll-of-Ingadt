@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3180925177269324647}
   - component: {fileID: 592487240984855558}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Attack Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
