@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropChance: 0.05
+  weaponType: 1
   iconPrefab: {fileID: 7102498665583643904, guid: a83a820637ea7a646b1c7f71a04e6e95, type: 3}
   damageRangeMin: 2
   damageRangeMax: 4

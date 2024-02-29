@@ -1,8 +1,15 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class WeaponPickup : Collectable
 {
+    public enum WeaponType
+    {
+        Sword,
+        Axe
+    }
+
     protected Collider2D player;
 
     // Weapons damage, the amount of damge weapon makes
@@ -10,7 +17,16 @@ public class WeaponPickup : Collectable
     // Weapon's attack speed (delay between each attack)
     public float WeaponAttackDelay { get; protected set; }
     // Attack delay changed to seconds for text field
-    public float AttackSpeedSeconds { get; protected set; }
+    public float AttackSpeedSeconds
+    {
+        get
+        {
+            // This will convert the attack speed to seconds (how many hits in second) and round it up
+            return (float)Math.Round(1 / WeaponAttackDelay, 2);
+        }
+    }
+
+    public WeaponType weaponType;
 
     // Icon to pass to the collector
     public GameObject iconPrefab;
@@ -23,12 +39,16 @@ public class WeaponPickup : Collectable
         }
         // This will update the text under the pickup
         GetComponentInChildren<TextMeshPro>().SetText($"Damage: {WeaponDamage}\nSpeed: {AttackSpeedSeconds}/s");
+
+        // If the weapon is already picked up, apply its stats and hide it
+        if (transform.parent != null && transform.parent.TryGetComponent(out Collider2D parentCollider))
+        {
+            OnPickup(parentCollider);
+        }
     }
 
     public override void OnPickup(Collider2D collector)
     {
-        DropWeaponInUse();
-        
         if (Debug.isDebugBuild)
         {
             Debug.Log($"{gameObject.name} picked up");
@@ -39,37 +59,23 @@ public class WeaponPickup : Collectable
         GetComponentInChildren<TextMeshPro>().enabled = false;
         gameObject.transform.SetParent(collector.transform, false);
 
-        collector.GetComponent<Stats>().ChangeWeaponStats(this);
+        collector.GetComponent<Stats>().ChangeWeapon();
     }
 
     public void DropWeaponInUse()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        GameObject oldWeapon;
-        foreach (Transform t in player.GetComponentInChildren<Transform>())
-        {
-            if (t.CompareTag("Weapon"))
-            {
-                oldWeapon = t.gameObject;
-                oldWeapon.transform.position = player.transform.position;
-                oldWeapon.GetComponent<SpriteRenderer>().enabled = true;
-                oldWeapon.GetComponent<Collider2D>().enabled = true;
-                oldWeapon.GetComponentInChildren<TextMeshPro>().enabled = true;
-                oldWeapon.transform.SetParent(null);
-
-                if (Debug.isDebugBuild)
-                {
-                    Debug.Log("Dropped the used weapon");
-                }
-            }
-        }
+        gameObject.transform.position = transform.parent.position;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        gameObject.GetComponent<Collider2D>().enabled = true;
+        gameObject.GetComponentInChildren<TextMeshPro>().enabled = true;
+        gameObject.transform.SetParent(null);
     }
 
     public void PlayerPickupWeapon()
     {
         if (player != null) OnPickup(player);
     }
-    
+
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -88,10 +94,5 @@ public class WeaponPickup : Collectable
             player = null;
         }
 
-    }
-
-    public virtual void ChangeWeapon(Stats collectorStats)
-    {
-        return;
     }
 }

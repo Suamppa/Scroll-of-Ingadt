@@ -10,6 +10,7 @@ public class AIChase : MonoBehaviour
     public float maxDistanceBetween;
     // Add Animator for animations
     public Animator animator;
+
     // Walking speed of the AI
     private float Speed { get => stats.MoveSpeed; }
 
@@ -65,8 +66,8 @@ public class AIChase : MonoBehaviour
         {
             float angle = Vector2.SignedAngle(Vector2.down, moveVector);
             float moveDirection = angle;
-            angle -= canAttack.attackCollider.transform.rotation.eulerAngles.z;
-            canAttack.attackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
+            angle -= canAttack.AttackCollider.transform.rotation.eulerAngles.z;
+            canAttack.AttackCollider.transform.RotateAround(transform.position, Vector3.forward, angle);
 
             // if (Debug.isDebugBuild)
             // {

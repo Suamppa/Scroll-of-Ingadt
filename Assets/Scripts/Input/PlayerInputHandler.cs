@@ -8,13 +8,13 @@ public class PlayerInputHandler : MonoBehaviour
     // This is the speed of the player
     public float MoveSpeed { get => stats.MoveSpeed; }
 
-    // Reference to the attack collider of the player
-    public GameObject attackCollider;
     // Add Animator for animations
     public Animator animator;
     // Reference to the pause menu object
     public PauseMenuManager pauseMenu; // Yes, this is lazy
 
+    // Reference to the attack collider of the player
+    private GameObject attackCollider;
     // Reference to the PlayerActions asset
     private PlayerActions input = null;
     // This is the vector that will be used to move the player
@@ -38,6 +38,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        attackCollider = GetComponentInChildren<CapsuleCollider2D>().gameObject;
+
         input.PlayerControls.Enable();
         // Subscribe to the Move action
         input.PlayerControls.Move.performed += OnMove;

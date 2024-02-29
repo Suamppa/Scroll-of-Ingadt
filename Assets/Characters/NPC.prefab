@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 448851203334593485}
   - component: {fileID: 8738817474854886621}
   - component: {fileID: 2505204063911866356}
-  - component: {fileID: 7097269642557041861}
+  - component: {fileID: 193973624742288807}
   - component: {fileID: 543083463879418103}
   - component: {fileID: 354530302105605948}
   - component: {fileID: 6875157412538874146}
   - component: {fileID: 5704774724017538489}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: NPC
-  m_TagString: Enemy
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,8 +118,8 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 7
---- !u!70 &7097269642557041861
-CapsuleCollider2D:
+--- !u!61 &193973624742288807
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,9 +150,19 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.85, y: 1}
-  m_Direction: 0
+  m_Offset: {x: 0, y: -0.25}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.8125, y: 1}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.45, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!95 &543083463879418103
 Animator:
   serializedVersion: 5
@@ -326,6 +336,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 448851203334593485}
     m_Modifications:
+    - target: {fileID: 1399857505862129506, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065196217762265268, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5351277891956375257, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -441,6 +459,10 @@ PrefabInstance:
     - target: {fileID: 8278052588884804533, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278052588884804533, guid: e770d586218e679468e8fa6f40fadaae, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -19,13 +19,13 @@ public class BossAttack : MonoBehaviour
     public float LaserAttackDelay = 5.0f;
     
     
-    public static float laserAttackDuration = 1.5f;
+    public static float laserAttackDuration = 1.5f;    // Reference to the attack detection collider (Boss currently doesn't use this)
+    public CapsuleCollider2D AttackCollider { get; set; }
+    // Reference to the user's own collider
+    public BoxCollider2D SelfCollider { get; set; }
+
     // Layers that can be attacked
     public LayerMask[] targetLayers;
-    // Reference to the attack detection collider
-    public Collider2D attackCollider;
-    // Reference to the user's own collider
-    public Collider2D selfCollider;
     // Add Animator for animations
     public Animator animator;
     // Clips for hit and miss
@@ -61,6 +61,9 @@ public class BossAttack : MonoBehaviour
 
     private void Awake()
     {
+        SelfCollider = GetComponent<BoxCollider2D>();
+        AttackCollider = GetComponentInChildren<CapsuleCollider2D>();
+
         // Set up the contact filter
         LayerMask layerMasks = new();
         foreach (LayerMask targetLayer in targetLayers)
@@ -76,8 +79,11 @@ public class BossAttack : MonoBehaviour
         attackerStats = GetComponent<Stats>();
 
         audioSource = GetComponent<AudioSource>();
+    }
 
-        rb2D = GetComponent<Rigidbody2D>();
+    private void OnEnable()
+    {
+        AttackCollider = GetComponentInChildren<CapsuleCollider2D>();
 
         Timer = gameObject.AddComponent<Timer>();
 
@@ -244,7 +250,7 @@ public class BossAttack : MonoBehaviour
     {
         audioSource.clip = attackSound;
         audioSource.Play();
-        
+
         if (Debug.isDebugBuild)
         {
             Debug.Log(gameObject.name + " played attack sound");
@@ -254,12 +260,13 @@ public class BossAttack : MonoBehaviour
     // Draw the rough outline of the attack collider for debugging (not visible in game)
     private void OnDrawGizmos()
     {
+        if (AttackCollider == null) return;
+
         // Set Gizmo color
         Gizmos.color = Color.red;
 
         // Draw a wire cube with the same position and size as our collider
-        Gizmos.DrawWireCube(attackCollider.bounds.center, attackCollider.bounds.size);
-
+        Gizmos.DrawWireCube(AttackCollider.bounds.center, AttackCollider.bounds.size);
     }
 
 }
