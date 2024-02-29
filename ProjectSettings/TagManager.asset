@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Timer
   - Pause
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Damageable
-  - 
+  - Path edges
   - 
   - 
   - 

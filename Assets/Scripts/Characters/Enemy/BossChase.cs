@@ -38,7 +38,7 @@ public class BossChase : MonoBehaviour
     {
         // Reset the moveVector
         moveVector = Vector2.zero;
-        animator.SetBool("isWounding", false);
+        //animator.SetBool("isWounding", false);
         animator.SetFloat("Speed", 0);
         // Only move is target is not null
         if (target != null)
@@ -50,6 +50,7 @@ public class BossChase : MonoBehaviour
                 animator.SetFloat("Speed", Mathf.Abs(Speed));
                 // If able, attack ravenously while chasing
                 if (BossAttack != null) BossAttack.Attack();
+                BossAttack.LaserAttack();
                 if (distance > minDistanceBetween)
                 {
                     moveVector = (target.transform.position - transform.position).normalized;
