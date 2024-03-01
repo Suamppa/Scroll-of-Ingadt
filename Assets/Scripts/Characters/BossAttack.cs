@@ -1,11 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class BossAttack : MonoBehaviour
@@ -17,8 +11,8 @@ public class BossAttack : MonoBehaviour
     // This is how many times in a second the laser will damage entities
     public float LaserAttackDPS = 0.5f;
     public float LaserAttackDelay = 5.0f;
-    
-    
+
+
     public static float laserAttackDuration = 1.5f;    // Reference to the attack detection collider (Boss currently doesn't use this)
     public CapsuleCollider2D AttackCollider { get; set; }
     // Reference to the user's own collider
@@ -44,7 +38,7 @@ public class BossAttack : MonoBehaviour
     private AudioSource audioSource;
 
     private bool isAttacking = false;
-    
+
 
     Rigidbody2D rb2D;
 
@@ -98,52 +92,60 @@ public class BossAttack : MonoBehaviour
     {
         if (Time.time - lastAttackTime < LaserAttackDPS) return;
 
-        if(isAttacking)
+        if (isAttacking)
         {
-            hitList = new RaycastHit2D[] {hitUp, hitRight, hitDown, hitLeft};
+            hitList = new RaycastHit2D[] { hitUp, hitRight, hitDown, hitLeft };
 
             hitUp = Physics2D.CircleCast(transform.position, 1.0f, Vector2.up, 10.0f);
-            
+
             hitRight = Physics2D.CircleCast(transform.position, 1.0f, Vector2.right, 10.0f);
-            
+
             hitDown = Physics2D.CircleCast(transform.position, 1.0f, Vector2.down, 10.0f);
-            
+
             hitLeft = Physics2D.CircleCast(transform.position, 1.0f, Vector2.left, 10.0f);
-            
-            if(hitUp)
+
+            if (hitUp)
             {
                 DrawLaser(lineRendererUp, Vector2.zero, transform.up * hitUp.distance);
-            } else {
+            }
+            else
+            {
                 DrawLaser(lineRendererUp, Vector2.zero, transform.up * 10.0f);
             }
 
-            if(hitRight.collider != null)
+            if (hitRight.collider != null)
             {
                 DrawLaser(lineRendererRight, Vector2.zero, transform.right * hitRight.distance);
-            } else {
+            }
+            else
+            {
                 DrawLaser(lineRendererRight, Vector2.zero, transform.right * 10.0f);
             }
 
-            if(hitDown.collider != null)
+            if (hitDown.collider != null)
             {
                 DrawLaser(lineRendererDown, Vector2.zero, -transform.up * hitDown.distance);
-            } else {
+            }
+            else
+            {
                 DrawLaser(lineRendererDown, Vector2.zero, -transform.up * 10.0f);
             }
 
-            if(hitLeft.collider != null)
+            if (hitLeft.collider != null)
             {
                 DrawLaser(lineRendererLeft, Vector2.zero, -transform.right * hitLeft.distance);
-            } else {
+            }
+            else
+            {
                 DrawLaser(lineRendererLeft, Vector2.zero, -transform.right * 10.0f);
             }
 
-            foreach(RaycastHit2D hit in hitList)
-            {             
-                if(hit.collider != null) 
+            foreach (RaycastHit2D hit in hitList)
+            {
+                if (hit.collider != null)
                 {
                     lastAttackTime = Time.time;
-                    if(Debug.isDebugBuild)
+                    if (Debug.isDebugBuild)
                     {
                         Debug.Log("Boss is trying to attack");
                         Debug.Log("LineRenderer is: " + hit.transform.name);
@@ -151,7 +153,7 @@ public class BossAttack : MonoBehaviour
                     PlayAudioAttack();
                     try
                     {
-                        hit.collider.GetComponent<Stats>().TakeDamage(LaserDamageAmount); 
+                        hit.collider.GetComponent<Stats>().TakeDamage(LaserDamageAmount);
                     }
                     catch (NullReferenceException)
                     {
@@ -166,11 +168,12 @@ public class BossAttack : MonoBehaviour
     }
 
     public void LaserAttack()
-    {        
+    {
         // If time since last attack < attack delay, then don't attack
         if (Time.time - lastAttackTime < LaserAttackDelay) return;
-        
-        Timer.OnTimerEnd += () => {
+
+        Timer.OnTimerEnd += () =>
+        {
             RemoveLaser(lineRendererUp);
             RemoveLaser(lineRendererRight);
             RemoveLaser(lineRendererDown);
@@ -179,7 +182,7 @@ public class BossAttack : MonoBehaviour
             lineRendererRight.enabled = false;
             lineRendererDown.enabled = false;
             lineRendererLeft.enabled = false;
-        
+
             isAttacking = false;
         };
 
@@ -194,9 +197,9 @@ public class BossAttack : MonoBehaviour
 
         // Trigger the attack animation
         animator.SetTrigger("Attacking");
-        
+
         // Mark this point as last time attacked
-        
+
     }
 
     public void Attack()
@@ -232,7 +235,7 @@ public class BossAttack : MonoBehaviour
         lastMeleeAttackTime = Time.time;
     }
 
-    
+
 
     void DrawLaser(LineRenderer lineRenderer, Vector2 startPos, Vector2 endPos)
     {
