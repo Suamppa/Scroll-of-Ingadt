@@ -173,10 +173,10 @@ public class Stats : MonoBehaviour
     {
         int effectiveDamage = incomingDamage - Defense;
         CurrentHealth -= effectiveDamage;
-        //if (animator != null)
-        //{
+        if (animator != null)
+        {
             animator.SetTrigger("Wounding");
-        //}
+        }
 
         if (Debug.isDebugBuild)
         {
