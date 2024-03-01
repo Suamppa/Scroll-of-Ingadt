@@ -3,7 +3,7 @@ using UnityEngine;
 public class AIChase : MonoBehaviour
 {
     // This is the target that the AI will chase
-    public GameObject target;
+    [HideInInspector] public GameObject target;
     // This is the distance how close the enemy will get to the target
     public float minDistanceBetween;
     // This is the distance how far the enemy will start following target
@@ -30,6 +30,7 @@ public class AIChase : MonoBehaviour
         transform.rotation = Quaternion.identity;
         rb = GetComponent<Rigidbody2D>();
         canAttack = GetComponent<CanAttack>();
+        target = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
@@ -74,16 +75,23 @@ public class AIChase : MonoBehaviour
             //     Debug.Log("moveDirection is: " + moveDirection);
             // }
 
-             if (moveDirection >= 45 && moveDirection < 135) {
-            // Moving right
+            if (moveDirection >= 45 && moveDirection < 135)
+            {
+                // Moving right
                 animator.SetInteger("Direction", 1); // Set animator parameter for right animation
-            } else if (moveDirection >= 135 || moveDirection < -135) {
+            }
+            else if (moveDirection >= 135 || moveDirection < -135)
+            {
                 // Moving up
                 animator.SetInteger("Direction", 2); // Set animator parameter for up animation
-            } else if (moveDirection >= -135 && moveDirection < -45) {
+            }
+            else if (moveDirection >= -135 && moveDirection < -45)
+            {
                 // Moving left
                 animator.SetInteger("Direction", -1); // Set animator parameter for left animation
-            } else {
+            }
+            else
+            {
                 // Moving down
                 animator.SetInteger("Direction", 0); // Set animator parameter for down animation
             }
