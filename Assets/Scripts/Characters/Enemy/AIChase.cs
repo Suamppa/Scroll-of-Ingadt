@@ -37,7 +37,6 @@ public class AIChase : MonoBehaviour
     {
         // Reset the moveVector
         moveVector = Vector2.zero;
-        animator.SetBool("isWounding", false);
         animator.SetFloat("Speed", 0);
         // Only move is target is not null
         if (target != null)

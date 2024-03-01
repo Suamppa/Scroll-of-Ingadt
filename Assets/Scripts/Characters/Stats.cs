@@ -175,7 +175,7 @@ public class Stats : MonoBehaviour
         CurrentHealth -= effectiveDamage;
         if (animator != null)
         {
-            animator.SetBool("isWounding", true);
+            animator.SetTrigger("Wounding");
         }
 
         if (Debug.isDebugBuild)
