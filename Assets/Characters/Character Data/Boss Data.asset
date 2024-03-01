@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   moveSpeed: 5
-  attackDelay: 3
-  damage: 3
+  attackDelay: 2
+  damage: 2
   defense: 0
   shield: 0
   characterModel:
