@@ -15,6 +15,12 @@ public class PlayerStats : Stats
     public event PlayerStatusEffect<TempShield> OnPlayerTempShield;
     public event PlayerWeapon<WeaponPickup> OnPlayerWeaponPickup;
 
+    protected override void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        base.Awake();
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();

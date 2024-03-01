@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponPickup : Collectable
 {
+    [Serializable]
     public enum WeaponType
     {
         Sword,

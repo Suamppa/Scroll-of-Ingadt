@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Character Data", menuName = "Character/Character Data")]
 public class CharacterData : ScriptableObject
 {
+    public CharacterModel[] characterModels;
     // Max health of the entity
     public int maxHealth = 6;
     // Movement speed of the entity
@@ -15,11 +16,4 @@ public class CharacterData : ScriptableObject
     public int defense = 0;
     // Shield prevents hits until depleted
     public int shield = 0;
-    // Selection of animations available for this character
-    public CharacterModel[] characterModel = new CharacterModel[2];
-
-    public CharacterModel GetCharacter(int index)
-    {
-        return characterModel[index];
-    }
 }

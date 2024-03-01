@@ -256,10 +256,4 @@ public class Stats : MonoBehaviour
         // Apply the effect
         pickup.ApplyEffect(this);
     }
-
-    // This getter is needed in character selection
-    public CharacterData GetCharacterData()
-    {
-        return characterData;
-    }
 }

@@ -2,35 +2,24 @@ using UnityEngine;
 
 public class ChangePlayerSkin : MonoBehaviour
 {
-    private int selectedOption;
-    
-    void Start()
+    private void OnEnable()
     {
-        Load();
-        GetSelectedSkin(selectedOption);
+        SetPlayerSkin();
     }
 
-
-    public void GetSelectedSkin(int index)
+    public void SetPlayerSkin()
     {
-        CharacterData characterDB = gameObject.GetComponent<PlayerStats>().GetCharacterData();
-        if(index <= characterDB.characterModel.Length && index >= 0)
+        CharacterModel characterModel = gameObject.GetComponent<Stats>().characterData.characterModels[PlayerPrefs.GetInt("selectedCharacter")];
+        if (characterModel == null)
         {
-            SetPlayerSkin(characterDB.characterModel[index].characterController);
-        }        
-    }
-    
-    private void SetPlayerSkin(RuntimeAnimatorController animator)
-    {
-        gameObject.GetComponent<Animator>().runtimeAnimatorController = animator;
-    }
-
-    private void Load()
-    {
-        selectedOption = PlayerPrefs.GetInt("selectedOption");
-        if (Debug.isDebugBuild)
-        {
-            Debug.Log("Load skin " + selectedOption);
+            if (Debug.isDebugBuild)
+            {
+                Debug.LogError("No character model found");
+            }
+            return;
         }
+
+        gameObject.GetComponent<SpriteRenderer>().sprite = characterModel.characterSprite;
+        gameObject.GetComponent<Animator>().runtimeAnimatorController = characterModel.characterController;
     }
 }

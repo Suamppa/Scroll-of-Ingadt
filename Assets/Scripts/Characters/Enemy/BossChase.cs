@@ -3,7 +3,7 @@ using UnityEngine;
 public class BossChase : MonoBehaviour
 {
     // This is the target that the AI will chase
-    public GameObject target;
+    [HideInInspector] public GameObject target;
     // This is the distance how close the enemy will get to the target
     public float minDistanceBetween;
     // This is the distance how far the enemy will start following target
@@ -29,6 +29,7 @@ public class BossChase : MonoBehaviour
         transform.rotation = Quaternion.identity;
         rb = GetComponent<Rigidbody2D>();
         BossAttack = GetComponent<BossAttack>();
+        target = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime
