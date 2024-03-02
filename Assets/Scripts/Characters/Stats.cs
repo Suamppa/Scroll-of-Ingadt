@@ -88,7 +88,6 @@ public class Stats : MonoBehaviour
     protected virtual void OnEnable()
     {
         CurrentHealth = MaxHealth;
-        equippedWeapon = GetComponentInChildren<WeaponPickup>();
     }
 
     public virtual void ChangeWeapon()
@@ -104,6 +103,30 @@ public class Stats : MonoBehaviour
             Debug.Log($"attackDelay is now {AttackDelay}");
             Debug.Log($"Damage is now {Damage}");
         }
+
+        if (equippedWeapon == null)
+        {
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("No weapon equipped");
+            }
+            animator.SetBool("isAxe", false);
+            return;
+        }
+
+        Debug.Log($"Equipped weapon type: {equippedWeapon.weaponType}");
+
+        switch (equippedWeapon.weaponType)
+        {
+            case WeaponPickup.WeaponType.Sword:
+                animator.SetBool("isAxe", false);
+                break;
+            case WeaponPickup.WeaponType.Axe:
+                animator.SetBool("isAxe", true);
+                break;
+            default:
+                break;
+        }
     }
 
     public virtual void DropEquippedWeapon()
@@ -111,11 +134,11 @@ public class Stats : MonoBehaviour
         if (equippedWeapon != null)
         {
             equippedWeapon.DropWeaponInUse();
-
             if (Debug.isDebugBuild)
             {
-                Debug.Log("Dropped the used weapon");
+                Debug.Log($"Dropped {equippedWeapon.gameObject.name}");
             }
+            equippedWeapon = null;
         }
     }
 
@@ -152,7 +175,7 @@ public class Stats : MonoBehaviour
         CurrentHealth -= effectiveDamage;
         if (animator != null)
         {
-            animator.SetBool("isWounding", true);
+            animator.SetTrigger("Wounding");
         }
 
         if (Debug.isDebugBuild)
@@ -232,11 +255,5 @@ public class Stats : MonoBehaviour
 
         // Apply the effect
         pickup.ApplyEffect(this);
-    }
-
-    // This getter is needed in character selection
-    public CharacterData GetCharacterData()
-    {
-        return characterData;
     }
 }

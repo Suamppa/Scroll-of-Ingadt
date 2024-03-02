@@ -114,7 +114,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 136
+        y: 204
         width: 68
         height: 68
       alignment: 0
@@ -135,7 +135,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 68
-        y: 136
+        y: 204
         width: 68
         height: 68
       alignment: 0
@@ -155,8 +155,8 @@ TextureImporter:
       name: boss_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 68
+        x: 136
+        y: 204
         width: 68
         height: 68
       alignment: 0
@@ -176,8 +176,8 @@ TextureImporter:
       name: boss_3
       rect:
         serializedVersion: 2
-        x: 68
-        y: 68
+        x: 0
+        y: 136
         width: 68
         height: 68
       alignment: 0
@@ -197,8 +197,8 @@ TextureImporter:
       name: boss_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 68
+        y: 136
         width: 68
         height: 68
       alignment: 0
@@ -218,8 +218,8 @@ TextureImporter:
       name: boss_5
       rect:
         serializedVersion: 2
-        x: 68
-        y: 0
+        x: 136
+        y: 136
         width: 68
         height: 68
       alignment: 0
@@ -231,6 +231,90 @@ TextureImporter:
       bones: []
       spriteID: c43f1199f84d3f747bb3441830419de0
       internalID: 1822619628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 68
+        width: 68
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12f8abcfcf23d044eb23b3f7533cc263
+      internalID: -1909670414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_7
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 68
+        width: 68
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b2622c834433be44b189e041dd26ad8
+      internalID: -1682103080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_8
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 68
+        width: 68
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b78acfbd77edca6478c91d8d47f3230a
+      internalID: -242751977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 68
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12c9c15d99400ad4694a40b862ad15b3
+      internalID: 1742070828
       vertices: []
       indices: 
       edges: []
@@ -252,6 +336,10 @@ TextureImporter:
       boss_3: 109196419
       boss_4: 1915827197
       boss_5: 1822619628
+      boss_6: -1909670414
+      boss_7: -1682103080
+      boss_8: -242751977
+      boss_9: 1742070828
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
