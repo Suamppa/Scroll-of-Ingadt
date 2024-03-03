@@ -10,6 +10,7 @@ TagManager:
   - Pause
   - Weapon
   - NPC
+  - BGMusic
   layers:
   - Default
   - TransparentFX
