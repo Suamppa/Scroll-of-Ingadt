@@ -11,7 +11,7 @@ public class StatusBar : MonoBehaviour
 
     private void Awake()
     {
-        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        playerStats = GameManager.Instance.PlayerInstance.GetComponent<PlayerStats>();
         activeStatuses = new List<(GameObject Icon, Timer Countdown)>();
     }
 

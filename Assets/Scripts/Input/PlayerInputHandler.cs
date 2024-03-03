@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,16 +6,15 @@ public class PlayerInputHandler : MonoBehaviour
 {
     // This is the speed of the player
     public float MoveSpeed { get => stats.MoveSpeed; }
+    public PlayerActions Input { get => input; }
 
     // Add Animator for animations
     public Animator animator;
-    // Reference to the pause menu object
-    public PauseMenuManager pauseMenu; // Yes, this is lazy
 
     // Reference to the attack collider of the player
     private GameObject attackCollider;
     // Reference to the PlayerActions asset
-    private PlayerActions input = null;
+    private PlayerActions input;
     // This is the vector that will be used to move the player
     private Vector2 moveVector = Vector2.zero;
     // Reference to the Rigidbody2D component, movement is physics-based
@@ -29,8 +27,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Awake()
     {
         // Make sure rotation is 0
-        transform.rotation = Quaternion.identity;
-        input = new PlayerActions();
+        transform.rotation = Quaternion.identity; ;
         rb = GetComponent<Rigidbody2D>();
         // Unity is able to find the PlayerStats component due to inheritance
         stats = GetComponent<Stats>();
@@ -38,6 +35,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        input = new PlayerActions();
         attackCollider = GetComponentInChildren<CapsuleCollider2D>().gameObject;
 
         input.PlayerControls.Enable();
@@ -115,13 +113,14 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnPause(InputAction.CallbackContext context)
     {
-        pauseMenu.PauseGame(input);
+        Transform pauseMenu = GameManager.Instance.HudInstance.transform.GetChild(3);
+        pauseMenu.GetComponent<PauseMenuManager>().PauseGame();
     }
 
     private void OnDrawGizmos()
     {
         // Draw a line to show the direction of the player
         Gizmos.color = Color.white;
-        Gizmos.DrawLine(transform.position, transform.position + (Vector3) moveVector);
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3)moveVector);
     }
 }

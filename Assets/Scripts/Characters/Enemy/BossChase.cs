@@ -29,7 +29,7 @@ public class BossChase : MonoBehaviour
         transform.rotation = Quaternion.identity;
         rb = GetComponent<Rigidbody2D>();
         BossAttack = GetComponent<BossAttack>();
-        target = GameObject.FindGameObjectWithTag("Player");
+        target = GameManager.Instance.PlayerInstance;
     }
 
     // Use FixedUpdate to avoid spamming Time.deltaTime

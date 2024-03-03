@@ -32,7 +32,7 @@ public class WeaponPickup : Collectable
     // Icon to pass to the collector
     public GameObject iconPrefab;
 
-    protected virtual void OnEnable()
+    protected virtual void Start()
     {
         if (Debug.isDebugBuild && iconPrefab == null)
         {

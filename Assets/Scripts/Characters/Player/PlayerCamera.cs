@@ -6,7 +6,7 @@ public class PlayerCamera : MonoBehaviour
 {
     private void Start()
     {
-        ICinemachineCamera vCam = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineBrain>().ActiveVirtualCamera;
+        ICinemachineCamera vCam = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         vCam.Follow = transform;
     }
 }
