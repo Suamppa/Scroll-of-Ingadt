@@ -11,13 +11,11 @@ public class MeleePickup : WeaponPickup
     // Max value for rng attack speed
     public float attSpeedRangeMax = 1.5f;
 
-    protected override void OnEnable()
+    protected virtual void OnEnable()
     {
         // Generate random attack damage between desired values
         WeaponDamage = UnityEngine.Random.Range(damageRangeMin, damageRangeMax);
         // Generate random attack speed between desired values
         WeaponAttackDelay = UnityEngine.Random.Range(attSpeedRangeMin, attSpeedRangeMax);
-
-        base.OnEnable();
     }
 }

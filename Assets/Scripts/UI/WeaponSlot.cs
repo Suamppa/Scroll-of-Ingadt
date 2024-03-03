@@ -9,7 +9,7 @@ public class WeaponSlot : MonoBehaviour
 
     private void Awake()
     {
-        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        playerStats = GameManager.Instance.PlayerInstance.GetComponent<PlayerStats>();
     }
 
     private void OnEnable()

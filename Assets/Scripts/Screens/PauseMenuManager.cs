@@ -1,40 +1,49 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenuManager : MonoBehaviour
 {
     public int MainMenuScene;
 
-    private PlayerActions input;
+    private PlayerActions Input
+    {
+        get => GameManager.Instance.PlayerInstance.GetComponent<PlayerInputHandler>().Input;
+    }
 
-    // private void Awake()
-    // {
-    //     input = new PlayerActions();
-    // }
+    private void Awake()
+    {
+        // Add listener to the resume button
+        // This is necessary since the HUD is instantiated at runtime
+        GetComponentInChildren<Button>().onClick.AddListener(ResumeGame);
+    }
 
     private void OnEnable()
     {
-        input.MenuControls.Enable();
-        input.MenuControls.Back.performed += ctx => ResumeGame();
+        Input.MenuControls.Enable();
+        Input.MenuControls.Back.performed += ctx => ResumeGame();
     }
 
     private void OnDisable()
     {
-        input.MenuControls.Back.performed -= ctx => ResumeGame();
-        input.MenuControls.Disable();
+        if (Input != null)
+        {
+            Input.MenuControls.Back.performed -= ctx => ResumeGame();
+            Input.MenuControls.Disable();
+        }
     }
 
-    public void PauseGame(PlayerActions playerInput)
+    public void PauseGame()
     {
         Time.timeScale = 0;
-        input = playerInput;
-        input.PlayerControls.Disable();
+        Input.PlayerControls.Disable();
         gameObject.SetActive(true);
     }
 
     public void ResumeGame()
     {
-        input.PlayerControls.Enable();
+
+        Input.PlayerControls.Enable();
         Time.timeScale = 1;
         gameObject.SetActive(false);
     }

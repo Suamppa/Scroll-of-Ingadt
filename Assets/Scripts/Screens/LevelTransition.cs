@@ -14,7 +14,7 @@ public class LevelTransition : MonoBehaviour
             SceneManager.LoadScene(levelToLoad);
             // Scene level2 = SceneManager.GetSceneByBuildIndex(levelToLoad);
             // SceneManager.MoveGameObjectToScene(collision.gameObject, level2);
-            collision.gameObject.transform.position = spawnPoint;
+            GameManager.Instance.MovePlayerTo(spawnPoint);
         }
     }
 

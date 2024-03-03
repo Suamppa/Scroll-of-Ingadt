@@ -17,7 +17,7 @@ public class HealthBar : MonoBehaviour
     private void Awake()
     {
         // Find the player's Stats component
-        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        playerStats = GameManager.Instance.PlayerInstance.GetComponent<PlayerStats>();
     }
 
     private void OnEnable()

@@ -1,11 +1,18 @@
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class OpeningStory : MonoBehaviour
 {
+    public PlayableDirector director;
+
     private void OnEnable()
     {
-        // Only specifing the sceneName or sceneBuildIndex will load the Scene with the Single mode
+        // Set the Timeline asset to start
+        director.Stop();
+        director.time = 0;
+
+        GameManager.Instance.StartGame();
         SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
     }
 }
