@@ -7,13 +7,9 @@ public class WeaponSlot : MonoBehaviour
     private GameObject activeIcon;
     private PlayerStats playerStats;
 
-    private void Awake()
-    {
-        playerStats = GameManager.Instance.PlayerInstance.GetComponent<PlayerStats>();
-    }
-
     private void OnEnable()
     {
+        playerStats = GameManager.Instance.PlayerInstance.GetComponent<PlayerStats>();
         playerStats.OnPlayerWeaponPickup += AddWeaponIcon;
     }
 

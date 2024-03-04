@@ -14,14 +14,11 @@ public class HealthBar : MonoBehaviour
     // Player's Stats component
     private PlayerStats playerStats;
 
-    private void Awake()
+    private void OnEnable()
     {
         // Find the player's Stats component
         playerStats = GameManager.Instance.PlayerInstance.GetComponent<PlayerStats>();
-    }
 
-    private void OnEnable()
-    {
         // Subscribe to the OnPlayerDamaged event
         playerStats.OnPlayerDamaged += UpdateHealthIndicators;
         playerStats.OnPlayerHealed += UpdateHealthIndicators;

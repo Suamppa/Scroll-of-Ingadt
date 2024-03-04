@@ -1,24 +1,28 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Singleton pattern
+    // Singleton
     public static GameManager Instance { get; private set; }
 
+    public GameObject CameraInstance { get => cameraInstance; }
     public GameObject PlayerInstance { get => playerInstance; }
     public GameObject HudInstance { get => hudInstance; }
 
-    public GameObject player;
     public GameObject playerCamera;
+    public GameObject player;
     public GameObject hud;
 
-    private GameObject playerInstance;
     private GameObject cameraInstance;
+    private ICinemachineCamera vCam;
+    private GameObject playerInstance;
     private GameObject hudInstance;
 
     private void Awake()
     {
+        // Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -28,39 +32,78 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        InstantiateCamera();
     }
 
-    private void Start()
+    private void OnEnable()
     {
+        InstantiateCamera();
+        InstantiatePlayer();
+        InstantiateHud();
+
+        vCam = cameraInstance.GetComponentInChildren<CinemachineVirtualCamera>();
+        vCam.Follow = playerInstance.transform;
+
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.buildIndex == 0)
-        {
-            ResetGame();
-        }
-        else if (scene.name == "SampleScene" || scene.name == "LVL2")
-        {
-            if (playerInstance != null) playerInstance.SetActive(true);
-            if (hudInstance != null) hudInstance.SetActive(true);
-        }
-        else
-        {
-            if (hudInstance != null) hudInstance.SetActive(false);
-            if (playerInstance != null) playerInstance.SetActive(false);
-        }
-    }
+        bool hasPlayer = false;
+        bool hasHud = false;
+        GameObject[] objects = scene.GetRootGameObjects();
 
-    public void StartGame()
-    {
-        InstantiatePlayer();
-        InstantiateHud();
-        hudInstance.SetActive(false);
-        playerInstance.SetActive(false);
+        if (Debug.isDebugBuild) Debug.Log($"Scene {scene.name} loaded. Checking {objects.Length} objects.");
+
+        for (int i = 0; i < objects.Length; i++)
+        {
+            GameObject obj = objects[i];
+
+            if (Debug.isDebugBuild) Debug.Log($"Checking {obj.name} in scene {scene.name}.");
+
+            if (obj.CompareTag("Player") && obj != playerInstance)
+            {
+                hasPlayer = true;
+
+                if (!playerInstance.activeSelf) EnablePlayer();
+                playerInstance.transform.SetPositionAndRotation(obj.transform.position, obj.transform.rotation);
+
+                if (Debug.isDebugBuild) Debug.Log($"Destroying {obj.name} in scene {scene.name}.");
+
+                Destroy(obj);
+            }
+            else if (obj.CompareTag("MainCamera") && obj != cameraInstance)
+            {
+                cameraInstance.transform.SetPositionAndRotation(obj.transform.position, obj.transform.rotation);
+
+                if (Debug.isDebugBuild) Debug.Log($"Destroying {obj.name} in scene {scene.name}.");
+
+                Destroy(obj);
+            }
+            else if (obj.CompareTag("HUD") && obj != hudInstance)
+            {
+                hasHud = true;
+
+                if (!hudInstance.activeSelf) hudInstance.SetActive(true);
+
+                if (Debug.isDebugBuild) Debug.Log($"Destroying {obj.name} in scene {scene.name}.");
+
+                Destroy(obj);
+            }
+        }
+
+        if (!hasPlayer)
+        {
+            DisablePlayer();
+        }
+        if (!hasHud)
+        {
+            hudInstance.SetActive(false);
+        }
     }
 
     public void ResetGame()
@@ -84,10 +127,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void MovePlayerTo(Vector3 position)
+    private void EnablePlayer()
     {
-        playerInstance.transform.position = position;
+        if (playerInstance != null && !playerInstance.activeSelf)
+        {
+            playerInstance.SetActive(true);
+
+            if (cameraInstance != null)
+            {
+                vCam.Follow = playerInstance.transform;
+            }
+        }
     }
+
+    private void DisablePlayer()
+    {
+        if (playerInstance != null && playerInstance.activeSelf)
+        {
+            playerInstance.SetActive(false);
+        }
+    }
+
+    // public void MovePlayerTo(Vector3 position)
+    // {
+    //     playerInstance.transform.position = position;
+    // }
 
     public void InstantiateCamera()
     {

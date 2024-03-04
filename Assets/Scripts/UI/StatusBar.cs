@@ -5,19 +5,18 @@ using UnityEngine;
 // Bar at the top right of the screen that shows icons for status effects if they occur
 public class StatusBar : MonoBehaviour
 {
-
     private PlayerStats playerStats;
     private List<(GameObject Icon, Timer Countdown)> activeStatuses;
 
-    private void Awake()
-    {
-        playerStats = GameManager.Instance.PlayerInstance.GetComponent<PlayerStats>();
-        activeStatuses = new List<(GameObject Icon, Timer Countdown)>();
-    }
-
     private void OnEnable()
     {
+        playerStats = GameManager.Instance.PlayerInstance.GetComponent<PlayerStats>();
         playerStats.OnPlayerStatus += AddStatusIcon;
+    }
+
+    private void Start()
+    {
+        activeStatuses = new List<(GameObject Icon, Timer Countdown)>();
     }
 
     private void OnDisable()

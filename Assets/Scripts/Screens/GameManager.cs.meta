@@ -5,9 +5,9 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - player: {fileID: 8621232032380378850, guid: cd37519c8bfdfeb4192ae3bafcd7ee30, type: 3}
-  - playerCamera: {fileID: 5794524971571468160, guid: 5bee65725a6a7504798bf36c30e7c9cb, type: 3}
+  - playerCamera: {fileID: 7673100804201631279, guid: e7b4a0285206af7448e7ba8a4341e40d, type: 3}
   - hud: {fileID: 174270962367772792, guid: 7f41ea1f4a7e9c64d84779d6455bf679, type: 3}
-  executionOrder: 0
+  executionOrder: -1
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

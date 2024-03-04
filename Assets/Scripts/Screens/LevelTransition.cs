@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class LevelTransition : MonoBehaviour
 {
     public int levelToLoad;
-    public Vector3 spawnPoint;
+    // public Vector3 spawnPoint;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +14,7 @@ public class LevelTransition : MonoBehaviour
             SceneManager.LoadScene(levelToLoad);
             // Scene level2 = SceneManager.GetSceneByBuildIndex(levelToLoad);
             // SceneManager.MoveGameObjectToScene(collision.gameObject, level2);
-            GameManager.Instance.MovePlayerTo(spawnPoint);
+            // GameManager.Instance.MovePlayerTo(spawnPoint);
         }
     }
 

@@ -12,7 +12,6 @@ public class OpeningStory : MonoBehaviour
         director.Stop();
         director.time = 0;
 
-        GameManager.Instance.StartGame();
         SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
     }
 }

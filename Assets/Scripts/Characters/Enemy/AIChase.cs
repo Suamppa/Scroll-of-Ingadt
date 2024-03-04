@@ -30,6 +30,10 @@ public class AIChase : MonoBehaviour
         transform.rotation = Quaternion.identity;
         rb = GetComponent<Rigidbody2D>();
         canAttack = GetComponent<CanAttack>();
+    }
+
+    private void Start()
+    {
         target = GameManager.Instance.PlayerInstance;
     }
 
