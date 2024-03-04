@@ -65,8 +65,8 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
-        DestroyPlayer();
         DestroyHud();
+        DestroyPlayer();
     }
 
     public void InstantiatePlayer()
