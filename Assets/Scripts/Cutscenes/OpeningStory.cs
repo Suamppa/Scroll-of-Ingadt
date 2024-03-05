@@ -5,53 +5,58 @@ using UnityEngine.Timeline;
 
 public class OpeningStory : MonoBehaviour
 {
-    // Workaround to prevent getting stuck in the intro scene due to a likely Timeline bug
-    public static bool played = false;
+    public string nextSceneName = "SampleScene";
+    public PlayableDirector director;
+    public GameObject[] textObjects;
 
-    public GameObject playableDirector;
-
-    private PlayableDirector director;
     private SignalReceiver signalReceiver;
 
     private void OnEnable()
     {
-        director = Instantiate(playableDirector).GetComponent<PlayableDirector>();
         signalReceiver = GetComponent<SignalReceiver>();
     }
 
     private void Start()
     {
-        if (played)
-        {
-            LoadLevel();
-            return;
-        }
+        int index = 0;
 
+        // Track bindings need to be reset every time the scene is loaded.
+        // Otherwise the sequence won't play after the first scene load.
+        if (Debug.isDebugBuild) Debug.Log("Starting Playable Director binding...");
         foreach (var track in director.playableAsset.outputs)
         {
-            if (track.streamName == "Signal Track")
+            director.ClearGenericBinding(track.sourceObject);
+
+            // Bind text objects to activation tracks
+            if (index < textObjects.Length && track.streamName.StartsWith("Activation Track"))
+            {
+                director.SetGenericBinding(track.sourceObject, textObjects[index]);
+                if (Debug.isDebugBuild) Debug.Log("Activation track found and bound to text object.");
+                index++;
+            }
+            // Bind signal receiver to signal track
+            else if (track.streamName == "Signal Track")
             {
                 director.SetGenericBinding(track.sourceObject, signalReceiver);
                 if (Debug.isDebugBuild) Debug.Log("Signal track found and bound to signal receiver.");
-                break;
             }
         }
+
         ResetDirector();
 
-        if (Debug.isDebugBuild) Debug.Log("Playing intro scene...");
-        director.Resume();
+        if (Debug.isDebugBuild) Debug.Log("Starting director...");
+        director.Play();
     }
 
     public void LoadLevel()
     {
-        played = true;
-        // ResetDirector();
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private void ResetDirector()
     {
         director.time = 0f;
+        director.Stop();
         director.Evaluate();
     }
 }
