@@ -7,14 +7,14 @@ public class GameManager : MonoBehaviour
     // Singleton
     public static GameManager Instance { get; private set; }
 
+    // Use these to refer to the active camera, player, and HUD in other scripts
     public GameObject CameraInstance { get => cameraInstance; }
     public GameObject PlayerInstance { get => playerInstance; }
     public GameObject HudInstance { get => hudInstance; }
 
-    public GameObject playerCamera;
-    public GameObject player;
-    public GameObject hud;
-
+    [SerializeField] private GameObject playerCamera;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject hud;
     private GameObject cameraInstance;
     private ICinemachineCamera vCam;
     private GameObject playerInstance;
