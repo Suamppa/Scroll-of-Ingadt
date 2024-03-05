@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 354530302105605948}
   - component: {fileID: 2387636026950849461}
   - component: {fileID: -6542565460183703999}
+  - component: {fileID: 7825857026029945576}
   m_Layer: 6
   m_Name: Boss
   m_TagString: Enemy
@@ -204,8 +205,6 @@ MonoBehaviour:
   targetLayers:
   - serializedVersion: 2
     m_Bits: 64
-  attackCollider: {fileID: 9211267960688534688}
-  selfCollider: {fileID: 3685096250018426216}
   animator: {fileID: 543083463879418103}
   attackSound: {fileID: 0}
   lineRendererUp: {fileID: 3926908973046492030}
@@ -380,6 +379,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chanceToNotDrop: 0.3
+--- !u!114 &7825857026029945576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4249729704366217774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a05838317bd3e1f43bcaa500987e3be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitBarrier: {fileID: 0}
 --- !u!1 &4536743679519453037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,10 +1040,5 @@ PrefabInstance:
 --- !u!4 &6613788880256658369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3180925177269324647, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
-  m_PrefabInstance: {fileID: 8641298730997014694}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &9211267960688534688 stripped
-CapsuleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 592487240984855558, guid: 92412edffd72e3443b5e39af00214ea3, type: 3}
   m_PrefabInstance: {fileID: 8641298730997014694}
   m_PrefabAsset: {fileID: 0}
