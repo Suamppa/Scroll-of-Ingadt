@@ -98,13 +98,13 @@ public class BossAttack : MonoBehaviour
         {
             hitList = new RaycastHit2D[] { hitUp, hitRight, hitDown, hitLeft };
 
-            hitUp = Physics2D.CircleCast(transform.position, 1.0f, Vector2.up, LaserAttackRange);
+            hitUp = Physics2D.CircleCast(transform.Find("LineRenderer up").transform.position, 1.0f, Vector2.up, LaserAttackRange);
 
-            hitRight = Physics2D.CircleCast(transform.position, 1.0f, Vector2.right, LaserAttackRange);
+            hitRight = Physics2D.CircleCast(transform.Find("LineRenderer right").transform.position, 1.0f, Vector2.right, LaserAttackRange);
 
-            hitDown = Physics2D.CircleCast(transform.position, 1.0f, Vector2.down, LaserAttackRange);
+            hitDown = Physics2D.CircleCast(transform.Find("LineRenderer down").transform.position, 1.0f, Vector2.down, LaserAttackRange);
 
-            hitLeft = Physics2D.CircleCast(transform.position, 1.0f, Vector2.left, LaserAttackRange);
+            hitLeft = Physics2D.CircleCast(transform.Find("LineRenderer left").transform.position, 1.0f, Vector2.left, LaserAttackRange);
 
 
             foreach (RaycastHit2D hit in hitList)
@@ -134,34 +134,34 @@ public class BossAttack : MonoBehaviour
 
             if (hitUp)
             {
-                DrawLaser(lineRendererUp, Vector2.zero, transform.up * hitUp.distance);
+                DrawLaser(lineRendererUp, Vector2.zero, transform.up * hitUp.distance + new Vector3(0.0f, 0.5f));
             }
             else
             {
                 DrawLaser(lineRendererUp, Vector2.zero, transform.up * LaserAttackRange);
             }
 
-            if (hitRight.collider != null)
+            if (hitRight)
             {
-                DrawLaser(lineRendererRight, Vector2.zero, transform.right * hitRight.distance);
+                DrawLaser(lineRendererRight, Vector2.zero, transform.right * hitRight.distance + new Vector3(0.5f, 0.0f));
             }
             else
             {
                 DrawLaser(lineRendererRight, Vector2.zero, transform.right * LaserAttackRange);
             }
 
-            if (hitDown.collider != null)
+            if (hitDown)
             {
-                DrawLaser(lineRendererDown, Vector2.zero, -transform.up * hitDown.distance);
+                DrawLaser(lineRendererDown, Vector2.zero, -transform.up * hitDown.distance + new Vector3(0.0f,-0.5f));
             }
             else
             {
                 DrawLaser(lineRendererDown, Vector2.zero, -transform.up * LaserAttackRange);
             }
 
-            if (hitLeft.collider != null)
+            if (hitLeft)
             {
-                DrawLaser(lineRendererLeft, Vector2.zero, -transform.right * hitLeft.distance);
+                DrawLaser(lineRendererLeft, Vector2.zero, -transform.right * hitLeft.distance + new Vector3(-0.5f, 0.0f));
             }
             else
             {
